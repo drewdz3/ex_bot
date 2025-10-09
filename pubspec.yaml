@@ -30,6 +30,12 @@ dependencies:
   # Functional Programming
   either_dart: ^1.0.0
   
+  # Environment Variables
+  flutter_dotenv: ^5.1.0
+  
+  # Authentication
+  msal_auth: ^3.3.0
+  
   # Vector Graphics
   flutter_svg: ^2.0.14
   
@@ -53,3 +59,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+  
+  assets:
+    - .env

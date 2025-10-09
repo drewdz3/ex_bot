@@ -55,9 +55,11 @@ _$ChatGptResponseImpl _$$ChatGptResponseImplFromJson(
     _$ChatGptResponseImpl(
       id: json['id'] as String,
       object: json['object'] as String,
-      created: (json['created'] as num).toInt(),
+      created: (json['created'] as num?)?.toInt() ?? 0,
       model: json['model'] as String,
-      usage: ChatGptUsage.fromJson(json['usage'] as Map<String, dynamic>),
+      usage: json['usage'] == null
+          ? null
+          : ChatGptUsage.fromJson(json['usage'] as Map<String, dynamic>),
       choices: (json['choices'] as List<dynamic>)
           .map((e) => ChatGptChoice.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -76,9 +78,9 @@ Map<String, dynamic> _$$ChatGptResponseImplToJson(
 
 _$ChatGptUsageImpl _$$ChatGptUsageImplFromJson(Map<String, dynamic> json) =>
     _$ChatGptUsageImpl(
-      promptTokens: (json['promptTokens'] as num).toInt(),
-      completionTokens: (json['completionTokens'] as num).toInt(),
-      totalTokens: (json['totalTokens'] as num).toInt(),
+      promptTokens: (json['promptTokens'] as num?)?.toInt() ?? 0,
+      completionTokens: (json['completionTokens'] as num?)?.toInt() ?? 0,
+      totalTokens: (json['totalTokens'] as num?)?.toInt() ?? 0,
     );
 
 Map<String, dynamic> _$$ChatGptUsageImplToJson(_$ChatGptUsageImpl instance) =>
@@ -90,7 +92,7 @@ Map<String, dynamic> _$$ChatGptUsageImplToJson(_$ChatGptUsageImpl instance) =>
 
 _$ChatGptChoiceImpl _$$ChatGptChoiceImplFromJson(Map<String, dynamic> json) =>
     _$ChatGptChoiceImpl(
-      index: (json['index'] as num).toInt(),
+      index: (json['index'] as num?)?.toInt() ?? 0,
       message: ChatGptMessage.fromJson(json['message'] as Map<String, dynamic>),
       finishReason: json['finishReason'] as String?,
     );

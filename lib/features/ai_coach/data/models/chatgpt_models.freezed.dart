@@ -533,7 +533,7 @@ mixin _$ChatGptResponse {
   String get object => throw _privateConstructorUsedError;
   int get created => throw _privateConstructorUsedError;
   String get model => throw _privateConstructorUsedError;
-  ChatGptUsage get usage => throw _privateConstructorUsedError;
+  ChatGptUsage? get usage => throw _privateConstructorUsedError;
   List<ChatGptChoice> get choices => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
@@ -553,10 +553,10 @@ abstract class $ChatGptResponseCopyWith<$Res> {
       String object,
       int created,
       String model,
-      ChatGptUsage usage,
+      ChatGptUsage? usage,
       List<ChatGptChoice> choices});
 
-  $ChatGptUsageCopyWith<$Res> get usage;
+  $ChatGptUsageCopyWith<$Res>? get usage;
 }
 
 /// @nodoc
@@ -576,7 +576,7 @@ class _$ChatGptResponseCopyWithImpl<$Res, $Val extends ChatGptResponse>
     Object? object = null,
     Object? created = null,
     Object? model = null,
-    Object? usage = null,
+    Object? usage = freezed,
     Object? choices = null,
   }) {
     return _then(_value.copyWith(
@@ -596,10 +596,10 @@ class _$ChatGptResponseCopyWithImpl<$Res, $Val extends ChatGptResponse>
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as String,
-      usage: null == usage
+      usage: freezed == usage
           ? _value.usage
           : usage // ignore: cast_nullable_to_non_nullable
-              as ChatGptUsage,
+              as ChatGptUsage?,
       choices: null == choices
           ? _value.choices
           : choices // ignore: cast_nullable_to_non_nullable
@@ -609,8 +609,12 @@ class _$ChatGptResponseCopyWithImpl<$Res, $Val extends ChatGptResponse>
 
   @override
   @pragma('vm:prefer-inline')
-  $ChatGptUsageCopyWith<$Res> get usage {
-    return $ChatGptUsageCopyWith<$Res>(_value.usage, (value) {
+  $ChatGptUsageCopyWith<$Res>? get usage {
+    if (_value.usage == null) {
+      return null;
+    }
+
+    return $ChatGptUsageCopyWith<$Res>(_value.usage!, (value) {
       return _then(_value.copyWith(usage: value) as $Val);
     });
   }
@@ -629,11 +633,11 @@ abstract class _$$ChatGptResponseImplCopyWith<$Res>
       String object,
       int created,
       String model,
-      ChatGptUsage usage,
+      ChatGptUsage? usage,
       List<ChatGptChoice> choices});
 
   @override
-  $ChatGptUsageCopyWith<$Res> get usage;
+  $ChatGptUsageCopyWith<$Res>? get usage;
 }
 
 /// @nodoc
@@ -651,7 +655,7 @@ class __$$ChatGptResponseImplCopyWithImpl<$Res>
     Object? object = null,
     Object? created = null,
     Object? model = null,
-    Object? usage = null,
+    Object? usage = freezed,
     Object? choices = null,
   }) {
     return _then(_$ChatGptResponseImpl(
@@ -671,10 +675,10 @@ class __$$ChatGptResponseImplCopyWithImpl<$Res>
           ? _value.model
           : model // ignore: cast_nullable_to_non_nullable
               as String,
-      usage: null == usage
+      usage: freezed == usage
           ? _value.usage
           : usage // ignore: cast_nullable_to_non_nullable
-              as ChatGptUsage,
+              as ChatGptUsage?,
       choices: null == choices
           ? _value._choices
           : choices // ignore: cast_nullable_to_non_nullable
@@ -689,9 +693,9 @@ class _$ChatGptResponseImpl implements _ChatGptResponse {
   const _$ChatGptResponseImpl(
       {required this.id,
       required this.object,
-      required this.created,
+      this.created = 0,
       required this.model,
-      required this.usage,
+      this.usage,
       required final List<ChatGptChoice> choices})
       : _choices = choices;
 
@@ -703,11 +707,12 @@ class _$ChatGptResponseImpl implements _ChatGptResponse {
   @override
   final String object;
   @override
+  @JsonKey()
   final int created;
   @override
   final String model;
   @override
-  final ChatGptUsage usage;
+  final ChatGptUsage? usage;
   final List<ChatGptChoice> _choices;
   @override
   List<ChatGptChoice> get choices {
@@ -758,9 +763,9 @@ abstract class _ChatGptResponse implements ChatGptResponse {
   const factory _ChatGptResponse(
       {required final String id,
       required final String object,
-      required final int created,
+      final int created,
       required final String model,
-      required final ChatGptUsage usage,
+      final ChatGptUsage? usage,
       required final List<ChatGptChoice> choices}) = _$ChatGptResponseImpl;
 
   factory _ChatGptResponse.fromJson(Map<String, dynamic> json) =
@@ -775,7 +780,7 @@ abstract class _ChatGptResponse implements ChatGptResponse {
   @override
   String get model;
   @override
-  ChatGptUsage get usage;
+  ChatGptUsage? get usage;
   @override
   List<ChatGptChoice> get choices;
   @override
@@ -890,18 +895,19 @@ class __$$ChatGptUsageImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChatGptUsageImpl implements _ChatGptUsage {
   const _$ChatGptUsageImpl(
-      {required this.promptTokens,
-      required this.completionTokens,
-      required this.totalTokens});
+      {this.promptTokens = 0, this.completionTokens = 0, this.totalTokens = 0});
 
   factory _$ChatGptUsageImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatGptUsageImplFromJson(json);
 
   @override
+  @JsonKey()
   final int promptTokens;
   @override
+  @JsonKey()
   final int completionTokens;
   @override
+  @JsonKey()
   final int totalTokens;
 
   @override
@@ -943,9 +949,9 @@ class _$ChatGptUsageImpl implements _ChatGptUsage {
 
 abstract class _ChatGptUsage implements ChatGptUsage {
   const factory _ChatGptUsage(
-      {required final int promptTokens,
-      required final int completionTokens,
-      required final int totalTokens}) = _$ChatGptUsageImpl;
+      {final int promptTokens,
+      final int completionTokens,
+      final int totalTokens}) = _$ChatGptUsageImpl;
 
   factory _ChatGptUsage.fromJson(Map<String, dynamic> json) =
       _$ChatGptUsageImpl.fromJson;
@@ -1081,12 +1087,13 @@ class __$$ChatGptChoiceImplCopyWithImpl<$Res>
 @JsonSerializable()
 class _$ChatGptChoiceImpl implements _ChatGptChoice {
   const _$ChatGptChoiceImpl(
-      {required this.index, required this.message, this.finishReason});
+      {this.index = 0, required this.message, this.finishReason});
 
   factory _$ChatGptChoiceImpl.fromJson(Map<String, dynamic> json) =>
       _$$ChatGptChoiceImplFromJson(json);
 
   @override
+  @JsonKey()
   final int index;
   @override
   final ChatGptMessage message;
@@ -1129,7 +1136,7 @@ class _$ChatGptChoiceImpl implements _ChatGptChoice {
 
 abstract class _ChatGptChoice implements ChatGptChoice {
   const factory _ChatGptChoice(
-      {required final int index,
+      {final int index,
       required final ChatGptMessage message,
       final String? finishReason}) = _$ChatGptChoiceImpl;
 

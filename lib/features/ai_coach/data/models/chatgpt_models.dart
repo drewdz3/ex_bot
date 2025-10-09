@@ -41,9 +41,9 @@ class ChatGptResponse with _$ChatGptResponse {
   const factory ChatGptResponse({
     required String id,
     required String object,
-    required int created,
+    @Default(0) int created,
     required String model,
-    required ChatGptUsage usage,
+    ChatGptUsage? usage,
     required List<ChatGptChoice> choices,
   }) = _ChatGptResponse;
 
@@ -55,9 +55,9 @@ class ChatGptResponse with _$ChatGptResponse {
 @freezed
 class ChatGptUsage with _$ChatGptUsage {
   const factory ChatGptUsage({
-    required int promptTokens,
-    required int completionTokens,
-    required int totalTokens,
+    @Default(0) int promptTokens,
+    @Default(0) int completionTokens,
+    @Default(0) int totalTokens,
   }) = _ChatGptUsage;
 
   factory ChatGptUsage.fromJson(Map<String, dynamic> json) =>
@@ -68,7 +68,7 @@ class ChatGptUsage with _$ChatGptUsage {
 @freezed
 class ChatGptChoice with _$ChatGptChoice {
   const factory ChatGptChoice({
-    required int index,
+    @Default(0) int index,
     required ChatGptMessage message,
     String? finishReason,
   }) = _ChatGptChoice;

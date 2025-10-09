@@ -48,3 +48,6 @@ app.*.map.json
 .env
 .env.local
 .env.production
+
+# Temporary Azure configuration (contains sensitive data)
+lib/core/constants/temp_azure_config.dart
