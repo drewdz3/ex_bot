@@ -67,6 +67,80 @@ Built with Flutter 3.9.2+ targeting Android, iOS, and web platforms, using:
 - Anyone looking for consistent, intelligent fitness coaching
 - Users who benefit from interactive, conversational fitness guidance
 
-## 🔮 Vision
+## � Next Steps & Development Roadmap
+
+### High Priority Tasks
+
+#### 🔒 Legal & Compliance
+- [ ] **Privacy Policy & Data Protection**
+  - Create comprehensive privacy statement for App Store and Play Store compliance
+  - Include GDPR compliance for EU users
+  - Detail data collection, usage, and retention policies
+  - Address Azure OpenAI data handling and processing
+
+- [ ] **Legal Disclaimers & Terms of Service**
+  - Create user liability disclaimer - "Use at your own risk" statement
+  - Medical disclaimer for fitness and health advice
+  - Terms of Service for app usage and AI coaching services
+  - Intellectual property notices and third-party attributions
+
+#### 📱 Platform Requirements
+- [ ] **Android 16KB Page Size Support**
+  - Ensure app compatibility with Android's new 16KB page size requirement
+  - Test and validate memory allocation patterns
+  - Update build configurations and native dependencies
+  - Performance testing on 16KB page size devices
+
+#### 🔐 Authentication & Security
+- [ ] **Complete Azure B2C Integration**
+  - Finish Azure B2C tenant setup and configuration
+  - Implement Authorization Code Flow + PKCE for secure authentication
+  - Replace mock authentication with real MSAL implementation
+  - Configure user flows for sign-up, sign-in, and profile editing
+  - Set up proper redirect URIs and app registration
+
+#### 🤖 AI & User Experience
+- [ ] **Enhanced AI Coaching Instructions**
+  - Develop comprehensive coaching prompts and personas
+  - Create context-aware conversation flows
+  - Implement user progress tracking for AI context
+  - Add specialized coaching modes (beginner, advanced, medical considerations)
+
+#### 📢 User Engagement
+- [ ] **Push Notification System**
+  - Implement Firebase Cloud Messaging (FCM) for Android
+  - Set up Apple Push Notification Service (APNs) for iOS
+  - Create intelligent notification scheduling based on user behavior
+  - Design re-engagement campaigns for inactive users
+  - Implement notification preferences and opt-out mechanisms
+
+### Medium Priority Features
+- [ ] **Data Persistence & Sync**
+  - Implement local storage for offline functionality
+  - Add cloud sync for user data backup
+  - Create data export functionality
+
+- [ ] **Advanced Onboarding**
+  - Add workout preferences and equipment selection
+  - Implement fitness assessment questionnaire
+  - Create goal-specific onboarding paths
+
+- [ ] **Enhanced UI/UX**
+  - Add dark mode support
+  - Implement accessibility features
+  - Create animated transitions and micro-interactions
+
+### Long-term Goals
+- [ ] **Health Integrations**
+  - Apple HealthKit integration for iOS
+  - Google Fit integration for Android
+  - Wearable device connectivity
+
+- [ ] **Social Features**
+  - User progress sharing
+  - Community challenges
+  - Trainer/coach matching platform
+
+## �🔮 Vision
 
 ExBot aims to democratize access to high-quality, personalized fitness coaching by combining the convenience of mobile technology with the intelligence of AI. The app evolves with each user, becoming more effective and personalized over time, ultimately helping users achieve sustainable, long-term health and fitness success.
