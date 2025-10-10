@@ -55,9 +55,9 @@ ExBot serves as your personal AI fitness coach, available 24/7 to guide, motivat
 Built with Flutter 3.9.2+ targeting Android, iOS, and web platforms, using:
 - **Clean Architecture**: Feature-first structure with clear separation of concerns
 - **State Management**: Cubit/Bloc pattern for reactive UI updates
-- **AI Integration**: ChatGPT API integration for intelligent coaching
+- **AI Integration**: Azure OpenAI integration for intelligent coaching
 - **Real-time Notifications**: Push notification system for proactive engagement
-- **Offline Capability**: Core functionality available without internet connection
+- **Cloud-Connected Experience**: Requires internet connectivity for AI coaching functionality
 
 ## 🎯 Target Users
 
@@ -116,9 +116,10 @@ Built with Flutter 3.9.2+ targeting Android, iOS, and web platforms, using:
 
 ### Medium Priority Features
 - [ ] **Data Persistence & Sync**
-  - Implement local storage for offline functionality
-  - Add cloud sync for user data backup
-  - Create data export functionality
+  - Implement local storage for user profile and conversation history
+  - Add cloud sync for user data backup and cross-device continuity
+  - Create data export functionality for user data portability
+  - Handle graceful connectivity loss with appropriate user messaging
 
 - [ ] **Advanced Onboarding**
   - Add workout preferences and equipment selection
