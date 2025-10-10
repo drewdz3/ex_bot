@@ -34,6 +34,7 @@ ExBot serves as your personal AI fitness coach, available 24/7 to guide, motivat
 - **Proactive Interaction**: AI initiates meaningful conversations through push notifications
 - **Progress Tracking**: Regular check-ins and progress assessments
 - **Real-time Adaptation**: Adjusts programs based on user responses and performance
+- **Voice Interaction**: Natural speech-to-text and text-to-speech for hands-free coaching (planned)
 
 #### Sample AI Interactions:
 - "Have you been able to complete your training for today?"
@@ -42,6 +43,11 @@ ExBot serves as your personal AI fitness coach, available 24/7 to guide, motivat
 - "What have you eaten today? Let's review your nutrition."
 - "I noticed you've been consistent this week - shall we increase the challenge?"
 - "Your sleep pattern affects recovery. How did you sleep last night?"
+
+#### Voice-Enabled Coaching (Planned):
+- **During Workouts**: "Hey ExBot, how many more reps?" → "You have 5 more reps to complete this set"
+- **Form Feedback**: "Keep your back straight during those squats - I can hear you're breathing hard, take a 30-second rest"
+- **Hands-Free Logging**: "ExBot, I just finished my cardio session" → "Great! How would you rate your energy level from 1 to 10?"
 
 ### 4. Comprehensive Coaching Areas
 - **Exercise Programming**: Tailored movements based on abilities and limitations
@@ -130,6 +136,13 @@ Built with Flutter 3.9.2+ targeting Android, iOS, and web platforms, using:
   - Add dark mode support
   - Implement accessibility features
   - Create animated transitions and micro-interactions
+
+- [ ] **Voice Interaction (Nice to Have)**
+  - Implement speech-to-text for hands-free user input during workouts
+  - Add text-to-speech for AI coach responses and guidance
+  - Support multiple languages for international users
+  - Voice activation with wake words for hands-free operation
+  - Audio feedback for workout instructions and form corrections
 
 ### Long-term Goals
 - [ ] **Health Integrations**
