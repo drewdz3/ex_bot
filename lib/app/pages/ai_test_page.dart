@@ -1,3 +1,4 @@
+import 'package:ex_bot/features/ai_coach/domain/entities/ai_message_role.dart';
 import 'package:flutter/material.dart';
 import '../../core/di/injection.dart';
 import '../../features/ai_coach/domain/usecases/send_message_to_coach.dart';

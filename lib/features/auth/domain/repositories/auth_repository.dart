@@ -1,4 +1,5 @@
 import 'package:either_dart/either.dart';
+import 'package:ex_bot/features/auth/domain/entities/auth_status.dart';
 import '../../../../core/errors/failures.dart';
 import '../entities/app_user.dart';
 

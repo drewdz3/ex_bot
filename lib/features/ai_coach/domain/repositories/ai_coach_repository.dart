@@ -1,5 +1,6 @@
 import 'package:either_dart/either.dart';
 import 'package:ex_bot/core/errors/failures.dart';
+import 'package:ex_bot/features/ai_coach/domain/entities/ai_conversation.dart';
 import '../entities/ai_message.dart';
 
 /// Repository interface for AI coaching interactions

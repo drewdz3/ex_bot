@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
 part 'user_profile.freezed.dart';
 part 'user_profile.g.dart';
 
 /// User profile with fitness and personal information
 @freezed
-class UserProfile with _$UserProfile {
+abstract class UserProfile with _$UserProfile {
   const factory UserProfile({
     required String userId,
     required String email,

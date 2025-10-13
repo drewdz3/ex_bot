@@ -1,10 +1,11 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
 part 'failures.freezed.dart';
 
 /// Base class for all failures in the application
 @freezed
-class Failure with _$Failure {
+abstract class Failure with _$Failure {
   const factory Failure.serverFailure({
     required String message,
     int? statusCode,

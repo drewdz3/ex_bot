@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
+import 'package:ex_bot/features/ai_coach/domain/entities/ai_conversation.dart';
+import 'package:ex_bot/features/ai_coach/domain/entities/ai_message_role.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/ai_message.dart';
 import '../../domain/repositories/ai_coach_repository.dart';

@@ -1,0 +1,127 @@
+{
+  "@@locale": "en",
+  "appTitle": "ExBot",
+  "@appTitle": {
+    "description": "Title of the application"
+  },
+  "fitnessGoalsTitle": "What are your fitness goals?",
+  "@fitnessGoalsTitle": {
+    "description": "Title for the fitness goals selection page"
+  },
+  "fitnessGoalsSubtitle": "Select all that apply to customize your workout recommendations",
+  "@fitnessGoalsSubtitle": {
+    "description": "Subtitle for the fitness goals selection page"
+  },
+  "loseWeight": "Lose Weight",
+  "@loseWeight": {
+    "description": "Fitness goal option"
+  },
+  "buildMuscle": "Build Muscle",
+  "@buildMuscle": {
+    "description": "Fitness goal option"
+  },
+  "improveEndurance": "Improve Endurance",
+  "@improveEndurance": {
+    "description": "Fitness goal option"
+  },
+  "increaseStrength": "Increase Strength",
+  "@increaseStrength": {
+    "description": "Fitness goal option"
+  },
+  "improveFlexibility": "Improve Flexibility",
+  "@improveFlexibility": {
+    "description": "Fitness goal option"
+  },
+  "stayActive": "Stay Active",
+  "@stayActive": {
+    "description": "Fitness goal option"
+  },
+  "equipmentPreferencesTitle": "What equipment do you have access to?",
+  "@equipmentPreferencesTitle": {
+    "description": "Title for the equipment preferences page"
+  },
+  "equipmentPreferencesSubtitle": "Select your available equipment and preferred workout types",
+  "@equipmentPreferencesSubtitle": {
+    "description": "Subtitle for the equipment preferences page"
+  },
+  "dumbbells": "Dumbbells",
+  "@dumbbells": {
+    "description": "Equipment option"
+  },
+  "barbells": "Barbells",
+  "@barbells": {
+    "description": "Equipment option"
+  },
+  "kettlebells": "Kettlebells",
+  "@kettlebells": {
+    "description": "Equipment option"
+  },
+  "resistanceBands": "Resistance Bands",
+  "@resistanceBands": {
+    "description": "Equipment option"
+  },
+  "pullUpBar": "Pull-up Bar",
+  "@pullUpBar": {
+    "description": "Equipment option"
+  },
+  "treadmill": "Treadmill",
+  "@treadmill": {
+    "description": "Equipment option"
+  },
+  "stationaryBike": "Stationary Bike",
+  "@stationaryBike": {
+    "description": "Equipment option"
+  },
+  "yogaMat": "Yoga Mat",
+  "@yogaMat": {
+    "description": "Equipment option"
+  },
+  "benchPress": "Bench/Press",
+  "@benchPress": {
+    "description": "Equipment option"
+  },
+  "bodyweightOnly": "Bodyweight Only",
+  "@bodyweightOnly": {
+    "description": "Equipment option for no equipment workouts"
+  },
+  "strength": "Strength Training",
+  "@strength": {
+    "description": "Workout preference option"
+  },
+  "cardio": "Cardio",
+  "@cardio": {
+    "description": "Workout preference option"
+  },
+  "yoga": "Yoga",
+  "@yoga": {
+    "description": "Workout preference option"
+  },
+  "hiit": "HIIT",
+  "@hiit": {
+    "description": "Workout preference option"
+  },
+  "sports": "Sports",
+  "@sports": {
+    "description": "Workout preference option"
+  },
+  "next": "Next",
+  "@next": {
+    "description": "Button text to proceed to next step"
+  },
+  "back": "Back", 
+  "@back": {
+    "description": "Button text to go to previous step"
+  },
+  "validationSelectAtLeastOne": "Please select at least one option",
+  "@validationSelectAtLeastOne": {
+    "description": "Validation message when no options are selected"
+  },
+  "validationSelectAtLeastOneGoal": "Please select at least one fitness goal",
+  "@validationSelectAtLeastOneGoal": {
+    "description": "Validation message for fitness goals"
+  },
+  "validationSelectEquipmentAndPreference": "Please select at least one equipment type and workout preference",
+  "@validationSelectEquipmentAndPreference": {
+    "description": "Validation message for equipment preferences page"
+  }
+}

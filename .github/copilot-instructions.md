@@ -12,7 +12,7 @@ This is a clean-slate Flutter 3.9.2+ project named `ex_bot` targeting **Android,
 
 ### Core Application
 - **Entry Point**: `lib/main.dart` - Contains the main app with a basic MaterialApp and "Hello World" scaffold
-- **Package Name**: `ex_bot` with namespace `com.example.ex_bot` (Android)
+- **Package Name**: `ex_bot` with namespace `com.exbotfitness.dev` (Android)
 - **Display Name**: "ExBot" (configured in platform-specific files like `ios/Runner/Info.plist`)
 
 ### Platform Configurations

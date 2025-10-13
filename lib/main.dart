@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:go_router/go_router.dart';
-import 'package:ex_bot/core/constants/environment_config.dart';
-import 'package:ex_bot/features/ai_coach/data/repositories/azure_ai_coach_repository.dart';
 import 'package:ex_bot/core/network/azure_openai_client.dart';
+import 'package:ex_bot/features/ai_coach/data/repositories/azure_ai_coach_repository.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ex_bot/core/constants/environment_config.dart';
 import 'package:ex_bot/core/routing/app_router.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -36,6 +37,15 @@ class MainApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
+      localizationsDelegates: const [
+        AppLocalizations.delegate,
+        GlobalMaterialLocalizations.delegate,
+        GlobalWidgetsLocalizations.delegate,
+        GlobalCupertinoLocalizations.delegate,
+      ],
+      supportedLocales: const [
+        Locale('en'), // English
+      ],
       routerConfig: appRouter,
     );
   }

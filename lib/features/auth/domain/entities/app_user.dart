@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:flutter/foundation.dart';
 
 part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 
 /// Application user entity
 @freezed
-class AppUser with _$AppUser {
+abstract class AppUser with _$AppUser {
   const factory AppUser({
     required String id,
     required String email,
@@ -21,13 +22,4 @@ class AppUser with _$AppUser {
 
   factory AppUser.fromJson(Map<String, dynamic> json) =>
       _$AppUserFromJson(json);
-}
-
-/// Authentication status enumeration
-@freezed
-class AuthStatus with _$AuthStatus {
-  const factory AuthStatus.authenticated(AppUser user) = _Authenticated;
-  const factory AuthStatus.unauthenticated() = _Unauthenticated;
-  const factory AuthStatus.loading() = _Loading;
-  const factory AuthStatus.error(String message) = _AuthError;
 }

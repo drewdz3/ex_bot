@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -22,22 +23,20 @@ import '../../features/auth/data/datasources/msal_auth_datasource.dart'
 import '../network/azure_openai_client.dart' as _i9;
 
 extension GetItInjectableX on _i174.GetIt {
-// initializes the registration of main-scope dependencies inside of GetIt
+  // initializes the registration of main-scope dependencies inside of GetIt
   _i174.GetIt init({
     String? environment,
     _i526.EnvironmentFilter? environmentFilter,
   }) {
-    final gh = _i526.GetItHelper(
-      this,
-      environment,
-      environmentFilter,
-    );
+    final gh = _i526.GetItHelper(this, environment, environmentFilter);
     gh.factory<_i183.MsalAuthDataSource>(() => _i183.MsalAuthDataSource());
     gh.singleton<_i9.AzureOpenAiClient>(() => _i9.AzureOpenAiClient());
     gh.factory<_i605.AiCoachRepository>(
-        () => _i153.AzureAiCoachRepository(gh<_i9.AzureOpenAiClient>()));
+      () => _i153.AzureAiCoachRepository(gh<_i9.AzureOpenAiClient>()),
+    );
     gh.factory<_i889.SendMessageToCoach>(
-        () => _i889.SendMessageToCoach(gh<_i605.AiCoachRepository>()));
+      () => _i889.SendMessageToCoach(gh<_i605.AiCoachRepository>()),
+    );
     return this;
   }
 }

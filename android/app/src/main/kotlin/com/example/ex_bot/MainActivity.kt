@@ -1,4 +1,4 @@
-package com.example.ex_bot
+package com.exbotfitness.dev
 
 import io.flutter.embedding.android.FlutterActivity
 
