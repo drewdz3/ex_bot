@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import '../constants/environment_config.dart';
+import '../utils/debug_logger.dart';
 
 /// HTTP client configured for Azure OpenAI Service
 @singleton
@@ -27,8 +28,7 @@ class AzureOpenAiClient {
         logPrint: (obj) {
           // Only log in debug mode
           assert(() {
-            // ignore: avoid_print
-            print('[Azure OpenAI] $obj');
+            DebugLogger.network(obj.toString());
             return true;
           }());
         },
@@ -41,11 +41,9 @@ class AzureOpenAiClient {
         onError: (error, handler) {
           // Only log in debug mode
           assert(() {
-            // ignore: avoid_print
-            print('[Azure OpenAI Error] ${error.message}');
+            DebugLogger.error('Azure OpenAI Error: ${error.message}');
             if (error.response != null) {
-              // ignore: avoid_print
-              print('[Azure OpenAI Error Response] ${error.response?.data}');
+              DebugLogger.error('Azure OpenAI Error Response: ${error.response?.data}');
             }
             return true;
           }());

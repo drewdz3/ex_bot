@@ -3,13 +3,10 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:ex_bot/core/routing/app_router.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  runApp(const MainApp());
-}
-
-class MainApp extends StatelessWidget {
-  const MainApp({super.key});
+/// Main application widget that configures the app-level settings
+/// including theme, localization, and routing.
+class ExBotApp extends StatelessWidget {
+  const ExBotApp({super.key});
 
   @override
   Widget build(BuildContext context) {

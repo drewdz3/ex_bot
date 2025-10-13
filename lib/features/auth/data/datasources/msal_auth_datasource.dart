@@ -2,6 +2,7 @@
 // import 'dart:convert';
 // import 'package:msal_auth/msal_auth.dart';
 import 'package:injectable/injectable.dart';
+import '../../../../core/utils/debug_logger.dart';
 import '../../../../core/constants/azure_b2c_config.dart';
 
 /// MSAL authentication datasource for Azure AD B2C
@@ -16,8 +17,7 @@ class MsalAuthDataSource {
     // Mock successful authentication
     await Future.delayed(const Duration(seconds: 2));
     
-    // ignore: avoid_print
-    print('🔐 Mock authentication successful');
+    DebugLogger.success('Mock authentication successful');
     
     return {
       'userId': 'mock_user_123',
@@ -37,8 +37,7 @@ class MsalAuthDataSource {
   /// Mock sign out
   Future<void> signOut() async {
     await Future.delayed(const Duration(milliseconds: 500));
-    // ignore: avoid_print
-    print('🔓 Mock user signed out');
+    DebugLogger.info('Mock user signed out');
   }
   
   /// Mock check if signed in

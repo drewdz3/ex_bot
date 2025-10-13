@@ -4,7 +4,7 @@ import '../../features/auth/presentation/pages/login_page.dart';
 import '../../features/onboarding/presentation/pages/welcome_page.dart';
 import '../../features/onboarding/presentation/pages/basic_info_page.dart';
 import '../../features/onboarding/presentation/pages/fitness_goals_page.dart';
-import '../../main.dart';
+import '../../app/pages/ai_chat_test_page.dart';
 
 /// App router configuration
 final GoRouter appRouter = GoRouter(

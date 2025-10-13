@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/utils/debug_logger.dart';
 
 /// Fitness goals selection page
 class FitnessGoalsPage extends StatefulWidget {
@@ -141,7 +142,7 @@ class _FitnessGoalsPageState extends State<FitnessGoalsPage> {
                             width: 1.5,
                           ),
                           color: isSelected 
-                              ? Theme.of(context).primaryColor.withOpacity(0.1)
+                              ? Theme.of(context).primaryColor.withValues(alpha: 0.1)
                               : Colors.white,
                         ),
                         child: Padding(
@@ -232,8 +233,7 @@ class _FitnessGoalsPageState extends State<FitnessGoalsPage> {
   
   void _continueToNext() {
     // TODO: Save selected goals and navigate to workout preferences
-    // ignore: avoid_print
-    print('Selected Goals: $_selectedGoals');
+    DebugLogger.debug('Selected Goals: $_selectedGoals');
     
     // Navigate to workout preferences page
     context.go('/onboarding/preferences');

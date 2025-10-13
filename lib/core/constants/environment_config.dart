@@ -1,4 +1,5 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'temp_azure_config.dart';
 
 /// Environment configuration for Azure OpenAI with fallback to temp config
@@ -64,13 +65,12 @@ class EnvironmentConfig {
   
   /// Debug method to print configuration status
   static void printConfigStatus() {
-    // ignore: avoid_print
     assert(() {
-      print('=== Azure OpenAI Configuration Status ===');
+      DebugLogger.info('=== Azure OpenAI Configuration Status ===');
       configSummary.forEach((key, value) {
-        print('$key: $value');
+        DebugLogger.info('$key: $value');
       });
-      print('=====================================');
+      DebugLogger.info('=====================================');
       return true;
     }());
   }

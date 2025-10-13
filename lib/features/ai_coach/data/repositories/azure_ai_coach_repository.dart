@@ -8,6 +8,7 @@ import '../../domain/repositories/ai_coach_repository.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/azure_openai_client.dart';
 import '../../../../core/constants/app_constants.dart';
+import '../../../../core/utils/debug_logger.dart';
 
 /// Implementation of AI coach repository using Azure OpenAI Service
 @Injectable(as: AiCoachRepository)
@@ -61,12 +62,11 @@ class AzureAiCoachRepository implements AiCoachRepository {
       );
       
       // Debug: Print the actual response structure
-      // ignore: avoid_print
       assert(() {
-        print('=== Azure OpenAI Response ===');
-        print('Status: ${response.statusCode}');
-        print('Data: ${response.data}');
-        print('============================');
+        DebugLogger.network('=== Azure OpenAI Response ===');
+        DebugLogger.network('Status: ${response.statusCode}');
+        DebugLogger.network('Data: ${response.data}');
+        DebugLogger.network('============================');
         return true;
       }());
       

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import '../../../../core/utils/debug_logger.dart';
 
 /// Basic bio information collection page
 class BasicInfoPage extends StatefulWidget {
@@ -115,7 +116,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                         
                         // Gender dropdown
                         DropdownButtonFormField<String>(
-                          value: _selectedGender,
+                          initialValue: _selectedGender,
                           decoration: const InputDecoration(
                             labelText: 'Gender',
                             helperText: 'Used for accurate BMI and fitness calculations',
@@ -192,7 +193,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                         
                         // Fitness level dropdown
                         DropdownButtonFormField<String>(
-                          value: _selectedFitnessLevel,
+                          initialValue: _selectedFitnessLevel,
                           decoration: const InputDecoration(
                             labelText: 'Current Fitness Level',
                             border: OutlineInputBorder(),
@@ -271,8 +272,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
         'fitnessLevel': _selectedFitnessLevel,
       };
       
-      // ignore: avoid_print
-      print('Basic Info: $basicInfo');
+      DebugLogger.debug('Basic Info: $basicInfo');
       
       // Navigate to fitness goals page
       context.go('/onboarding/goals');
