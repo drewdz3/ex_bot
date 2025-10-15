@@ -29,6 +29,11 @@ abstract class Failure with _$Failure {
     String? errorCode,
   }) = AiServiceFailure;
 
+  const factory Failure.authFailure({
+    required String message,
+    String? errorCode,
+  }) = AuthFailure;
+
   const factory Failure.unknownFailure({
     required String message,
   }) = UnknownFailure;

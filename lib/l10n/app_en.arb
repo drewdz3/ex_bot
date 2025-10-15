@@ -2,7 +2,7 @@
   "@@locale": "en",
   "appTitle": "ExBot",
   "@appTitle": {
-    "description": "Title of the application"
+    "description": "AI Powered Fitness Coach"
   },
   "fitnessGoalsTitle": "What are your fitness goals?",
   "@fitnessGoalsTitle": {
@@ -108,7 +108,7 @@
   "@next": {
     "description": "Button text to proceed to next step"
   },
-  "back": "Back", 
+  "back": "Back",
   "@back": {
     "description": "Button text to go to previous step"
   },
@@ -123,5 +123,57 @@
   "validationSelectEquipmentAndPreference": "Please select at least one equipment type and workout preference",
   "@validationSelectEquipmentAndPreference": {
     "description": "Validation message for equipment preferences page"
+  },
+  "welcomeBack": "Welcome back, {user}!",
+  "@welcomeBack": {
+    "description": "Greeting for returning users",
+    "placeholders": {
+      "user": {
+        "type": "String",
+        "example": "Bob"
+      }
+    }
+  },
+  "infoPersonalizedCouching": "Personalized AI coaching",
+  "@infoPersonalizedCouching": {
+    "description": "Feature highlight"
+  },
+  "infoProgressTracking": "Progress tracking",
+  "@infoProgressTracking": {
+    "description": "Feature highlight"
+  },
+  "infoNutritionAdvice": "Nutrition advice",
+  "@infoNutritionAdvice": {
+    "description": "Feature highlight"
+  },
+  "infoSigningIn": "Signing in...",
+  "@infoSigningIn": {
+    "description": "Loading state when signing in"
+  },
+  "btnSignIn": "Sign in",
+  "@btnSignIn": {
+    "description": "Button text to sign in"
+  },
+  "btnGuest": "Continue as Guest",
+  "@btnGuest": {
+    "description": "Button text to continue as guest"
+  },
+  "infoTermsPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy.",
+  "@infoTermsPrivacy": {
+    "description": "Terms and privacy link on sign in page"
+  },
+  "errorSignInFailed": "Sign-in failed. {message}",
+  "@errorSignInFailed": {
+    "description": "Error message when sign-in fails",
+    "placeholders": {
+      "message": {
+        "type": "String",
+        "example": "message"
+      }
+    }
+  },
+  "errorAuthFailed": "Sign-in was cancelled or failed.",
+  "@errorAuthFailed": {
+    "description": "Generic authentication failure message"
   }
 }

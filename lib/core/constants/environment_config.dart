@@ -1,6 +1,6 @@
+import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
-import 'temp_azure_config.dart';
 
 /// Environment configuration for Azure OpenAI with fallback to temp config
 class EnvironmentConfig {
@@ -10,7 +10,7 @@ class EnvironmentConfig {
     if (envKey != null && envKey.isNotEmpty) {
       return envKey;
     }
-    return TempAzureConfig.apiKey;
+    return AppConstants.emptyString;
   }
   
   static String get azureOpenaiEndpoint {
@@ -18,7 +18,7 @@ class EnvironmentConfig {
     if (envEndpoint != null && envEndpoint.isNotEmpty) {
       return envEndpoint;
     }
-    return TempAzureConfig.endpoint;
+    return AppConstants.emptyString;
   }
   
   static String get azureOpenaiDeploymentName {
@@ -26,7 +26,7 @@ class EnvironmentConfig {
     if (envDeployment != null && envDeployment.isNotEmpty) {
       return envDeployment;
     }
-    return TempAzureConfig.deploymentName;
+    return AppConstants.emptyString;
   }
   
   static String get azureOpenaiApiVersion {
@@ -34,7 +34,7 @@ class EnvironmentConfig {
     if (envVersion != null && envVersion.isNotEmpty) {
       return envVersion;
     }
-    return TempAzureConfig.apiVersion;
+    return AppConstants.emptyString;
   }
   
   /// URL for chat completions endpoint

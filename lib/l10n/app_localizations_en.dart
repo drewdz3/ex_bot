@@ -105,4 +105,39 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get validationSelectEquipmentAndPreference =>
       'Please select at least one equipment type and workout preference';
+
+  @override
+  String welcomeBack(String user) {
+    return 'Welcome back, $user!';
+  }
+
+  @override
+  String get infoPersonalizedCouching => 'Personalized AI coaching';
+
+  @override
+  String get infoProgressTracking => 'Progress tracking';
+
+  @override
+  String get infoNutritionAdvice => 'Nutrition advice';
+
+  @override
+  String get infoSigningIn => 'Signing in...';
+
+  @override
+  String get btnSignIn => 'Sign in';
+
+  @override
+  String get btnGuest => 'Continue as Guest';
+
+  @override
+  String get infoTermsPrivacy =>
+      'By continuing, you agree to our Terms of Service and Privacy Policy.';
+
+  @override
+  String errorSignInFailed(String message) {
+    return 'Sign-in failed. $message';
+  }
+
+  @override
+  String get errorAuthFailed => 'Sign-in was cancelled or failed.';
 }

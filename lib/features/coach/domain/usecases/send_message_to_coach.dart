@@ -1,13 +1,13 @@
 import 'package:either_dart/either.dart';
 import 'package:injectable/injectable.dart';
 import '../entities/ai_message.dart';
-import '../repositories/ai_coach_repository.dart';
+import '../repositories/coach_repository.dart';
 import '../../../../core/errors/failures.dart';
 
 /// Use case for sending messages to the AI coach
 @injectable
 class SendMessageToCoach {
-  final AiCoachRepository _repository;
+  final CoachRepository _repository;
   
   SendMessageToCoach(this._repository);
   

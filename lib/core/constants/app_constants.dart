@@ -1,3 +1,5 @@
+import 'package:flutter/widgets.dart';
+
 /// API endpoints and configuration for Azure OpenAI
 class ApiConstants {
   // Azure OpenAI endpoints are constructed dynamically from the base endpoint
@@ -14,15 +16,22 @@ class ApiConstants {
 
 /// App-wide constants
 class AppConstants {
+  static const String emptyString = '';
   static const String appName = 'ExBot';
   static const String version = '0.1.0';
   
-  // Storage keys
+  //  Storage keys
   static const String userProfileKey = 'user_profile';
   static const String authTokenKey = 'auth_token';
   static const String onboardingCompleteKey = 'onboarding_complete';
+
+  //  Environment constants
+
+  //  Page Key Constants
+  static const Key mainAppKey = Key('main');
+  static const Key authPageKey = Key('auth_page');
   
-  // AI Coach constants
+  //  AI Coach constants
   static const int maxConversationHistory = 50;
   static const Duration aiResponseTimeout = Duration(seconds: 30);
   static const Duration notificationInterval = Duration(hours: 8);

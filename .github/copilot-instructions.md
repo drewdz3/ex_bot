@@ -11,14 +11,14 @@ This is a clean-slate Flutter 3.9.2+ project named `ex_bot` targeting **Android,
 ## Architecture & Structure
 
 ### Core Application
-- **Entry Point**: `lib/main.dart` - Contains the main app with a basic MaterialApp and "Hello World" scaffold
+- **Entry Point**: `lib/main.dart` - Contains the main app with a MaterialApp
 - **Package Name**: `ex_bot` with namespace `com.exbotfitness.dev` (Android)
 - **Display Name**: "ExBot" (configured in platform-specific files like `ios/Runner/Info.plist`)
 
 ### Platform Configurations
 - **Android**: Uses Kotlin DSL (`build.gradle.kts`), targets SDK versions managed by Flutter, Java 11 compatibility
 - **iOS**: Standard Runner configuration with Info.plist bundle identifier setup  
-- **Web**: Basic HTML template with Flutter base href placeholder pattern (for debugging/development)
+- **Web**: Basic HTML template with Flutter base href placeholder pattern (for debugging/development). Do not use as the msal package does not support web.
 - **Desktop platforms disabled** - project focuses on mobile-first with web debugging support
 
 ## Development Workflows
@@ -50,15 +50,15 @@ flutter build web           # Build for web (debugging only)
 ## Key Conventions & Patterns
 
 ### File Organization
-- Single Dart file in `lib/` currently - follow clean architecture patterns when expanding:
+- Follow clean architecture patterns. Examples of folders:
   - `lib/app/` for app-level configuration and routing
   - `lib/core/` for shared infrastructure (DI, network, errors, constants)
   - `lib/shared/` for cross-cutting widgets, models, and services
   - `lib/features/` for feature modules following clean architecture layers
+- Each feature has its own `data/`, `domain/`, and `presentation/` subfolders
 
 ### Platform-Specific Considerations
 - Android uses Kotlin with Java 11 compatibility
-- iOS bundle display name is "Ex Bot" (different from package name)
 - Web builds expect proper base href configuration
 - All platforms configured for Flutter's standard build pipeline
 

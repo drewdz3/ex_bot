@@ -1,5 +1,5 @@
 name: ex_bot
-description: "A new Flutter project."
+description: "AI Fitness Coach"
 publish_to: 'none'
 version: 0.1.0
 
@@ -36,13 +36,17 @@ dependencies:
   flutter_dotenv: ^6.0.0
   
   # Authentication
-  msal_auth: ^3.3.0
+  flutter_appauth: ^7.0.0
   
   # Vector Graphics
   flutter_svg: ^2.0.14
   
   # Secure Storage
   flutter_secure_storage: ^9.2.2
+
+  universal_platform: ^1.1.0
+
+  intl: ^0.20.2
 
 dev_dependencies:
   flutter_test:
@@ -64,4 +68,7 @@ flutter:
   generate: true
   
   assets:
-    - .env
+    - .android.env
+    - .apple.env
+    - .default.env
+    - assets/msal_config.json

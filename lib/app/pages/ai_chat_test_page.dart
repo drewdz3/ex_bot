@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ex_bot/core/network/azure_openai_client.dart';
-import 'package:ex_bot/features/ai_coach/data/repositories/azure_ai_coach_repository.dart';
+import 'package:ex_bot/features/coach/data/repositories/azure_coach_repository.dart';
 import 'package:ex_bot/core/constants/environment_config.dart';
 
 /// Test page for AI Coach functionality
@@ -16,12 +16,12 @@ class _AIChatTestPageState extends State<AIChatTestPage> {
   final TextEditingController _messageController = TextEditingController();
   final List<String> _messages = [];
   bool _isLoading = false;
-  late final AzureAiCoachRepository _aiCoachRepository;
+  late final AzureCoachRepository _aiCoachRepository;
 
   @override
   void initState() {
     super.initState();
-    _aiCoachRepository = AzureAiCoachRepository(AzureOpenAiClient());
+    _aiCoachRepository = AzureCoachRepository(AzureOpenAiClient());
     
     // Add initial status message
     _messages.add('🤖 ExBot AI Coach initialized!');

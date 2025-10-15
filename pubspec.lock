@@ -270,6 +270,22 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  flutter_appauth:
+    dependency: "direct main"
+    description:
+      name: flutter_appauth
+      sha256: "84e8753fe20864da241892823ff7dbd252baa34f1649d6feb48118e8ae829ed1"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.1"
+  flutter_appauth_platform_interface:
+    dependency: transitive
+    description:
+      name: flutter_appauth_platform_interface
+      sha256: "0959824b401f3ee209c869734252bd5d4d4aab804b019c03815c56e3b9a4bc34"
+      url: "https://pub.dev"
+    source: hosted
+    version: "7.0.1"
   flutter_bloc:
     dependency: "direct main"
     description:
@@ -462,7 +478,7 @@ packages:
     source: hosted
     version: "2.8.1"
   intl:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: intl
       sha256: "3df61194eb431efc39c4ceba583b95633a403f46c9fd341e550ce0bfa50e9aa5"
@@ -581,14 +597,6 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.0.4"
-  msal_auth:
-    dependency: "direct main"
-    description:
-      name: msal_auth
-      sha256: "3e563ef107e9d87a9645b7e21e23b8af50786786762d9f37324057c36c44f5c0"
-      url: "https://pub.dev"
-    source: hosted
-    version: "3.3.0"
   nested:
     dependency: transitive
     description:
@@ -898,6 +906,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "1.4.0"
+  universal_platform:
+    dependency: "direct main"
+    description:
+      name: universal_platform
+      sha256: "64e16458a0ea9b99260ceb5467a214c1f298d647c659af1bff6d3bf82536b1ec"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.1.0"
   vector_graphics:
     dependency: transitive
     description:

@@ -10,4 +10,6 @@ import UIKit
     GeneratedPluginRegistrant.register(with: self)
     return super.application(application, didFinishLaunchingWithOptions: launchOptions)
   }
+  
+  // AppAuth URL callback handler is handled automatically by the plugin
 }

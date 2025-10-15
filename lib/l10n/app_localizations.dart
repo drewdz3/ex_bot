@@ -94,7 +94,7 @@ abstract class AppLocalizations {
   /// A list of this localizations delegate's supported locales.
   static const List<Locale> supportedLocales = <Locale>[Locale('en')];
 
-  /// Title of the application
+  /// AI Powered Fitness Coach
   ///
   /// In en, this message translates to:
   /// **'ExBot'**
@@ -279,6 +279,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Please select at least one equipment type and workout preference'**
   String get validationSelectEquipmentAndPreference;
+
+  /// Greeting for returning users
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome back, {user}!'**
+  String welcomeBack(String user);
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized AI coaching'**
+  String get infoPersonalizedCouching;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Progress tracking'**
+  String get infoProgressTracking;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition advice'**
+  String get infoNutritionAdvice;
+
+  /// Loading state when signing in
+  ///
+  /// In en, this message translates to:
+  /// **'Signing in...'**
+  String get infoSigningIn;
+
+  /// Button text to sign in
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get btnSignIn;
+
+  /// Button text to continue as guest
+  ///
+  /// In en, this message translates to:
+  /// **'Continue as Guest'**
+  String get btnGuest;
+
+  /// Terms and privacy link on sign in page
+  ///
+  /// In en, this message translates to:
+  /// **'By continuing, you agree to our Terms of Service and Privacy Policy.'**
+  String get infoTermsPrivacy;
+
+  /// Error message when sign-in fails
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in failed. {message}'**
+  String errorSignInFailed(String message);
+
+  /// Generic authentication failure message
+  ///
+  /// In en, this message translates to:
+  /// **'Sign-in was cancelled or failed.'**
+  String get errorAuthFailed;
 }
 
 class _AppLocalizationsDelegate

@@ -28,6 +28,9 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        
+        // AppAuth redirect scheme configuration
+        manifestPlaceholders["appAuthRedirectScheme"] = "msauth"
     }
 
     buildTypes {

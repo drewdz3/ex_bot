@@ -5,11 +5,11 @@ import '../entities/app_user.dart';
 
 /// Abstract authentication repository
 abstract class AuthRepository {
-  /// Sign in with Microsoft Account
-  Future<Either<Failure, AppUser>> signInWithMicrosoft();
-  
-  /// Sign in with Google Account  
-  Future<Either<Failure, AppUser>> signInWithGoogle();
+  /// Initialize authentication state on app startup
+  Future<void> initialize();
+
+  /// Sign in
+  Future<Either<Failure, AppUser>> signIn();
   
   /// Sign out current user
   Future<Either<Failure, void>> signOut();

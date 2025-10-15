@@ -1,21 +1,21 @@
 import 'package:dio/dio.dart';
 import 'package:either_dart/either.dart';
-import 'package:ex_bot/features/ai_coach/domain/entities/ai_conversation.dart';
-import 'package:ex_bot/features/ai_coach/domain/entities/ai_message_role.dart';
+import 'package:ex_bot/features/coach/domain/entities/ai_conversation.dart';
+import 'package:ex_bot/features/coach/domain/entities/ai_message_role.dart';
 import 'package:injectable/injectable.dart';
 import '../../domain/entities/ai_message.dart';
-import '../../domain/repositories/ai_coach_repository.dart';
+import '../../domain/repositories/coach_repository.dart';
 import '../../../../core/errors/failures.dart';
 import '../../../../core/network/azure_openai_client.dart';
 import '../../../../core/constants/app_constants.dart';
 import '../../../../core/utils/debug_logger.dart';
 
 /// Implementation of AI coach repository using Azure OpenAI Service
-@Injectable(as: AiCoachRepository)
-class AzureAiCoachRepository implements AiCoachRepository {
+@Injectable(as: CoachRepository)
+class AzureCoachRepository implements CoachRepository {
   final AzureOpenAiClient _client;
   
-  AzureAiCoachRepository(this._client);
+  AzureCoachRepository(this._client);
   
   @override
   Future<Either<Failure, AiMessage>> sendMessage({

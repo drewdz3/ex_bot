@@ -1,0 +1,18 @@
+{
+  "account_mode": "SINGLE",
+  "broker_redirect_uri_registered": false,
+  "authorization_user_agent": "BROWSER",
+  "authorities": [
+    {
+      "type": "B2C",
+      "authority_url": "https://ExBot.b2clogin.com/ExBot.onmicrosoft.com/B2C_1_signupsignin/",
+      "default": true
+    }
+  ],
+  "logging": {
+    "log_level": "ERROR",
+    "logcat_enabled": true
+  },
+  "shared_device_mode_supported": false,
+  "multiple_clouds_supported": false
+}

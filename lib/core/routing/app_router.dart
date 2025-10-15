@@ -1,19 +1,27 @@
+import 'package:ex_bot/app/pages/ai_chat_test_page.dart';
+import 'package:ex_bot/features/auth/presentation/cubits/auth_cubit.dart';
+import 'package:ex_bot/features/auth/presentation/pages/auth_page.dart';
+import 'package:ex_bot/features/onboarding/presentation/pages/basic_info_page.dart';
+import 'package:ex_bot/features/onboarding/presentation/pages/fitness_goals_page.dart';
+import 'package:ex_bot/features/onboarding/presentation/pages/welcome_page.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:flutter/material.dart';
-import '../../features/auth/presentation/pages/login_page.dart';
-import '../../features/onboarding/presentation/pages/welcome_page.dart';
-import '../../features/onboarding/presentation/pages/basic_info_page.dart';
-import '../../features/onboarding/presentation/pages/fitness_goals_page.dart';
-import '../../app/pages/ai_chat_test_page.dart';
+import 'package:ex_bot/core/di/injection.dart';
 
 /// App router configuration
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/auth',
   routes: [
     // Authentication routes
     GoRoute(
-      path: '/login',
-      builder: (context, state) => const LoginPage(),
+      path: '/auth',
+      builder: (context, state) {
+        return BlocProvider(
+          create: (_) => getIt<AuthCubit>()..initializeAuth(),
+          child: const AuthPage()
+        );
+      }
     ),
     
     // Welcome route (after successful login)

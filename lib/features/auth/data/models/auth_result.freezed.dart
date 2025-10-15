@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$AuthResult implements DiagnosticableTreeMixin {
 
- String get accessToken; Account get account; List<String> get scopes; DateTime? get expiresOn;
+ String get accessToken; String? get refreshToken; String? get idToken; List<String> get scopes; DateTime? get accessTokenExpirationDateTime; Map<String, dynamic>? get additionalParameters;
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -29,21 +29,21 @@ $AuthResultCopyWith<AuthResult> get copyWith => _$AuthResultCopyWithImpl<AuthRes
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'AuthResult'))
-    ..add(DiagnosticsProperty('accessToken', accessToken))..add(DiagnosticsProperty('account', account))..add(DiagnosticsProperty('scopes', scopes))..add(DiagnosticsProperty('expiresOn', expiresOn));
+    ..add(DiagnosticsProperty('accessToken', accessToken))..add(DiagnosticsProperty('refreshToken', refreshToken))..add(DiagnosticsProperty('idToken', idToken))..add(DiagnosticsProperty('scopes', scopes))..add(DiagnosticsProperty('accessTokenExpirationDateTime', accessTokenExpirationDateTime))..add(DiagnosticsProperty('additionalParameters', additionalParameters));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResult&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.account, account) || other.account == account)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.expiresOn, expiresOn) || other.expiresOn == expiresOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is AuthResult&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&const DeepCollectionEquality().equals(other.scopes, scopes)&&(identical(other.accessTokenExpirationDateTime, accessTokenExpirationDateTime) || other.accessTokenExpirationDateTime == accessTokenExpirationDateTime)&&const DeepCollectionEquality().equals(other.additionalParameters, additionalParameters));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,account,const DeepCollectionEquality().hash(scopes),expiresOn);
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,idToken,const DeepCollectionEquality().hash(scopes),accessTokenExpirationDateTime,const DeepCollectionEquality().hash(additionalParameters));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AuthResult(accessToken: $accessToken, account: $account, scopes: $scopes, expiresOn: $expiresOn)';
+  return 'AuthResult(accessToken: $accessToken, refreshToken: $refreshToken, idToken: $idToken, scopes: $scopes, accessTokenExpirationDateTime: $accessTokenExpirationDateTime, additionalParameters: $additionalParameters)';
 }
 
 
@@ -54,7 +54,7 @@ abstract mixin class $AuthResultCopyWith<$Res>  {
   factory $AuthResultCopyWith(AuthResult value, $Res Function(AuthResult) _then) = _$AuthResultCopyWithImpl;
 @useResult
 $Res call({
- String accessToken, Account account, List<String> scopes, DateTime? expiresOn
+ String accessToken, String? refreshToken, String? idToken, List<String> scopes, DateTime? accessTokenExpirationDateTime, Map<String, dynamic>? additionalParameters
 });
 
 
@@ -71,13 +71,15 @@ class _$AuthResultCopyWithImpl<$Res>
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? account = null,Object? scopes = null,Object? expiresOn = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? accessToken = null,Object? refreshToken = freezed,Object? idToken = freezed,Object? scopes = null,Object? accessTokenExpirationDateTime = freezed,Object? additionalParameters = freezed,}) {
   return _then(_self.copyWith(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
-as String,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
-as Account,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
-as List<String>,expiresOn: freezed == expiresOn ? _self.expiresOn : expiresOn // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as String,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
+as String?,scopes: null == scopes ? _self.scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>,accessTokenExpirationDateTime: freezed == accessTokenExpirationDateTime ? _self.accessTokenExpirationDateTime : accessTokenExpirationDateTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,additionalParameters: freezed == additionalParameters ? _self.additionalParameters : additionalParameters // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,
   ));
 }
 
@@ -162,10 +164,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  Account account,  List<String> scopes,  DateTime? expiresOn)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String accessToken,  String? refreshToken,  String? idToken,  List<String> scopes,  DateTime? accessTokenExpirationDateTime,  Map<String, dynamic>? additionalParameters)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _AuthResult() when $default != null:
-return $default(_that.accessToken,_that.account,_that.scopes,_that.expiresOn);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.idToken,_that.scopes,_that.accessTokenExpirationDateTime,_that.additionalParameters);case _:
   return orElse();
 
 }
@@ -183,10 +185,10 @@ return $default(_that.accessToken,_that.account,_that.scopes,_that.expiresOn);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  Account account,  List<String> scopes,  DateTime? expiresOn)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String accessToken,  String? refreshToken,  String? idToken,  List<String> scopes,  DateTime? accessTokenExpirationDateTime,  Map<String, dynamic>? additionalParameters)  $default,) {final _that = this;
 switch (_that) {
 case _AuthResult():
-return $default(_that.accessToken,_that.account,_that.scopes,_that.expiresOn);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.idToken,_that.scopes,_that.accessTokenExpirationDateTime,_that.additionalParameters);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -203,10 +205,10 @@ return $default(_that.accessToken,_that.account,_that.scopes,_that.expiresOn);ca
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  Account account,  List<String> scopes,  DateTime? expiresOn)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String accessToken,  String? refreshToken,  String? idToken,  List<String> scopes,  DateTime? accessTokenExpirationDateTime,  Map<String, dynamic>? additionalParameters)?  $default,) {final _that = this;
 switch (_that) {
 case _AuthResult() when $default != null:
-return $default(_that.accessToken,_that.account,_that.scopes,_that.expiresOn);case _:
+return $default(_that.accessToken,_that.refreshToken,_that.idToken,_that.scopes,_that.accessTokenExpirationDateTime,_that.additionalParameters);case _:
   return null;
 
 }
@@ -218,11 +220,12 @@ return $default(_that.accessToken,_that.account,_that.scopes,_that.expiresOn);ca
 @JsonSerializable()
 
 class _AuthResult with DiagnosticableTreeMixin implements AuthResult {
-  const _AuthResult({required this.accessToken, required this.account, required final  List<String> scopes, this.expiresOn}): _scopes = scopes;
+  const _AuthResult({required this.accessToken, this.refreshToken, this.idToken, required final  List<String> scopes, this.accessTokenExpirationDateTime, final  Map<String, dynamic>? additionalParameters}): _scopes = scopes,_additionalParameters = additionalParameters;
   factory _AuthResult.fromJson(Map<String, dynamic> json) => _$AuthResultFromJson(json);
 
 @override final  String accessToken;
-@override final  Account account;
+@override final  String? refreshToken;
+@override final  String? idToken;
  final  List<String> _scopes;
 @override List<String> get scopes {
   if (_scopes is EqualUnmodifiableListView) return _scopes;
@@ -230,7 +233,16 @@ class _AuthResult with DiagnosticableTreeMixin implements AuthResult {
   return EqualUnmodifiableListView(_scopes);
 }
 
-@override final  DateTime? expiresOn;
+@override final  DateTime? accessTokenExpirationDateTime;
+ final  Map<String, dynamic>? _additionalParameters;
+@override Map<String, dynamic>? get additionalParameters {
+  final value = _additionalParameters;
+  if (value == null) return null;
+  if (_additionalParameters is EqualUnmodifiableMapView) return _additionalParameters;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableMapView(value);
+}
+
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
@@ -246,21 +258,21 @@ Map<String, dynamic> toJson() {
 void debugFillProperties(DiagnosticPropertiesBuilder properties) {
   properties
     ..add(DiagnosticsProperty('type', 'AuthResult'))
-    ..add(DiagnosticsProperty('accessToken', accessToken))..add(DiagnosticsProperty('account', account))..add(DiagnosticsProperty('scopes', scopes))..add(DiagnosticsProperty('expiresOn', expiresOn));
+    ..add(DiagnosticsProperty('accessToken', accessToken))..add(DiagnosticsProperty('refreshToken', refreshToken))..add(DiagnosticsProperty('idToken', idToken))..add(DiagnosticsProperty('scopes', scopes))..add(DiagnosticsProperty('accessTokenExpirationDateTime', accessTokenExpirationDateTime))..add(DiagnosticsProperty('additionalParameters', additionalParameters));
 }
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthResult&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.account, account) || other.account == account)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.expiresOn, expiresOn) || other.expiresOn == expiresOn));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _AuthResult&&(identical(other.accessToken, accessToken) || other.accessToken == accessToken)&&(identical(other.refreshToken, refreshToken) || other.refreshToken == refreshToken)&&(identical(other.idToken, idToken) || other.idToken == idToken)&&const DeepCollectionEquality().equals(other._scopes, _scopes)&&(identical(other.accessTokenExpirationDateTime, accessTokenExpirationDateTime) || other.accessTokenExpirationDateTime == accessTokenExpirationDateTime)&&const DeepCollectionEquality().equals(other._additionalParameters, _additionalParameters));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,accessToken,account,const DeepCollectionEquality().hash(_scopes),expiresOn);
+int get hashCode => Object.hash(runtimeType,accessToken,refreshToken,idToken,const DeepCollectionEquality().hash(_scopes),accessTokenExpirationDateTime,const DeepCollectionEquality().hash(_additionalParameters));
 
 @override
 String toString({ DiagnosticLevel minLevel = DiagnosticLevel.info }) {
-  return 'AuthResult(accessToken: $accessToken, account: $account, scopes: $scopes, expiresOn: $expiresOn)';
+  return 'AuthResult(accessToken: $accessToken, refreshToken: $refreshToken, idToken: $idToken, scopes: $scopes, accessTokenExpirationDateTime: $accessTokenExpirationDateTime, additionalParameters: $additionalParameters)';
 }
 
 
@@ -271,7 +283,7 @@ abstract mixin class _$AuthResultCopyWith<$Res> implements $AuthResultCopyWith<$
   factory _$AuthResultCopyWith(_AuthResult value, $Res Function(_AuthResult) _then) = __$AuthResultCopyWithImpl;
 @override @useResult
 $Res call({
- String accessToken, Account account, List<String> scopes, DateTime? expiresOn
+ String accessToken, String? refreshToken, String? idToken, List<String> scopes, DateTime? accessTokenExpirationDateTime, Map<String, dynamic>? additionalParameters
 });
 
 
@@ -288,13 +300,15 @@ class __$AuthResultCopyWithImpl<$Res>
 
 /// Create a copy of AuthResult
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? account = null,Object? scopes = null,Object? expiresOn = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? accessToken = null,Object? refreshToken = freezed,Object? idToken = freezed,Object? scopes = null,Object? accessTokenExpirationDateTime = freezed,Object? additionalParameters = freezed,}) {
   return _then(_AuthResult(
 accessToken: null == accessToken ? _self.accessToken : accessToken // ignore: cast_nullable_to_non_nullable
-as String,account: null == account ? _self.account : account // ignore: cast_nullable_to_non_nullable
-as Account,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
-as List<String>,expiresOn: freezed == expiresOn ? _self.expiresOn : expiresOn // ignore: cast_nullable_to_non_nullable
-as DateTime?,
+as String,refreshToken: freezed == refreshToken ? _self.refreshToken : refreshToken // ignore: cast_nullable_to_non_nullable
+as String?,idToken: freezed == idToken ? _self.idToken : idToken // ignore: cast_nullable_to_non_nullable
+as String?,scopes: null == scopes ? _self._scopes : scopes // ignore: cast_nullable_to_non_nullable
+as List<String>,accessTokenExpirationDateTime: freezed == accessTokenExpirationDateTime ? _self.accessTokenExpirationDateTime : accessTokenExpirationDateTime // ignore: cast_nullable_to_non_nullable
+as DateTime?,additionalParameters: freezed == additionalParameters ? _self._additionalParameters : additionalParameters // ignore: cast_nullable_to_non_nullable
+as Map<String, dynamic>?,
   ));
 }
 
