@@ -1,3 +1,4 @@
+import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/core/constants/auth_config.dart';
 import 'package:flutter_appauth/flutter_appauth.dart';
 import 'package:injectable/injectable.dart';
@@ -34,6 +35,7 @@ class AppAuthDataSource {
       DebugLogger.success(
         '(appauth_datasource.signInInteractive) Interactive sign-in successful',
       );
+
       return _mapToAuthResult(result);
     } catch (e) {
       DebugLogger.error(
@@ -100,7 +102,7 @@ class AppAuthDataSource {
   /// Convert AppAuth TokenResponse to our app's AuthResult model
   app_models.AuthResult _mapToAuthResult(TokenResponse result) {
     return app_models.AuthResult(
-      accessToken: result.accessToken!,
+      accessToken: result.accessToken ?? AppConstants.emptyString,
       refreshToken: result.refreshToken,
       idToken: result.idToken,
       scopes: ['openid', 'profile', 'email', 'offline_access'],
