@@ -22,7 +22,7 @@ class AppConstants {
   
   //  Storage keys
   static const String userProfileKey = 'user_profile';
-  static const String authTokenKey = 'auth_token';
+  static const String refreshTokenKey = 'refresh_token';
   static const String onboardingCompleteKey = 'onboarding_complete';
 
   //  Environment constants

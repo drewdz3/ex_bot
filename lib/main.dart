@@ -1,14 +1,15 @@
-import 'package:ex_bot/core/constants/app_constants.dart';
-import 'package:ex_bot/core/routing/app_router.dart';
-import 'package:ex_bot/core/utils/debug_logger.dart';
-import 'package:ex_bot/features/auth/data/services/auth_service.dart';
-import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:ex_bot/core/di/injection.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:injectable/injectable.dart';
 import 'package:universal_platform/universal_platform.dart';
+
+import 'package:ex_bot/core/constants/app_constants.dart';
+import 'package:ex_bot/core/di/injection.dart';
+import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/core/utils/debug_logger.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
+import 'package:ex_bot/shared/services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -32,9 +33,6 @@ void main() async {
 
   DebugLogger.debug('(.main) Setting up IoC...');
   configureDependencies(Environment.prod);
-
-  // Print configuration status for debugging
-  // EnvironmentConfig.printConfigStatus();
 
   //  initialize auth service
   final authService = getIt<AuthService>();
