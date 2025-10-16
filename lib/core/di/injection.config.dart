@@ -12,23 +12,19 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
-import '../../features/auth/data/datasources/appauth_datasource.dart' as _i141;
-import '../../features/auth/data/datasources/user_storage_datasource.dart'
-    as _i636;
-import '../../features/auth/data/repositories/auth_repository_impl.dart'
-    as _i153;
-import '../../features/auth/data/services/auth_service.dart' as _i449;
-import '../../features/auth/domain/repositories/auth_repository.dart' as _i787;
-import '../../features/auth/presentation/cubits/auth_cubit.dart' as _i521;
-import '../../features/auth/presentation/pages/auth_page.dart' as _i495;
-import '../../features/coach/data/repositories/azure_coach_repository.dart'
-    as _i841;
-import '../../features/coach/domain/repositories/coach_repository.dart'
-    as _i1044;
-import '../../features/coach/domain/usecases/send_message_to_coach.dart'
-    as _i57;
+import '../../data/datasources/appauth_datasource.dart' as _i190;
+import '../../data/datasources/user_storage_datasource.dart' as _i577;
+import '../../domain/repositories/auth_repository_impl.dart' as _i1005;
+import '../../domain/repositories/azure_coach_repository.dart' as _i384;
+import '../../domain/usecases/send_message_to_coach.dart' as _i856;
+import '../../features/auth/pages/landing_page.dart' as _i471;
+import '../../features/landing/cubits/landing_cubit.dart' as _i1066;
+import '../../features/landing/pages/landing_page.dart' as _i258;
 import '../../main.dart' as _i822;
+import '../../shared/services/auth_service.dart' as _i662;
 import '../network/azure_openai_client.dart' as _i9;
+import '../repositories/auth_repository.dart' as _i1002;
+import '../repositories/coach_repository.dart' as _i1070;
 
 extension GetItInjectableX on _i174.GetIt {
   // initializes the registration of main-scope dependencies inside of GetIt
@@ -37,30 +33,31 @@ extension GetItInjectableX on _i174.GetIt {
     _i526.EnvironmentFilter? environmentFilter,
   }) {
     final gh = _i526.GetItHelper(this, environment, environmentFilter);
-    gh.factory<_i141.AppAuthDataSource>(() => _i141.AppAuthDataSource());
-    gh.factory<_i636.UserStorageDataSource>(
-      () => _i636.UserStorageDataSource(),
+    gh.factory<_i190.AppAuthDataSource>(() => _i190.AppAuthDataSource());
+    gh.factory<_i577.UserStorageDataSource>(
+      () => _i577.UserStorageDataSource(),
     );
-    gh.factory<_i495.AuthPage>(() => const _i495.AuthPage());
     gh.factory<_i822.MainApp>(() => const _i822.MainApp());
+    gh.factory<_i471.LandingPage>(() => const _i471.LandingPage());
+    gh.factory<_i258.LandingPage>(() => const _i258.LandingPage());
     gh.singleton<_i9.AzureOpenAiClient>(() => _i9.AzureOpenAiClient());
-    gh.factory<_i1044.CoachRepository>(
-      () => _i841.AzureCoachRepository(gh<_i9.AzureOpenAiClient>()),
+    gh.factory<_i1070.CoachRepository>(
+      () => _i384.AzureCoachRepository(gh<_i9.AzureOpenAiClient>()),
     );
-    gh.factory<_i57.SendMessageToCoach>(
-      () => _i57.SendMessageToCoach(gh<_i1044.CoachRepository>()),
+    gh.factory<_i856.SendMessageToCoach>(
+      () => _i856.SendMessageToCoach(gh<_i1070.CoachRepository>()),
     );
-    gh.factory<_i787.AuthRepository>(
-      () => _i153.AuthRepositoryImpl(
-        gh<_i141.AppAuthDataSource>(),
-        gh<_i636.UserStorageDataSource>(),
+    gh.factory<_i1002.AuthRepository>(
+      () => _i1005.AuthRepositoryImpl(
+        gh<_i190.AppAuthDataSource>(),
+        gh<_i577.UserStorageDataSource>(),
       ),
     );
-    gh.factory<_i449.AuthService>(
-      () => _i449.AuthService(gh<_i787.AuthRepository>()),
+    gh.factory<_i662.AuthService>(
+      () => _i662.AuthService(gh<_i1002.AuthRepository>()),
     );
-    gh.factory<_i521.AuthCubit>(
-      () => _i521.AuthCubit(gh<_i787.AuthRepository>()),
+    gh.factory<_i1066.LandingCubit>(
+      () => _i1066.LandingCubit(gh<_i1002.AuthRepository>()),
     );
     return this;
   }

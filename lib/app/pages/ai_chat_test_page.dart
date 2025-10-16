@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ex_bot/core/network/azure_openai_client.dart';
-import 'package:ex_bot/features/coach/data/repositories/azure_coach_repository.dart';
+import 'package:ex_bot/domain/repositories/azure_coach_repository.dart';
 import 'package:ex_bot/core/constants/environment_config.dart';
 
 /// Test page for AI Coach functionality
