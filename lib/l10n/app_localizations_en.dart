@@ -140,4 +140,8 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get errorAuthFailed => 'Sign-in was cancelled or failed.';
+
+  @override
+  String get infoAuthRequired =>
+      'You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.';
 }

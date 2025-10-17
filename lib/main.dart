@@ -9,7 +9,6 @@ import 'package:ex_bot/core/di/injection.dart';
 import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
-import 'package:ex_bot/shared/services/auth_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -26,17 +25,11 @@ void main() async {
     device = '.$device.env';
     await dotenv.load(fileName: device);
   } catch (e) {
-    DebugLogger.warning(
-      '(.main) Could not load .env file for device: $device\r\n$e',
-    );
+    DebugLogger.warning('(.main) Could not load .env file for device: $device\r\n$e');
   }
 
   DebugLogger.debug('(.main) Setting up IoC...');
   configureDependencies(Environment.prod);
-
-  //  initialize auth service
-  final authService = getIt<AuthService>();
-  await authService.initializeOnStartup();
 
   DebugLogger.debug('(.main) Bootstrapping...');
   runApp(getIt.get<MainApp>());
@@ -50,19 +43,14 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'ExBot - AI Fitness Coach',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: ThemeData(colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple), useMaterial3: true),
       localizationsDelegates: const [
         AppLocalizations.delegate,
         GlobalMaterialLocalizations.delegate,
         GlobalWidgetsLocalizations.delegate,
         GlobalCupertinoLocalizations.delegate,
       ],
-      supportedLocales: const [
-        Locale('en'),
-      ],
+      supportedLocales: const [Locale('en')],
       routerConfig: appRouter,
     );
   }

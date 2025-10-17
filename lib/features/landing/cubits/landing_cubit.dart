@@ -21,57 +21,32 @@ class LandingCubit extends Cubit<AuthStatus> {
 
   Future<void> initializeAuth() async {
     try {
-      DebugLogger.info('Initializing authentication...');
-      emit(const AuthStatus.loading());
-      
-      // Check if user is already authenticated
-      if (!_authRepository.isAuthenticated) {
-        DebugLogger.info('User not authenticated');
-        emit(const AuthStatus.unauthenticated());
-        return;
-      }
-
-      // Get current user
-      final result = await _authRepository.getCurrentUser();
-      result.fold(
-        (failure) {
-          DebugLogger.error('Failed to get current user: ${failure.message}');
-          emit(AuthStatus.error(failure.message));
-        },
-        (user) {
-          if (user != null) {
-            DebugLogger.success('User authenticated on startup');
-            emit(AuthStatus.authenticated(user));
-          } else {
-            DebugLogger.info('No authenticated user found');
-            emit(const AuthStatus.unauthenticated());
-          }
-        },
-      );
+      DebugLogger.info('(LandingCubit.initializeAuth) Initializing...');
+      await _authRepository.refreshTokens(true);
     } catch (e) {
-      DebugLogger.error('Auth initialization failed: $e');
+      DebugLogger.error('(LandingCubit.initializeAuth) Auth initialization failed: $e');
       emit(AuthStatus.error('Initialization failed: ${e.toString()}'));
     }
   }
 
   Future<void> signIn() async {
     try {
-      DebugLogger.info('Starting sign-in...');
+      DebugLogger.info('(LandingCubit.signIn) Starting sign-in...');
       emit(const AuthStatus.loading());
 
       final result = await _authRepository.signIn();
       result.fold(
         (failure) {
-          DebugLogger.error('Sign-in failed: ${failure.message}');
+          DebugLogger.error('(LandingCubit.signIn) Sign-in failed: ${failure.message}');
           emit(AuthStatus.error(failure.message));
         },
         (user) {
-          DebugLogger.success('Sign-in successful');
+          DebugLogger.success('(LandingCubit.signIn) Sign-in successful');
           emit(AuthStatus.authenticated(user));
         },
       );
     } catch (e) {
-      DebugLogger.error('Sign-in error: $e');
+      DebugLogger.error('(LandingCubit.signIn) Sign-in error: $e');
       emit(AuthStatus.error('Sign-in failed: ${e.toString()}'));
     }
   }
@@ -79,22 +54,22 @@ class LandingCubit extends Cubit<AuthStatus> {
   /// Sign out current user
   Future<void> signOut() async {
     try {
-      DebugLogger.info('Starting sign-out...');
+      DebugLogger.info('(LandingCubit.signOut) Starting sign-out...');
       emit(const AuthStatus.loading());
 
       final result = await _authRepository.signOut();
       result.fold(
         (failure) {
-          DebugLogger.error('Sign-out failed: ${failure.message}');
+          DebugLogger.error('(LandingCubit.signOut) Sign-out failed: ${failure.message}');
           emit(AuthStatus.error(failure.message));
         },
         (_) {
-          DebugLogger.success('Sign-out successful');
+          DebugLogger.success('(LandingCubit.signOut) Sign-out successful');
           emit(const AuthStatus.unauthenticated());
         },
       );
     } catch (e) {
-      DebugLogger.error('Sign-out error: $e');
+      DebugLogger.error('(LandingCubit.signOut) Sign-out error: $e');
       emit(AuthStatus.error('Sign-out failed: ${e.toString()}'));
     }
   }
@@ -102,57 +77,45 @@ class LandingCubit extends Cubit<AuthStatus> {
   /// Refresh tokens silently
   Future<void> refreshTokens() async {
     try {
-      DebugLogger.info('Refreshing tokens...');
-      
+      DebugLogger.info('(LandingCubit.refreshTokens) Refreshing tokens...');
+
       // Get the current auth repository implementation to call refreshTokens
-      //  TODO: fix this crap
-      if (_authRepository is AuthRepositoryImpl) {
-        final authRepoImpl = _authRepository;
-        final result = await authRepoImpl.refreshTokens();
-        
-        result.fold(
-          (failure) {
-            DebugLogger.warning('Token refresh failed: ${failure.message}');
-            // Don't emit error state for token refresh failures
-            // The user is still authenticated until tokens expire
-          },
-          (user) {
-            DebugLogger.success('Tokens refreshed successfully');
-            emit(AuthStatus.authenticated(user));
-          },
-        );
-      }
+      final result = await _authRepository.refreshTokens(true);
+
+      result.fold(
+        (failure) {
+          DebugLogger.warning('(LandingCubit.refreshTokens) Token refresh failed: ${failure.message}');
+          // Don't emit error state for token refresh failures
+          // The user is still authenticated until tokens expire
+        },
+        (user) {
+          DebugLogger.success('(LandingCubit.refreshTokens) Tokens refreshed successfully');
+          emit(AuthStatus.authenticated(user));
+        },
+      );
     } catch (e) {
-      DebugLogger.warning('Token refresh error: $e');
+      DebugLogger.warning('(LandingCubit.refreshTokens) Token refresh error: $e');
       // Don't emit error state for token refresh failures
     }
   }
 
   /// Check if user is currently authenticated
   bool get isAuthenticated {
-    return state.whenOrNull(
-      authenticated: (_) => true,
-    ) ?? false;
+    return state.whenOrNull(authenticated: (_) => true) ?? false;
   }
 
   /// Get current authenticated user
   AppUser? get currentUser {
-    return state.whenOrNull(
-      authenticated: (user) => user,
-    );
+    return state.whenOrNull(authenticated: (user) => user);
   }
 
   /// Check if auth is in loading state
   bool get isLoading {
-    return state.whenOrNull(
-      loading: () => true,
-    ) ?? false;
+    return state.whenOrNull(loading: () => true) ?? false;
   }
 
   /// Check if there's an error
   String? get errorMessage {
-    return state.whenOrNull(
-      error: (message) => message,
-    );
+    return state.whenOrNull(error: (message) => message);
   }
 }
