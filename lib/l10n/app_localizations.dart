@@ -339,6 +339,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Sign-in was cancelled or failed.'**
   String get errorAuthFailed;
+
+  /// Information text explaining that authentication is required to use the app
+  ///
+  /// In en, this message translates to:
+  /// **'You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.'**
+  String get infoAuthRequired;
 }
 
 class _AppLocalizationsDelegate

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:either_dart/either.dart';
+import 'package:ex_bot/data/datasources/auth_storage_datasource.dart';
 import 'package:ex_bot/data/models/auth_result.dart';
 import 'package:injectable/injectable.dart';
 import 'package:jwt_decode/jwt_decode.dart';
@@ -15,19 +16,21 @@ import 'package:ex_bot/domain/entities/app_user.dart';
 import 'package:ex_bot/domain/entities/auth_status.dart';
 
 /// Implementation of AuthRepository using AppAuth and secure storage
-@Injectable(as: AuthRepository)
+@Singleton(as: AuthRepository)
 class AuthRepositoryImpl implements AuthRepository {
   final AppAuthDataSource _appAuthDataSource;
-  final UserStorageDataSource userStorage;
+  final UserStorageDataSource _userStorage;
+  final AuthStorageDatasource _authStorage;
+
+  bool _authenticated = false;
 
   // Stream controller for auth status changes
-  final StreamController<AuthStatus> _authStatusController =
-      StreamController<AuthStatus>.broadcast();
+  final StreamController<AuthStatus> _authStatusController = StreamController<AuthStatus>.broadcast();
 
-  AuthRepositoryImpl(this._appAuthDataSource, this.userStorage);
+  AuthRepositoryImpl(this._appAuthDataSource, this._userStorage, this._authStorage);
 
   @override
-  bool get isAuthenticated => false;
+  bool get isAuthenticated => _authenticated;
 
   @override
   Stream<AuthStatus> get authStatusStream => _authStatusController.stream;
@@ -35,6 +38,7 @@ class AuthRepositoryImpl implements AuthRepository {
   @override
   Future<Either<Failure, AppUser>> signIn() async {
     try {
+      _authenticated = false;
       DebugLogger.info('Starting sign-in...');
 
       // Emit loading state
@@ -43,21 +47,25 @@ class AuthRepositoryImpl implements AuthRepository {
       // Attempt interactive sign-in
       final authResult = await _appAuthDataSource.signInInteractive();
       if (authResult == null) {
-        const failure = Failure.authFailure(
-          message: 'Sign-in was cancelled or failed',
-        );
+        const failure = Failure.authFailure(message: 'Sign-in was cancelled or failed');
         _authStatusController.add(const AuthStatus.unauthenticated());
         return Left(failure);
       }
+      _authenticated = true;
 
       // Convert AppAuth result to AppUser
       final appUser = await _mapAuthResultToAppUser(authResult);
 
-      // Save authentication result and user data
-      await userStorage.saveAuthResult(authResult, appUser);
+      // save refresh token
+      // TODO: remove hardcoded values from token exiry calc
+      await _authStorage.saveRefreshToken(
+        expiresOn: authResult.accessTokenExpirationDateTime ?? DateTime.now().add(const Duration(hours: 1)),
+        refreshToken: authResult.refreshToken ?? AppConstants.emptyString,
+      );
 
       // Update last login
-      await userStorage.updateLastLogin();
+      await _userStorage.saveUser(appUser);
+      await _userStorage.updateLastLogin();
 
       // Emit authenticated state
       _authStatusController.add(AuthStatus.authenticated(appUser));
@@ -65,10 +73,9 @@ class AuthRepositoryImpl implements AuthRepository {
       DebugLogger.success('Sign-in completed successfully');
       return Right(appUser);
     } catch (e) {
+      _authenticated = false;
       DebugLogger.error('Sign-in failed: $e');
-      final failure = Failure.authFailure(
-        message: 'Sign-in failed: ${e.toString()}',
-      );
+      final failure = Failure.authFailure(message: 'Sign-in failed: ${e.toString()}');
       _authStatusController.add(AuthStatus.error(failure.message));
       return Left(failure);
     }
@@ -83,10 +90,11 @@ class AuthRepositoryImpl implements AuthRepository {
       _authStatusController.add(const AuthStatus.loading());
 
       // Sign out from AppAuth
-      await _appAuthDataSource.signOut();
+      await _appAuthDataSource.signOut(null);
+      _authenticated = false;
 
       // Clear stored user data and tokens
-      await userStorage.clearUserData();
+      await _authStorage.clearRefreshToken();
 
       // Emit unauthenticated state
       _authStatusController.add(const AuthStatus.unauthenticated());
@@ -95,138 +103,75 @@ class AuthRepositoryImpl implements AuthRepository {
       return const Right(null);
     } catch (e) {
       DebugLogger.error('Sign-out failed: $e');
-      final failure = Failure.authFailure(
-        message: 'Sign-out failed: ${e.toString()}',
-      );
+      final failure = Failure.authFailure(message: 'Sign-out failed: ${e.toString()}');
       _authStatusController.add(AuthStatus.error(failure.message));
       return Left(failure);
     }
   }
 
-  @override
-  Future<Either<Failure, AppUser?>> getCurrentUser() async {
-    try {
-      DebugLogger.info('Getting current user...');
-
-      // First check if we have valid tokens
-      var refreshToken = await userStorage.getRefreshTokenIfValid();
-      if (refreshToken == null) {
-        DebugLogger.info('No valid tokens found');
-        return const Right(null);
-      }
-
-      // Get user from storage
-      final storedUser = await userStorage.getUser();
-      if (storedUser == null) {
-        DebugLogger.info('No user data found in storage');
-        return const Right(null);
-      }
-
-      DebugLogger.success('Current user retrieved from storage');
-      return Right(storedUser);
-    } catch (e) {
-      DebugLogger.error('Failed to get current user: $e');
-      final failure = Failure.authFailure(
-        message: 'Failed to get current user: ${e.toString()}',
-      );
-      return Left(failure);
-    }
-  }
-
-  @override
-  Future<void> initialize() async {
-    try {
-      DebugLogger.info('Initializing authentication state...');
-
-      // Emit loading state
-      _authStatusController.add(const AuthStatus.loading());
-
-      // Try silent sign-in to refresh tokens if needed
-      final refreshToken = await userStorage.getRefreshTokenIfValid();
-      if (refreshToken == null) {
-        _authStatusController.add(AuthStatus.unauthenticated());
-      }
-      else {
-        final silentResult = await _appAuthDataSource.signInSilent(
-          refreshToken,
-        );
-        if (silentResult != null) {
-          // Silent sign-in successful, get user data
-          final user = await userStorage.getUser();
-          if (user != null) {
-            // Update tokens and last login
-            await userStorage.saveAuthResult(silentResult, user);
-            await userStorage.updateLastLogin();
-
-            _authStatusController.add(AuthStatus.authenticated(user));
-            DebugLogger.success('User authenticated via silent sign-in');
-            return;
-          }
-        }
-      }
-
-      // // If silent sign-in failed, get user from storage if still valid
-      // final currentUserResult = await getCurrentUser();
-      // currentUserResult.fold(
-      //   (failure) {
-      //     DebugLogger.warning('Failed to get current user: ${failure.message}');
-      //     _authStatusController.add(const AuthStatus.unauthenticated());
-      //   },
-      //   (user) {
-      //     if (user != null) {
-      //       _authStatusController.add(AuthStatus.authenticated(user));
-      //       DebugLogger.success('User authenticated from stored data');
-      //     } else {
-      //       _authStatusController.add(const AuthStatus.unauthenticated());
-      //       DebugLogger.info('No authenticated user found');
-      //     }
-      //   },
-      // );
-    } catch (e) {
-      DebugLogger.error('Failed to initialize auth state: $e');
-      _authStatusController.add(
-        AuthStatus.error('Initialization failed: ${e.toString()}'),
-      );
-    }
-  }
-
   /// Attempt to refresh tokens silently
-  Future<Either<Failure, AppUser>> refreshTokens() async {
+  @override
+  Future<Either<Failure, AppUser>> refreshTokens(bool withFeedback) async {
     try {
       DebugLogger.info('Attempting to refresh tokens...');
+      if (withFeedback) {
+        _authStatusController.add(const AuthStatus.loading());
+      }
 
       // Try silent sign-in with refresh token
-      final refreshToken = await userStorage.getRefreshTokenIfValid();
+      final refreshToken = await _authStorage.getRefreshTokenIfValid();
       if (refreshToken == null) {
-        const failure = Failure.authFailure(
-          message: 'No refresh token available',
-        );
+        _authenticated = false;
+        if (withFeedback) {
+          _authStatusController.add(const AuthStatus.unauthenticated());
+        }
+        const failure = Failure.authFailure(message: 'No refresh token available');
         return Left(failure);
       }
 
       final authResult = await _appAuthDataSource.signInSilent(refreshToken);
       if (authResult == null) {
+        _authenticated = false;
+        if (withFeedback) {
+          _authStatusController.add(AuthStatus.unauthenticated());
+        }
         const failure = Failure.authFailure(message: 'Token refresh failed');
         return Left(failure);
       }
+      _authenticated = true;
 
       // Get current user data
-      final user = await userStorage.getUser();
+      final user = await _userStorage.getUser();
       if (user == null) {
+        _authenticated = false;
+        _authStorage.clearRefreshToken();
+        if (withFeedback) {
+          _authStatusController.add(AuthStatus.unauthenticated());
+        }
         const failure = Failure.authFailure(message: 'No user data found');
         return Left(failure);
       }
 
       // Save refreshed tokens
-      await userStorage.saveAuthResult(authResult, user);
+      await _userStorage.saveUser(user);
+      // save refresh token
+      // TODO: remove hardcoded values from token exiry calc
+      await _authStorage.saveRefreshToken(
+        expiresOn: authResult.accessTokenExpirationDateTime ?? DateTime.now().add(const Duration(hours: 1)),
+        refreshToken: authResult.refreshToken ?? AppConstants.emptyString,
+      );
 
+      if (withFeedback) {
+        _authStatusController.add(AuthStatus.authenticated(user));
+      }
       DebugLogger.success('Tokens refreshed successfully');
       return Right(user);
     } catch (e) {
       DebugLogger.error('Token refresh failed: $e');
-      final failure = Failure.authFailure(
-        message: 'Token refresh failed: ${e.toString()}',
-      );
+      if (withFeedback) {
+        _authStatusController.add(AuthStatus.unauthenticated());
+      }
+      final failure = Failure.authFailure(message: 'Token refresh failed: ${e.toString()}');
       return Left(failure);
     }
   }
@@ -243,16 +188,19 @@ class AuthRepositoryImpl implements AuthRepository {
 
       String email = AppConstants.emptyString;
       if (claims['emails'] != null) {
-        var list = claims['emails'] as List<String>;
+        var list = claims['emails'] as List<dynamic>;
         email = list.isNotEmpty ? list.first : AppConstants.emptyString;
       }
+
+      int authTime = claims['auth_time'];
+      authTime *= 1000; // convert to milliseconds
 
       return AppUser(
         id: claims['oid'] ?? claims['sub'] ?? AppConstants.emptyString,
         email: email,
         displayName: claims['given_name'] ?? '[unknown]',
         createdAt: DateTime.now(),
-        lastLoginAt: DateTime.fromMicrosecondsSinceEpoch(int.parse(claims['auth_time'] ?? '0') * 1000),
+        lastLoginAt: DateTime.fromMicrosecondsSinceEpoch(authTime),
       );
     } catch (e) {
       DebugLogger.error('Failed to map auth result to app user: $e');

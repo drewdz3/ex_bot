@@ -3,4 +3,8 @@ include: package:flutter_lints/flutter.yaml
 analyzer:
   errors:
     invalid_annotation_target: ignore
+
+# Dart formatter configuration
+dart_style:
+  indent: 4
     

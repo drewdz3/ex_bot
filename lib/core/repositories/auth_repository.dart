@@ -9,11 +9,9 @@ abstract class AuthRepository {
 
   Stream<AuthStatus> get authStatusStream;
 
-  Future<void> initialize();
+  Future<Either<Failure, AppUser>> refreshTokens(bool withFeedback);
 
   Future<Either<Failure, AppUser>> signIn();
-  
+
   Future<Either<Failure, void>> signOut();
-  
-  Future<Either<Failure, AppUser?>> getCurrentUser();
 }

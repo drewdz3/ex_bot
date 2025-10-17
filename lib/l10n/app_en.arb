@@ -175,5 +175,9 @@
   "errorAuthFailed": "Sign-in was cancelled or failed.",
   "@errorAuthFailed": {
     "description": "Generic authentication failure message"
+  },
+  "infoAuthRequired": "You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.",
+  "@infoAuthRequired": {
+    "description": "Information text explaining that authentication is required to use the app"
   }
 }
