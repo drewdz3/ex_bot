@@ -21,6 +21,13 @@ import '../../domain/usecases/send_message_to_coach.dart' as _i856;
 import '../../features/auth/pages/landing_page.dart' as _i471;
 import '../../features/landing/cubits/landing_cubit.dart' as _i1066;
 import '../../features/landing/pages/landing_page.dart' as _i258;
+import '../../features/onboarding/cubits/dietary_preferences_cubit.dart'
+    as _i1018;
+import '../../features/onboarding/cubits/health_limitations_cubit.dart' as _i68;
+import '../../features/onboarding/cubits/onboarding_cubit.dart' as _i810;
+import '../../features/onboarding/cubits/workout_preferences_cubit.dart'
+    as _i673;
+import '../../features/onboarding/cubits/workout_schedule_cubit.dart' as _i722;
 import '../../main.dart' as _i822;
 import '../network/azure_openai_client.dart' as _i9;
 import '../repositories/auth_repository.dart' as _i1002;
@@ -43,6 +50,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i477.AuthStorageDatasource>(
       () => _i477.AuthStorageDatasource(),
     );
+    gh.factory<_i673.WorkoutPreferencesCubit>(
+      () => _i673.WorkoutPreferencesCubit(),
+    );
+    gh.factory<_i810.OnboardingCubit>(() => _i810.OnboardingCubit());
+    gh.factory<_i68.HealthLimitationsCubit>(
+      () => _i68.HealthLimitationsCubit(),
+    );
+    gh.factory<_i1018.DietaryPreferencesCubit>(
+      () => _i1018.DietaryPreferencesCubit(),
+    );
+    gh.factory<_i722.WorkoutScheduleCubit>(() => _i722.WorkoutScheduleCubit());
     gh.singleton<_i9.AzureOpenAiClient>(() => _i9.AzureOpenAiClient());
     gh.factory<_i1070.CoachRepository>(
       () => _i384.AzureCoachRepository(gh<_i9.AzureOpenAiClient>()),
