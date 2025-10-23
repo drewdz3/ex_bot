@@ -1,16 +1,45 @@
 import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
+import 'package:ex_bot/features/onboarding/cubits/basic_info_cubit.dart';
+
 /// Basic bio information collection page
-class BasicInfoPage extends StatefulWidget {
+class BasicInfoPage extends StatelessWidget {
   const BasicInfoPage({super.key});
 
   @override
-  State<BasicInfoPage> createState() => _BasicInfoPageState();
+  Widget build(BuildContext context) {
+    return const _BasicInfoView();
+  }
 }
 
-class _BasicInfoPageState extends State<BasicInfoPage> {
+class _BasicInfoView extends StatelessWidget {
+  const _BasicInfoView();
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<BasicInfoCubit, BasicInfoState>(
+      builder: (context, state) {
+        final cubit = context.read<BasicInfoCubit>();
+        return _BasicInfoForm(cubit: cubit, state: state);
+      },
+    );
+  }
+}
+
+class _BasicInfoForm extends StatefulWidget {
+  const _BasicInfoForm({required this.cubit, required this.state});
+
+  final BasicInfoCubit cubit;
+  final BasicInfoState state;
+
+  @override
+  State<_BasicInfoForm> createState() => _BasicInfoFormState();
+}
+
+class _BasicInfoFormState extends State<_BasicInfoForm> {
   final _formKey = GlobalKey<FormState>();
   final _ageController = TextEditingController();
   final _heightController = TextEditingController();
@@ -23,6 +52,22 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
   final List<String> _genderOptions = ['Male', 'Female'];
 
   final List<String> _fitnessLevelOptions = ['Beginner', 'Intermediate', 'Advanced', 'Athlete'];
+
+  @override
+  void initState() {
+    super.initState();
+    // Initialize form fields with cubit state if available
+    widget.state.maybeWhen(
+      loaded: (age, gender, height, weight, fitnessLevel) {
+        _ageController.text = age?.toString() ?? '';
+        _selectedGender = gender;
+        _heightController.text = height?.toString() ?? '';
+        _weightController.text = weight?.toString() ?? '';
+        _selectedFitnessLevel = fitnessLevel;
+      },
+      orElse: () {},
+    );
+  }
 
   @override
   void dispose() {
@@ -116,6 +161,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                             setState(() {
                               _selectedGender = value;
                             });
+                            widget.cubit.updateGender(value);
                           },
                           validator: (value) {
                             if (value == null) {
@@ -189,6 +235,7 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
                             setState(() {
                               _selectedFitnessLevel = value;
                             });
+                            widget.cubit.updateFitnessLevel(value);
                           },
                           validator: (value) {
                             if (value == null) {
@@ -234,18 +281,14 @@ class _BasicInfoPageState extends State<BasicInfoPage> {
 
   void _submitForm() {
     if (_formKey.currentState!.validate()) {
-      // TODO: Save basic info and navigate to fitness goals page
-      // For now, just print the data and navigate to goals page
+      // Update cubit with all form data
+      widget.cubit.updateAge(int.parse(_ageController.text));
+      widget.cubit.updateGender(_selectedGender);
+      widget.cubit.updateHeight(int.parse(_heightController.text));
+      widget.cubit.updateWeight(double.parse(_weightController.text));
+      widget.cubit.updateFitnessLevel(_selectedFitnessLevel);
 
-      final basicInfo = {
-        'age': int.parse(_ageController.text),
-        'gender': _selectedGender,
-        'height': int.parse(_heightController.text),
-        'weight': double.parse(_weightController.text),
-        'fitnessLevel': _selectedFitnessLevel,
-      };
-
-      DebugLogger.debug('Basic Info: $basicInfo');
+      DebugLogger.debug('Basic Info: ${widget.cubit.basicInfoData}');
 
       // Navigate to fitness goals page
       context.go('/onboarding/goals');
