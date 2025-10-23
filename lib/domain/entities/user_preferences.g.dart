@@ -105,14 +105,20 @@ const _$EquipmentEnumMap = {
 const _$WorkoutTypeEnumMap = {
   WorkoutType.strength: 'strength',
   WorkoutType.cardio: 'cardio',
-  WorkoutType.yoga: 'yoga',
   WorkoutType.pilates: 'pilates',
   WorkoutType.crossfit: 'crossfit',
   WorkoutType.bodyweight: 'bodyweight',
   WorkoutType.stretching: 'stretching',
-  WorkoutType.sports: 'sports',
   WorkoutType.dance: 'dance',
   WorkoutType.martialArts: 'martialArts',
+  WorkoutType.running: 'running',
+  WorkoutType.cycling: 'cycling',
+  WorkoutType.mountainBiking: 'mountainBiking',
+  WorkoutType.surfing: 'surfing',
+  WorkoutType.skiing: 'skiing',
+  WorkoutType.swimming: 'swimming',
+  WorkoutType.hiking: 'hiking',
+  WorkoutType.rockClimbing: 'rockClimbing',
 };
 
 const _$FitnessLevelEnumMap = {
