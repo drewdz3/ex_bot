@@ -1,4 +1,3 @@
-import 'package:ex_bot/domain/repositories/auth_repository_impl.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
