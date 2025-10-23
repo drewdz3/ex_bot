@@ -11,15 +11,6 @@ class DietaryPreferencesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _DietaryPreferencesView();
-  }
-}
-
-class _DietaryPreferencesView extends StatelessWidget {
-  const _DietaryPreferencesView();
-
-  @override
-  Widget build(BuildContext context) {
     return BlocBuilder<DietaryPreferencesCubit, DietaryPreferencesState>(
       builder: (context, state) {
         final cubit = context.read<DietaryPreferencesCubit>();
