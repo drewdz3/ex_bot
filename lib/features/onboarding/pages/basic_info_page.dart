@@ -1,9 +1,9 @@
-import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ex_bot/features/onboarding/cubits/basic_info_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/basic_info_state.dart';
 
 /// Basic bio information collection page
 class BasicInfoPage extends StatelessWidget {
@@ -11,74 +11,50 @@ class BasicInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _BasicInfoView();
-  }
-}
-
-class _BasicInfoView extends StatelessWidget {
-  const _BasicInfoView();
-
-  @override
-  Widget build(BuildContext context) {
     return BlocBuilder<BasicInfoCubit, BasicInfoState>(
       builder: (context, state) {
         final cubit = context.read<BasicInfoCubit>();
-        return _BasicInfoForm(cubit: cubit, state: state);
+
+        // Initialize if needed
+        if (state is BasicInfoInitial) {
+          cubit.initialize();
+        }
+
+        // Gender options for health and fitness calculations (BMI, metabolic rate, etc.)
+        const genderOptions = ['Male', 'Female'];
+        const fitnessLevelOptions = ['Beginner', 'Intermediate', 'Advanced', 'Athlete'];
+
+        return _buildForm(context, cubit, state, genderOptions, fitnessLevelOptions);
       },
     );
   }
-}
 
-class _BasicInfoForm extends StatefulWidget {
-  const _BasicInfoForm({required this.cubit, required this.state});
+  Widget _buildForm(
+    BuildContext context,
+    BasicInfoCubit cubit,
+    BasicInfoState state,
+    List<String> genderOptions,
+    List<String> fitnessLevelOptions,
+  ) {
+    final formKey = GlobalKey<FormState>();
 
-  final BasicInfoCubit cubit;
-  final BasicInfoState state;
+    // Get current values from state
+    String? currentAge;
+    String? currentGender;
+    String? currentHeight;
+    String? currentWeight;
+    String? currentFitnessLevel;
+    bool complete = false;
 
-  @override
-  State<_BasicInfoForm> createState() => _BasicInfoFormState();
-}
+    if (state is BasicInfoLoaded) {
+      currentAge = state.age?.toString();
+      currentGender = state.gender;
+      currentHeight = state.heightCm?.toString();
+      currentWeight = state.weightKg?.toString();
+      currentFitnessLevel = state.fitnessLevel;
+      complete = state.complete;
+    }
 
-class _BasicInfoFormState extends State<_BasicInfoForm> {
-  final _formKey = GlobalKey<FormState>();
-  final _ageController = TextEditingController();
-  final _heightController = TextEditingController();
-  final _weightController = TextEditingController();
-
-  String? _selectedGender;
-  String? _selectedFitnessLevel;
-
-  // Gender options for health and fitness calculations (BMI, metabolic rate, etc.)
-  final List<String> _genderOptions = ['Male', 'Female'];
-
-  final List<String> _fitnessLevelOptions = ['Beginner', 'Intermediate', 'Advanced', 'Athlete'];
-
-  @override
-  void initState() {
-    super.initState();
-    // Initialize form fields with cubit state if available
-    widget.state.maybeWhen(
-      loaded: (age, gender, height, weight, fitnessLevel) {
-        _ageController.text = age?.toString() ?? '';
-        _selectedGender = gender;
-        _heightController.text = height?.toString() ?? '';
-        _weightController.text = weight?.toString() ?? '';
-        _selectedFitnessLevel = fitnessLevel;
-      },
-      orElse: () {},
-    );
-  }
-
-  @override
-  void dispose() {
-    _ageController.dispose();
-    _heightController.dispose();
-    _weightController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Basic Information'),
@@ -89,7 +65,7 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
       ),
       body: SafeArea(
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Padding(
             padding: const EdgeInsets.all(24.0),
             child: Column(
@@ -124,7 +100,7 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
                       children: [
                         // Age input
                         TextFormField(
-                          controller: _ageController,
+                          initialValue: currentAge ?? '',
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             labelText: 'Age',
@@ -132,6 +108,10 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
                             border: OutlineInputBorder(),
                             suffixText: 'years',
                           ),
+                          onChanged: (value) {
+                            final age = int.tryParse(value);
+                            cubit.updateAge(age);
+                          },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your age';
@@ -148,21 +128,16 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
 
                         // Gender dropdown
                         DropdownButtonFormField<String>(
-                          initialValue: _selectedGender,
+                          initialValue: currentGender,
                           decoration: const InputDecoration(
                             labelText: 'Gender',
                             helperText: 'Used for accurate BMI and fitness calculations',
                             border: OutlineInputBorder(),
                           ),
-                          items: _genderOptions.map((String gender) {
+                          items: genderOptions.map((String gender) {
                             return DropdownMenuItem<String>(value: gender, child: Text(gender));
                           }).toList(),
-                          onChanged: (String? value) {
-                            setState(() {
-                              _selectedGender = value;
-                            });
-                            widget.cubit.updateGender(value);
-                          },
+                          onChanged: cubit.updateGender,
                           validator: (value) {
                             if (value == null) {
                               return 'Please select your gender';
@@ -175,7 +150,7 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
 
                         // Height input
                         TextFormField(
-                          controller: _heightController,
+                          initialValue: currentHeight ?? '',
                           keyboardType: TextInputType.number,
                           decoration: const InputDecoration(
                             labelText: 'Height',
@@ -183,6 +158,10 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
                             border: OutlineInputBorder(),
                             suffixText: 'cm',
                           ),
+                          onChanged: (value) {
+                            final height = int.tryParse(value);
+                            cubit.updateHeight(height);
+                          },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your height';
@@ -199,7 +178,7 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
 
                         // Weight input
                         TextFormField(
-                          controller: _weightController,
+                          initialValue: currentWeight ?? '',
                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
                           decoration: const InputDecoration(
                             labelText: 'Weight',
@@ -207,6 +186,10 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
                             border: OutlineInputBorder(),
                             suffixText: 'kg',
                           ),
+                          onChanged: (value) {
+                            final weight = double.tryParse(value);
+                            cubit.updateWeight(weight);
+                          },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
                               return 'Please enter your weight';
@@ -223,20 +206,15 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
 
                         // Fitness level dropdown
                         DropdownButtonFormField<String>(
-                          initialValue: _selectedFitnessLevel,
+                          initialValue: currentFitnessLevel,
                           decoration: const InputDecoration(
                             labelText: 'Current Fitness Level',
                             border: OutlineInputBorder(),
                           ),
-                          items: _fitnessLevelOptions.map((String level) {
+                          items: fitnessLevelOptions.map((String level) {
                             return DropdownMenuItem<String>(value: level, child: Text(level));
                           }).toList(),
-                          onChanged: (String? value) {
-                            setState(() {
-                              _selectedFitnessLevel = value;
-                            });
-                            widget.cubit.updateFitnessLevel(value);
-                          },
+                          onChanged: cubit.updateFitnessLevel,
                           validator: (value) {
                             if (value == null) {
                               return 'Please select your fitness level';
@@ -255,7 +233,7 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
                 SizedBox(
                   width: double.infinity,
                   child: ElevatedButton(
-                    onPressed: _submitForm,
+                    onPressed: complete ? () => _submitForm(context, formKey, cubit) : null,
                     style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -279,17 +257,9 @@ class _BasicInfoFormState extends State<_BasicInfoForm> {
     );
   }
 
-  void _submitForm() {
-    if (_formKey.currentState!.validate()) {
-      // Update cubit with all form data
-      widget.cubit.updateAge(int.parse(_ageController.text));
-      widget.cubit.updateGender(_selectedGender);
-      widget.cubit.updateHeight(int.parse(_heightController.text));
-      widget.cubit.updateWeight(double.parse(_weightController.text));
-      widget.cubit.updateFitnessLevel(_selectedFitnessLevel);
-
-      DebugLogger.debug('Basic Info: ${widget.cubit.basicInfoData}');
-
+  void _submitForm(BuildContext context, GlobalKey<FormState> formKey, BasicInfoCubit cubit) {
+    if (formKey.currentState!.validate()) {
+      cubit.saveChanges();
       // Navigate to fitness goals page
       context.go('/onboarding/goals');
     }
