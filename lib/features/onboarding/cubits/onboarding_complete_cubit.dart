@@ -5,12 +5,12 @@ import 'package:injectable/injectable.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:ex_bot/domain/entities/user_preferences.dart';
 
-part 'onboarding_cubit.freezed.dart';
+part 'onboarding_complete_cubit.freezed.dart';
 
-/// Shared cubit for managing the overall onboarding process
+/// Cubit for managing the onboarding completion process
 @injectable
-class OnboardingCubit extends Cubit<OnboardingState> {
-  OnboardingCubit() : super(const OnboardingState.initial());
+class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
+  OnboardingCompleteCubit() : super(const OnboardingCompleteState.initial());
 
   // Basic info data storage
   String? _userId;
@@ -49,16 +49,16 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     _weightKg = weightKg;
     _fitnessLevel = fitnessLevel;
 
-    DebugLogger.debug('(OnboardingCubit) Basic info saved');
-    emit(const OnboardingState.basicInfoSaved());
+    DebugLogger.debug('(OnboardingCompleteCubit) Basic info saved');
+    emit(const OnboardingCompleteState.basicInfoSaved());
   }
 
   /// Save fitness goals data
   void saveFitnessGoals(List<String> goals) {
     _selectedGoals = List.from(goals);
 
-    DebugLogger.debug('(OnboardingCubit) Fitness goals saved: $_selectedGoals');
-    emit(const OnboardingState.fitnessGoalsSaved());
+    DebugLogger.debug('(OnboardingCompleteCubit) Fitness goals saved: $_selectedGoals');
+    emit(const OnboardingCompleteState.fitnessGoalsSaved());
   }
 
   /// Save workout preferences data
@@ -73,8 +73,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     _workoutsPerWeek = workoutsPerWeek;
     _workoutDurationMinutes = workoutDurationMinutes;
 
-    DebugLogger.debug('(OnboardingCubit) Workout preferences saved');
-    emit(const OnboardingState.workoutPreferencesSaved());
+    DebugLogger.debug('(OnboardingCompleteCubit) Workout preferences saved');
+    emit(const OnboardingCompleteState.workoutPreferencesSaved());
   }
 
   /// Save physical limitations data
@@ -82,14 +82,14 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     _healthConditions = List.from(healthConditions);
     _dietaryRestrictions = List.from(dietaryRestrictions);
 
-    DebugLogger.debug('(OnboardingCubit) Physical limitations saved');
-    emit(const OnboardingState.physicalLimitationsSaved());
+    DebugLogger.debug('(OnboardingCompleteCubit) Physical limitations saved');
+    emit(const OnboardingCompleteState.physicalLimitationsSaved());
   }
 
   /// Complete the entire onboarding process and save all data
   Future<void> completeOnboarding() async {
     try {
-      emit(const OnboardingState.saving());
+      emit(const OnboardingCompleteState.saving());
 
       // Map string goals to FitnessGoal enum
       final fitnessGoals = _mapGoalsToEnum(_selectedGoals);
@@ -118,13 +118,13 @@ class OnboardingCubit extends Cubit<OnboardingState> {
       // TODO: Save to repository/backend
       // await _userPreferencesRepository.savePreferences(userPreferences);
 
-      DebugLogger.success('(OnboardingCubit) Onboarding completed successfully');
+      DebugLogger.success('(OnboardingCompleteCubit) Onboarding completed successfully');
       DebugLogger.debug('Final preferences: ${userPreferences.toJson()}');
 
-      emit(OnboardingState.completed(userPreferences));
+      emit(OnboardingCompleteState.completed(userPreferences));
     } catch (e) {
-      DebugLogger.error('(OnboardingCubit) Failed to complete onboarding: $e');
-      emit(OnboardingState.error(e.toString()));
+      DebugLogger.error('(OnboardingCompleteCubit) Failed to complete onboarding: $e');
+      emit(OnboardingCompleteState.error(e.toString()));
     }
   }
 
@@ -204,8 +204,8 @@ class OnboardingCubit extends Cubit<OnboardingState> {
     _healthConditions.clear();
     _dietaryRestrictions.clear();
 
-    emit(const OnboardingState.initial());
-    DebugLogger.debug('(OnboardingCubit) Onboarding data reset');
+    emit(const OnboardingCompleteState.initial());
+    DebugLogger.debug('(OnboardingCompleteCubit) Onboarding data reset');
   }
 
   /// Get summary of all collected data
@@ -231,15 +231,15 @@ class OnboardingCubit extends Cubit<OnboardingState> {
   }
 }
 
-/// State for the onboarding process
+/// State for the onboarding completion process
 @freezed
-abstract class OnboardingState with _$OnboardingState {
-  const factory OnboardingState.initial() = _Initial;
-  const factory OnboardingState.basicInfoSaved() = _BasicInfoSaved;
-  const factory OnboardingState.fitnessGoalsSaved() = _FitnessGoalsSaved;
-  const factory OnboardingState.workoutPreferencesSaved() = _WorkoutPreferencesSaved;
-  const factory OnboardingState.physicalLimitationsSaved() = _PhysicalLimitationsSaved;
-  const factory OnboardingState.saving() = _Saving;
-  const factory OnboardingState.completed(UserPreferences preferences) = _Completed;
-  const factory OnboardingState.error(String message) = _Error;
+abstract class OnboardingCompleteState with _$OnboardingCompleteState {
+  const factory OnboardingCompleteState.initial() = _Initial;
+  const factory OnboardingCompleteState.basicInfoSaved() = _BasicInfoSaved;
+  const factory OnboardingCompleteState.fitnessGoalsSaved() = _FitnessGoalsSaved;
+  const factory OnboardingCompleteState.workoutPreferencesSaved() = _WorkoutPreferencesSaved;
+  const factory OnboardingCompleteState.physicalLimitationsSaved() = _PhysicalLimitationsSaved;
+  const factory OnboardingCompleteState.saving() = _Saving;
+  const factory OnboardingCompleteState.completed(UserPreferences preferences) = _Completed;
+  const factory OnboardingCompleteState.error(String message) = _Error;
 }

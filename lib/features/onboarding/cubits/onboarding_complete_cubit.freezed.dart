@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'onboarding_cubit.dart';
+part of 'onboarding_complete_cubit.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -12,7 +12,7 @@ part of 'onboarding_cubit.dart';
 // dart format off
 T _$identity<T>(T value) => value;
 /// @nodoc
-mixin _$OnboardingState {
+mixin _$OnboardingCompleteState {
 
 
 
@@ -20,7 +20,7 @@ mixin _$OnboardingState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingState);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingCompleteState);
 }
 
 
@@ -29,20 +29,20 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState()';
+  return 'OnboardingCompleteState()';
 }
 
 
 }
 
 /// @nodoc
-class $OnboardingStateCopyWith<$Res>  {
-$OnboardingStateCopyWith(OnboardingState _, $Res Function(OnboardingState) __);
+class $OnboardingCompleteStateCopyWith<$Res>  {
+$OnboardingCompleteStateCopyWith(OnboardingCompleteState _, $Res Function(OnboardingCompleteState) __);
 }
 
 
-/// Adds pattern-matching-related methods to [OnboardingState].
-extension OnboardingStatePatterns on OnboardingState {
+/// Adds pattern-matching-related methods to [OnboardingCompleteState].
+extension OnboardingCompleteStatePatterns on OnboardingCompleteState {
 /// A variant of `map` that fallback to returning `orElse`.
 ///
 /// It is equivalent to doing:
@@ -216,7 +216,7 @@ return error(_that.message);case _:
 /// @nodoc
 
 
-class _Initial implements OnboardingState {
+class _Initial implements OnboardingCompleteState {
   const _Initial();
   
 
@@ -236,7 +236,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.initial()';
+  return 'OnboardingCompleteState.initial()';
 }
 
 
@@ -248,7 +248,7 @@ String toString() {
 /// @nodoc
 
 
-class _BasicInfoSaved implements OnboardingState {
+class _BasicInfoSaved implements OnboardingCompleteState {
   const _BasicInfoSaved();
   
 
@@ -268,7 +268,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.basicInfoSaved()';
+  return 'OnboardingCompleteState.basicInfoSaved()';
 }
 
 
@@ -280,7 +280,7 @@ String toString() {
 /// @nodoc
 
 
-class _FitnessGoalsSaved implements OnboardingState {
+class _FitnessGoalsSaved implements OnboardingCompleteState {
   const _FitnessGoalsSaved();
   
 
@@ -300,7 +300,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.fitnessGoalsSaved()';
+  return 'OnboardingCompleteState.fitnessGoalsSaved()';
 }
 
 
@@ -312,7 +312,7 @@ String toString() {
 /// @nodoc
 
 
-class _WorkoutPreferencesSaved implements OnboardingState {
+class _WorkoutPreferencesSaved implements OnboardingCompleteState {
   const _WorkoutPreferencesSaved();
   
 
@@ -332,7 +332,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.workoutPreferencesSaved()';
+  return 'OnboardingCompleteState.workoutPreferencesSaved()';
 }
 
 
@@ -344,7 +344,7 @@ String toString() {
 /// @nodoc
 
 
-class _PhysicalLimitationsSaved implements OnboardingState {
+class _PhysicalLimitationsSaved implements OnboardingCompleteState {
   const _PhysicalLimitationsSaved();
   
 
@@ -364,7 +364,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.physicalLimitationsSaved()';
+  return 'OnboardingCompleteState.physicalLimitationsSaved()';
 }
 
 
@@ -376,7 +376,7 @@ String toString() {
 /// @nodoc
 
 
-class _Saving implements OnboardingState {
+class _Saving implements OnboardingCompleteState {
   const _Saving();
   
 
@@ -396,7 +396,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingState.saving()';
+  return 'OnboardingCompleteState.saving()';
 }
 
 
@@ -408,13 +408,13 @@ String toString() {
 /// @nodoc
 
 
-class _Completed implements OnboardingState {
+class _Completed implements OnboardingCompleteState {
   const _Completed(this.preferences);
   
 
  final  UserPreferences preferences;
 
-/// Create a copy of OnboardingState
+/// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -433,14 +433,14 @@ int get hashCode => Object.hash(runtimeType,preferences);
 
 @override
 String toString() {
-  return 'OnboardingState.completed(preferences: $preferences)';
+  return 'OnboardingCompleteState.completed(preferences: $preferences)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$CompletedCopyWith<$Res> implements $OnboardingStateCopyWith<$Res> {
+abstract mixin class _$CompletedCopyWith<$Res> implements $OnboardingCompleteStateCopyWith<$Res> {
   factory _$CompletedCopyWith(_Completed value, $Res Function(_Completed) _then) = __$CompletedCopyWithImpl;
 @useResult
 $Res call({
@@ -459,7 +459,7 @@ class __$CompletedCopyWithImpl<$Res>
   final _Completed _self;
   final $Res Function(_Completed) _then;
 
-/// Create a copy of OnboardingState
+/// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? preferences = null,}) {
   return _then(_Completed(
@@ -468,7 +468,7 @@ as UserPreferences,
   ));
 }
 
-/// Create a copy of OnboardingState
+/// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @override
 @pragma('vm:prefer-inline')
@@ -483,13 +483,13 @@ $UserPreferencesCopyWith<$Res> get preferences {
 /// @nodoc
 
 
-class _Error implements OnboardingState {
+class _Error implements OnboardingCompleteState {
   const _Error(this.message);
   
 
  final  String message;
 
-/// Create a copy of OnboardingState
+/// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
@@ -508,14 +508,14 @@ int get hashCode => Object.hash(runtimeType,message);
 
 @override
 String toString() {
-  return 'OnboardingState.error(message: $message)';
+  return 'OnboardingCompleteState.error(message: $message)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class _$ErrorCopyWith<$Res> implements $OnboardingStateCopyWith<$Res> {
+abstract mixin class _$ErrorCopyWith<$Res> implements $OnboardingCompleteStateCopyWith<$Res> {
   factory _$ErrorCopyWith(_Error value, $Res Function(_Error) _then) = __$ErrorCopyWithImpl;
 @useResult
 $Res call({
@@ -534,7 +534,7 @@ class __$ErrorCopyWithImpl<$Res>
   final _Error _self;
   final $Res Function(_Error) _then;
 
-/// Create a copy of OnboardingState
+/// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
   return _then(_Error(

@@ -1,14 +1,26 @@
-    import 'package:flutter/material.dart';
-    import 'package:go_router/go_router.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 
-    /// Welcome page for new users after authentication
-    class WelcomePage extends StatelessWidget {
-      const WelcomePage({super.key, required this.givenName});
+import 'package:ex_bot/features/onboarding/cubits/welcome_cubit.dart';
 
-      final String givenName;
+/// Welcome page for new users after authentication
+class WelcomePage extends StatelessWidget {
+  const WelcomePage({super.key, required this.givenName});
 
-      @override
-      Widget build(BuildContext context) {
+  final String givenName;
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<WelcomeCubit, WelcomeState>(
+      builder: (context, state) {
+        final cubit = context.read<WelcomeCubit>();
+
+        // Initialize with the given name
+        WidgetsBinding.instance.addPostFrameCallback((_) {
+          cubit.initialize(givenName);
+        });
+
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -22,16 +34,10 @@
                     width: 120,
                     height: 120,
                     decoration: BoxDecoration(
-                      color: Theme.of(
-                        context,
-                      ).primaryColor.withValues(alpha: 0.1),
+                      color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
                       shape: BoxShape.circle,
                     ),
-                    child: Icon(
-                      Icons.fitness_center,
-                      size: 60,
-                      color: Theme.of(context).primaryColor,
-                    ),
+                    child: Icon(Icons.fitness_center, size: 60, color: Theme.of(context).primaryColor),
                   ),
 
                   const SizedBox(height: 32),
@@ -39,9 +45,7 @@
                   // Welcome text
                   Text(
                     'Welcome to ExBot, $givenName! 👋',
-                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
+                    style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
 
@@ -49,9 +53,7 @@
 
                   Text(
                     'Your AI-powered fitness coach is ready to help you achieve your fitness goals.',
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
+                    style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),
 
@@ -66,22 +68,19 @@
                           _FeatureItem(
                             icon: Icons.psychology,
                             title: 'Personalized Coaching',
-                            description:
-                                'AI-powered guidance tailored to your needs',
+                            description: 'AI-powered guidance tailored to your needs',
                           ),
                           const SizedBox(height: 16),
                           _FeatureItem(
                             icon: Icons.track_changes,
                             title: 'Progress Tracking',
-                            description:
-                                'Monitor your fitness journey over time',
+                            description: 'Monitor your fitness journey over time',
                           ),
                           const SizedBox(height: 16),
                           _FeatureItem(
                             icon: Icons.restaurant,
                             title: 'Nutrition Guidance',
-                            description:
-                                'Meal planning and dietary recommendations',
+                            description: 'Meal planning and dietary recommendations',
                           ),
                         ],
                       ),
@@ -94,27 +93,25 @@
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => context.go('/onboarding'),
+                      onPressed: () {
+                        cubit.startOnboarding();
+                        context.go('/onboarding');
+                      },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12),
-                        ),
+                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text(
-                        'Get Started',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                        ),
-                      ),
+                      child: const Text('Get Started', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
                     ),
                   ),
 
                   const SizedBox(height: 16),
 
                   TextButton(
-                    onPressed: () => context.go('/chat'),
+                    onPressed: () {
+                      cubit.skipOnboarding();
+                      context.go('/chat');
+                    },
                     child: const Text('Skip for now'),
                   ),
                 ],
@@ -122,59 +119,43 @@
             ),
           ),
         );
-      }
-    }
+      },
+    );
+  }
+}
 
-    class _FeatureItem extends StatelessWidget {
-      const _FeatureItem({
-        required this.icon,
-        required this.title,
-        required this.description,
-      });
+class _FeatureItem extends StatelessWidget {
+  const _FeatureItem({required this.icon, required this.title, required this.description});
 
-      final IconData icon;
-      final String title;
-      final String description;
+  final IconData icon;
+  final String title;
+  final String description;
 
-      @override
-      Widget build(BuildContext context) {
-        return Row(
-          children: [
-            Container(
-              width: 48,
-              height: 48,
-              decoration: BoxDecoration(
-                color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
-                borderRadius: BorderRadius.circular(12),
-              ),
-              child: Icon(
-                icon,
-                color: Theme.of(context).primaryColor,
-                size: 24,
-              ),
-            ),
-            const SizedBox(width: 16),
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    title,
-                    style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    description,
-                    style: Theme.of(
-                      context,
-                    ).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        );
-      }
-    }
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        Container(
+          width: 48,
+          height: 48,
+          decoration: BoxDecoration(
+            color: Theme.of(context).primaryColor.withValues(alpha: 0.1),
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Icon(icon, color: Theme.of(context).primaryColor, size: 24),
+        ),
+        const SizedBox(width: 16),
+        Expanded(
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(title, style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              Text(description, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600])),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}

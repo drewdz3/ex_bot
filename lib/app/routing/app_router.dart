@@ -1,4 +1,7 @@
-import 'package:ex_bot/features/onboarding/cubits/onboarding_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/basic_info_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/fitness_goals_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/welcome_cubit.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
@@ -34,18 +37,26 @@ final GoRouter appRouter = GoRouter(
       path: '/welcome/:givenName',
       builder: (context, state) {
         final givenName = state.pathParameters['givenName'] ?? 'User';
-        return WelcomePage(givenName: givenName);
+        return BlocProvider(
+          create: (_) => getIt<WelcomeCubit>()..initialize(givenName),
+          child: WelcomePage(givenName: givenName),
+        );
       },
     ),
 
     GoRoute(
       path: '/onboarding',
       builder: (context, state) {
-        return BlocProvider(create: (_) => getIt<OnboardingCubit>(), child: const BasicInfoPage());
+        return BlocProvider(create: (_) => getIt<BasicInfoCubit>(), child: const BasicInfoPage());
       },
     ),
 
-    GoRoute(path: '/onboarding/goals', builder: (context, state) => const FitnessGoalsPage()),
+    GoRoute(
+      path: '/onboarding/goals',
+      builder: (context, state) {
+        return BlocProvider(create: (_) => getIt<FitnessGoalsCubit>(), child: const FitnessGoalsPage());
+      },
+    ),
 
     GoRoute(
       path: '/onboarding/preferences',
@@ -75,7 +86,11 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    GoRoute(path: '/onboarding/complete', builder: (context, state) => const OnboardingCompletePage()),
+    GoRoute(
+      path: '/onboarding/complete',
+      builder: (context, state) =>
+          BlocProvider(create: (_) => getIt<OnboardingCompleteCubit>(), child: const OnboardingCompletePage()),
+    ),
 
     GoRoute(path: '/chat', builder: (context, state) => const AIChatTestPage()),
   ],
