@@ -18,26 +18,28 @@ class WorkoutPreferencesCubit extends Cubit<WorkoutPreferencesState> {
   Future<void> initialize() async {
     workoutTypes = await _lookupRepository.getWorkoutTypes();
     equipment = await _lookupRepository.getEquipment();
-    emit(const WorkoutPreferencesState.loaded(workoutTypes: [], availableEquipment: []));
+    emit(const WorkoutPreferencesState.loaded(workoutTypes: {}, availableEquipment: {}));
   }
 
   /// Update selected workout types
-  void updateWorkoutTypes(List<String> workoutTypes) {
+  void updateWorkoutTypes(Set<String> selectedWorkouts) {
     if (state is Loaded) {
       final loaded = (state as Loaded);
-      emit(WorkoutPreferencesState.loaded(workoutTypes: workoutTypes, availableEquipment: loaded.availableEquipment));
+      emit(
+        WorkoutPreferencesState.loaded(workoutTypes: selectedWorkouts, availableEquipment: loaded.availableEquipment),
+      );
     } else {
-      emit(WorkoutPreferencesState.loaded(workoutTypes: workoutTypes, availableEquipment: const []));
+      emit(WorkoutPreferencesState.loaded(workoutTypes: selectedWorkouts, availableEquipment: const {}));
     }
   }
 
   /// Update available equipment
-  void updateEquipment(List<String> equipment) {
+  void updateEquipment(Set<String> selectedEquipment) {
     if (state is Loaded) {
       final loaded = (state as Loaded);
-      emit(WorkoutPreferencesState.loaded(workoutTypes: loaded.workoutTypes, availableEquipment: equipment));
+      emit(WorkoutPreferencesState.loaded(workoutTypes: loaded.workoutTypes, availableEquipment: selectedEquipment));
     } else {
-      emit(WorkoutPreferencesState.loaded(workoutTypes: const [], availableEquipment: equipment));
+      emit(WorkoutPreferencesState.loaded(workoutTypes: const {}, availableEquipment: selectedEquipment));
     }
   }
 

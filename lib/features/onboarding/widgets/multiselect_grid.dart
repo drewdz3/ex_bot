@@ -1,14 +1,19 @@
 import 'package:ex_bot/core/utils/icon_lookup.dart';
-import 'package:ex_bot/features/onboarding/cubits/workout_preferences_cubit.dart';
+import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/widgets/selectable_card.dart';
 import 'package:flutter/material.dart';
 
-class ActivitiesGrid extends StatelessWidget {
-  const ActivitiesGrid({required this.cubit, required this.selectedTypes, required this.onSelectionChanged, super.key});
+class MultiselectGrid extends StatelessWidget {
+  const MultiselectGrid({
+    required this.selectedItems,
+    required this.onSelectionChanged,
+    required this.items,
+    super.key,
+  });
 
-  final WorkoutPreferencesCubit cubit;
-  final List<String> selectedTypes;
-  final ValueChanged<List<String>> onSelectionChanged;
+  final Set<String> selectedItems;
+  final ValueChanged<Set<String>> onSelectionChanged;
+  final List<LookupItem> items;
 
   @override
   Widget build(BuildContext context) {
@@ -16,15 +21,15 @@ class ActivitiesGrid extends StatelessWidget {
       shrinkWrap: true,
       physics: const NeverScrollableScrollPhysics(),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.3,
-        crossAxisSpacing: 12,
-        mainAxisSpacing: 12,
+        crossAxisCount: 3,
+        childAspectRatio: 1.1,
+        crossAxisSpacing: 8,
+        mainAxisSpacing: 8,
       ),
-      itemCount: cubit.workoutTypes.length,
+      itemCount: items.length,
       itemBuilder: (context, index) {
-        final option = cubit.workoutTypes[index];
-        final isSelected = selectedTypes.contains(option.id);
+        final option = items[index];
+        final isSelected = selectedItems.contains(option.id);
 
         return SelectableCard(
           isSelected: isSelected,
@@ -34,13 +39,13 @@ class ActivitiesGrid extends StatelessWidget {
             children: [
               Icon(
                 getIconByName(option.icon ?? ''),
-                size: 32,
+                size: 24,
                 color: isSelected ? Theme.of(context).primaryColor : Colors.grey[600],
               ),
-              const SizedBox(height: 8),
+              const SizedBox(height: 4),
               Text(
                 option.name,
-                style: Theme.of(context).textTheme.titleSmall?.copyWith(
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
                   fontWeight: FontWeight.w600,
                   color: isSelected ? Theme.of(context).primaryColor : null,
                 ),
@@ -55,12 +60,12 @@ class ActivitiesGrid extends StatelessWidget {
     );
   }
 
-  void _toggleSelection(String type) {
-    final newSelection = List<String>.from(selectedTypes);
-    if (newSelection.contains(type)) {
-      newSelection.remove(type);
+  void _toggleSelection(String equipment) {
+    final newSelection = Set<String>.from(selectedItems);
+    if (newSelection.contains(equipment)) {
+      newSelection.remove(equipment);
     } else {
-      newSelection.add(type);
+      newSelection.add(equipment);
     }
     onSelectionChanged(newSelection);
   }

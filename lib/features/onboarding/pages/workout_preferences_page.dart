@@ -1,6 +1,6 @@
-import 'package:ex_bot/features/onboarding/widgets/equipment_grid.dart';
+import 'package:ex_bot/domain/entities/lookup_item.dart';
+import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
 import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
-import 'package:ex_bot/features/onboarding/widgets/workout_types_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,8 +18,8 @@ class WorkoutPreferencesPage extends StatelessWidget {
     return BlocBuilder<WorkoutPreferencesCubit, WorkoutPreferencesState>(
       builder: (context, state) {
         final cubit = context.read<WorkoutPreferencesCubit>();
-        final currentWorkoutTypes = (state is Loaded) ? state.workoutTypes : <String>[];
-        final currentEquipment = (state is Loaded) ? state.availableEquipment : <String>[];
+        final Set<String> currentWorkoutTypes = (state is Loaded) ? state.workoutTypes : {};
+        final Set<String> currentEquipment = (state is Loaded) ? state.availableEquipment : {};
 
         return Scaffold(
           appBar: AppBar(
@@ -69,10 +69,19 @@ class WorkoutPreferencesPage extends StatelessWidget {
                           // Workout Types Section
                           SectionHeader(title: 'Preferred Workouts', subtitle: 'Select the training styles you enjoy'),
                           const SizedBox(height: 16),
-                          WorkoutTypesGrid(
-                            cubit: cubit,
-                            selectedTypes: currentWorkoutTypes,
+                          MultiselectGrid(
+                            selectedItems: currentWorkoutTypes,
                             onSelectionChanged: cubit.updateWorkoutTypes,
+                            items: cubit.workoutTypes
+                                .map(
+                                  (type) => LookupItem(
+                                    id: type.id,
+                                    name: type.name,
+                                    description: type.description,
+                                    icon: type.icon,
+                                  ),
+                                )
+                                .toList(),
                           ),
 
                           const SizedBox(height: 32),
@@ -83,10 +92,12 @@ class WorkoutPreferencesPage extends StatelessWidget {
                             subtitle: 'What equipment do you have access to?',
                           ),
                           const SizedBox(height: 16),
-                          EquipmentGrid(
-                            cubit: cubit,
-                            selectedEquipment: currentEquipment,
+                          MultiselectGrid(
+                            selectedItems: currentEquipment,
                             onSelectionChanged: cubit.updateEquipment,
+                            items: cubit.equipment
+                                .map((equip) => LookupItem(id: equip.id, name: equip.name, icon: equip.icon))
+                                .toList(),
                           ),
                         ],
                       ),

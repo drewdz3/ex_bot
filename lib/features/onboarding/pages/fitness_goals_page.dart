@@ -1,6 +1,8 @@
 import 'package:ex_bot/core/utils/icon_lookup.dart';
+import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/cubits/fitness_goals_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/fitness_goals_state.dart';
+import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -18,6 +20,9 @@ class FitnessGoalsPage extends StatelessWidget {
         final cubit = context.read<FitnessGoalsCubit>();
 
         _selectedGoals = (state is Loaded) ? state.selectedGoals : <String>{};
+        final goalsList = cubit.fitnessGoals
+            .map((goal) => LookupItem(id: goal.id, name: goal.name, description: goal.description, icon: goal.icon))
+            .toList();
 
         return Scaffold(
           appBar: AppBar(
@@ -60,67 +65,11 @@ class FitnessGoalsPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Expanded(
-                    child: GridView.builder(
-                      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        childAspectRatio: 1.1,
-                        crossAxisSpacing: 12,
-                        mainAxisSpacing: 12,
-                      ),
-                      itemCount: cubit.fitnessGoals.length,
-                      itemBuilder: (context, index) {
-                        final goal = cubit.fitnessGoals[index];
-                        final isSelected = _selectedGoals.contains(goal.id);
-
-                        return GestureDetector(
-                          onTap: () => _toggleSelection(cubit, goal.id),
-                          child: AnimatedContainer(
-                            duration: const Duration(milliseconds: 200),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(12),
-                              border: Border.all(
-                                color: isSelected ? Theme.of(context).primaryColor : Colors.grey[300]!,
-                                width: 1.5,
-                              ),
-                              color: isSelected ? Theme.of(context).primaryColor.withValues(alpha: 0.1) : Colors.white,
-                            ),
-                            child: Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: [
-                                  Container(
-                                    width: 32,
-                                    height: 32,
-                                    decoration: BoxDecoration(
-                                      color: isSelected ? Theme.of(context).primaryColor : Colors.grey[200],
-                                      borderRadius: BorderRadius.circular(8),
-                                    ),
-                                    child: Icon(
-                                      getIconByName(goal.icon),
-                                      color: isSelected ? Colors.white : Colors.grey[600],
-                                      size: 18,
-                                    ),
-                                  ),
-
-                                  const SizedBox(height: 6),
-
-                                  Text(
-                                    goal.name,
-                                    style: Theme.of(context).textTheme.bodySmall?.copyWith(
-                                      fontWeight: FontWeight.w600,
-                                      fontSize: 11,
-                                      color: isSelected ? Theme.of(context).primaryColor : null,
-                                    ),
-                                    textAlign: TextAlign.center,
-                                    maxLines: 2,
-                                    overflow: TextOverflow.ellipsis,
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        );
+                    child: MultiselectGrid(
+                      selectedItems: _selectedGoals,
+                      items: goalsList,
+                      onSelectionChanged: (newSelection) {
+                        cubit.updateSelectedGoals(newSelection.toSet());
                       },
                     ),
                   ),

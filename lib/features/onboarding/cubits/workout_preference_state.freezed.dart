@@ -78,21 +78,21 @@ String toString() {
 
 
 class Loaded implements WorkoutPreferencesState {
-  const Loaded({required final  List<String> workoutTypes, required final  List<String> availableEquipment}): _workoutTypes = workoutTypes,_availableEquipment = availableEquipment;
+  const Loaded({required final  Set<String> workoutTypes, required final  Set<String> availableEquipment}): _workoutTypes = workoutTypes,_availableEquipment = availableEquipment;
   
 
- final  List<String> _workoutTypes;
- List<String> get workoutTypes {
-  if (_workoutTypes is EqualUnmodifiableListView) return _workoutTypes;
+ final  Set<String> _workoutTypes;
+ Set<String> get workoutTypes {
+  if (_workoutTypes is EqualUnmodifiableSetView) return _workoutTypes;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_workoutTypes);
+  return EqualUnmodifiableSetView(_workoutTypes);
 }
 
- final  List<String> _availableEquipment;
- List<String> get availableEquipment {
-  if (_availableEquipment is EqualUnmodifiableListView) return _availableEquipment;
+ final  Set<String> _availableEquipment;
+ Set<String> get availableEquipment {
+  if (_availableEquipment is EqualUnmodifiableSetView) return _availableEquipment;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_availableEquipment);
+  return EqualUnmodifiableSetView(_availableEquipment);
 }
 
 
@@ -126,7 +126,7 @@ abstract mixin class $LoadedCopyWith<$Res> implements $WorkoutPreferencesStateCo
   factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
 @useResult
 $Res call({
- List<String> workoutTypes, List<String> availableEquipment
+ Set<String> workoutTypes, Set<String> availableEquipment
 });
 
 
@@ -146,8 +146,8 @@ class _$LoadedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? workoutTypes = null,Object? availableEquipment = null,}) {
   return _then(Loaded(
 workoutTypes: null == workoutTypes ? _self._workoutTypes : workoutTypes // ignore: cast_nullable_to_non_nullable
-as List<String>,availableEquipment: null == availableEquipment ? _self._availableEquipment : availableEquipment // ignore: cast_nullable_to_non_nullable
-as List<String>,
+as Set<String>,availableEquipment: null == availableEquipment ? _self._availableEquipment : availableEquipment // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 
