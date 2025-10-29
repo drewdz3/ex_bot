@@ -1,3 +1,4 @@
+import 'package:ex_bot/features/onboarding/cubits/workout_schedule_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,10 +24,8 @@ class _WorkoutScheduleView extends StatelessWidget {
     return BlocBuilder<WorkoutScheduleCubit, WorkoutScheduleState>(
       builder: (context, state) {
         final cubit = context.read<WorkoutScheduleCubit>();
-
-        final currentFrequency = state.maybeWhen(loaded: (frequency, _) => frequency, orElse: () => null);
-
-        final currentDuration = state.maybeWhen(loaded: (_, duration) => duration, orElse: () => null);
+        final currentFrequency = (state is Loaded) ? state.frequency : null;
+        final currentDuration = (state is Loaded) ? state.duration : null;
 
         return Scaffold(
           appBar: AppBar(

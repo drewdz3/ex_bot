@@ -54,14 +54,17 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: '/onboarding/goals',
       builder: (context, state) {
-        return BlocProvider(create: (_) => getIt<FitnessGoalsCubit>(), child: const FitnessGoalsPage());
+        return BlocProvider(create: (_) => getIt<FitnessGoalsCubit>()..initialize(), child: FitnessGoalsPage());
       },
     ),
 
     GoRoute(
       path: '/onboarding/preferences',
       builder: (context, state) {
-        return BlocProvider(create: (_) => getIt<WorkoutPreferencesCubit>(), child: const WorkoutPreferencesPage());
+        return BlocProvider(
+          create: (_) => getIt<WorkoutPreferencesCubit>()..initialize(),
+          child: const WorkoutPreferencesPage(),
+        );
       },
     ),
 

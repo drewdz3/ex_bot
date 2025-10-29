@@ -1,16 +1,20 @@
+import 'package:ex_bot/data/models/equipment.dart';
+import 'package:ex_bot/data/models/fitness_goal.dart';
+import 'package:ex_bot/data/models/workout_type.dart';
+import 'package:ex_bot/domain/usecases/get_workout_types_usecase.dart';
+import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:ex_bot/core/utils/debug_logger.dart';
-import 'package:ex_bot/domain/entities/user_preferences.dart';
-
-part 'onboarding_complete_cubit.freezed.dart';
+import 'package:ex_bot/domain/entities/user_profile.dart';
 
 /// Cubit for managing the onboarding completion process
 @injectable
 class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
-  OnboardingCompleteCubit() : super(const OnboardingCompleteState.initial());
+  GetWorkoutTypesUsecase _getWorkoutTypesUsecase;
+
+  OnboardingCompleteCubit(this._getWorkoutTypesUsecase) : super(const OnboardingCompleteState.initial());
 
   // Basic info data storage
   String? _userId;
@@ -91,37 +95,37 @@ class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
     try {
       emit(const OnboardingCompleteState.saving());
 
-      // Map string goals to FitnessGoal enum
-      final fitnessGoals = _mapGoalsToEnum(_selectedGoals);
+      //   // Map string goals to FitnessGoal enum
+      //   final fitnessGoals = _mapGoalsToEnum(_selectedGoals);
 
-      // Map string fitness level to enum
-      final fitnessLevel = _mapFitnessLevelToEnum(_fitnessLevel);
+      //   // Map string fitness level to enum
+      //   final fitnessLevel = _mapFitnessLevelToEnum(_fitnessLevel);
 
-      // Create UserPreferences object with all collected data
-      final userPreferences = UserPreferences(
-        userId: _userId ?? 'unknown',
-        fitnessGoals: fitnessGoals,
-        availableEquipment: _availableEquipment,
-        preferredWorkoutTypes: _workoutTypes,
-        fitnessLevel: fitnessLevel,
-        age: _age,
-        heightCm: _heightCm?.toDouble(),
-        weightKg: _weightKg,
-        dietaryRestrictions: _dietaryRestrictions,
-        medicalConditions: _healthConditions,
-        workoutsPerWeek: _workoutsPerWeek,
-        workoutDurationMinutes: _workoutDurationMinutes,
-        hasCompletedInitialAssessment: true,
-        lastUpdated: DateTime.now(),
-      );
+      //   // Create UserPreferences object with all collected data
+      //   final userPreferences = UserPreferences(
+      //     userId: _userId ?? 'unknown',
+      //     fitnessGoals: fitnessGoals,
+      //     availableEquipment: _availableEquipment,
+      //     preferredWorkoutTypes: _workoutTypes,
+      //     fitnessLevel: fitnessLevel,
+      //     age: _age,
+      //     height: _heightCm?.toDouble(),
+      //     weight: _weightKg,
+      //     dietaryRestrictions: _dietaryRestrictions,
+      //     medicalConditions: _healthConditions,
+      //     workoutsPerWeek: _workoutsPerWeek,
+      //     workoutDurationMinutes: _workoutDurationMinutes,
+      //     hasCompletedInitialAssessment: true,
+      //     lastUpdated: DateTime.now(),
+      //   );
 
-      // TODO: Save to repository/backend
-      // await _userPreferencesRepository.savePreferences(userPreferences);
+      //   // TODO: Save to repository/backend
+      //   // await _userPreferencesRepository.savePreferences(userPreferences);
 
-      DebugLogger.success('(OnboardingCompleteCubit) Onboarding completed successfully');
-      DebugLogger.debug('Final preferences: ${userPreferences.toJson()}');
+      //   DebugLogger.success('(OnboardingCompleteCubit) Onboarding completed successfully');
+      //   DebugLogger.debug('Final preferences: ${userPreferences.toJson()}');
 
-      emit(OnboardingCompleteState.completed(userPreferences));
+      //   emit(OnboardingCompleteState.completed(userPreferences));
     } catch (e) {
       DebugLogger.error('(OnboardingCompleteCubit) Failed to complete onboarding: $e');
       emit(OnboardingCompleteState.error(e.toString()));
@@ -129,64 +133,64 @@ class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
   }
 
   /// Map string goals to FitnessGoal enum
-  List<FitnessGoal> _mapGoalsToEnum(List<String> goals) {
-    final mappedGoals = <FitnessGoal>[];
+  //   List<FitnessGoal> _mapGoalsToEnum(List<String> goals) {
+  //     final mappedGoals = <FitnessGoal>[];
 
-    for (final goal in goals) {
-      switch (goal) {
-        case 'lose_weight':
-          mappedGoals.add(FitnessGoal.loseWeight);
-          break;
-        case 'gain_muscle':
-        case 'build_muscle':
-          mappedGoals.add(FitnessGoal.buildMuscle);
-          break;
-        case 'improve_endurance':
-          mappedGoals.add(FitnessGoal.improveEndurance);
-          break;
-        case 'increase_strength':
-          mappedGoals.add(FitnessGoal.increaseStrength);
-          break;
-        case 'improve_flexibility':
-          mappedGoals.add(FitnessGoal.improveFlexibility);
-          break;
-        case 'general_health':
-          mappedGoals.add(FitnessGoal.stayActive);
-          break;
-        case 'stress_relief':
-          // Map to stayActive as closest match
-          mappedGoals.add(FitnessGoal.stayActive);
-          break;
-        case 'athletic_performance':
-          mappedGoals.add(FitnessGoal.sportSpecific);
-          break;
-        default:
-          DebugLogger.warning('(OnboardingCubit) Unknown fitness goal: $goal');
-          break;
-      }
-    }
+  //     for (final goal in goals) {
+  //       switch (goal) {
+  //         case 'lose_weight':
+  //           mappedGoals.add(FitnessGoal.loseWeight);
+  //           break;
+  //         case 'gain_muscle':
+  //         case 'build_muscle':
+  //           mappedGoals.add(FitnessGoal.buildMuscle);
+  //           break;
+  //         case 'improve_endurance':
+  //           mappedGoals.add(FitnessGoal.improveEndurance);
+  //           break;
+  //         case 'increase_strength':
+  //           mappedGoals.add(FitnessGoal.increaseStrength);
+  //           break;
+  //         case 'improve_flexibility':
+  //           mappedGoals.add(FitnessGoal.improveFlexibility);
+  //           break;
+  //         case 'general_health':
+  //           mappedGoals.add(FitnessGoal.stayActive);
+  //           break;
+  //         case 'stress_relief':
+  //           // Map to stayActive as closest match
+  //           mappedGoals.add(FitnessGoal.stayActive);
+  //           break;
+  //         case 'athletic_performance':
+  //           mappedGoals.add(FitnessGoal.sportSpecific);
+  //           break;
+  //         default:
+  //           DebugLogger.warning('(OnboardingCubit) Unknown fitness goal: $goal');
+  //           break;
+  //       }
+  //     }
 
-    return mappedGoals;
-  }
+  //     return mappedGoals;
+  //   }
 
   /// Map string fitness level to enum
-  FitnessLevel? _mapFitnessLevelToEnum(String? level) {
-    if (level == null) return null;
+  //   FitnessLevel? _mapFitnessLevelToEnum(String? level) {
+  //     if (level == null) return null;
 
-    switch (level.toLowerCase()) {
-      case 'beginner':
-        return FitnessLevel.beginner;
-      case 'intermediate':
-        return FitnessLevel.intermediate;
-      case 'advanced':
-        return FitnessLevel.advanced;
-      case 'athlete':
-        return FitnessLevel.expert;
-      default:
-        DebugLogger.warning('(OnboardingCubit) Unknown fitness level: $level');
-        return FitnessLevel.beginner;
-    }
-  }
+  //     switch (level.toLowerCase()) {
+  //       case 'beginner':
+  //         return FitnessLevel.beginner;
+  //       case 'intermediate':
+  //         return FitnessLevel.intermediate;
+  //       case 'advanced':
+  //         return FitnessLevel.advanced;
+  //       case 'athlete':
+  //         return FitnessLevel.expert;
+  //       default:
+  //         DebugLogger.warning('(OnboardingCubit) Unknown fitness level: $level');
+  //         return FitnessLevel.beginner;
+  //     }
+  //   }
 
   /// Reset all onboarding data
   void resetOnboarding() {
@@ -229,17 +233,4 @@ class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
       'physicalLimitations': {'healthConditions': _healthConditions, 'dietaryRestrictions': _dietaryRestrictions},
     };
   }
-}
-
-/// State for the onboarding completion process
-@freezed
-abstract class OnboardingCompleteState with _$OnboardingCompleteState {
-  const factory OnboardingCompleteState.initial() = _Initial;
-  const factory OnboardingCompleteState.basicInfoSaved() = _BasicInfoSaved;
-  const factory OnboardingCompleteState.fitnessGoalsSaved() = _FitnessGoalsSaved;
-  const factory OnboardingCompleteState.workoutPreferencesSaved() = _WorkoutPreferencesSaved;
-  const factory OnboardingCompleteState.physicalLimitationsSaved() = _PhysicalLimitationsSaved;
-  const factory OnboardingCompleteState.saving() = _Saving;
-  const factory OnboardingCompleteState.completed(UserPreferences preferences) = _Completed;
-  const factory OnboardingCompleteState.error(String message) = _Error;
 }

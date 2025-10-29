@@ -1,10 +1,10 @@
+import 'package:ex_bot/data/models/app_user.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:ex_bot/core/repositories/auth_repository.dart';
+import 'package:ex_bot/domain/repositories/auth_repository.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
-import 'package:ex_bot/domain/entities/app_user.dart';
-import 'package:ex_bot/domain/entities/auth_status.dart';
+import 'package:ex_bot/data/models/auth_status.dart';
 
 /// Cubit for managing authentication state
 @Injectable()
@@ -100,21 +100,21 @@ class LandingCubit extends Cubit<AuthStatus> {
 
   /// Check if user is currently authenticated
   bool get isAuthenticated {
-    return state.whenOrNull(authenticated: (_) => true) ?? false;
+    return (state is Authenticated) ? true : false;
   }
 
   /// Get current authenticated user
   AppUser? get currentUser {
-    return state.whenOrNull(authenticated: (user) => user);
+    return (state is Authenticated) ? (state as Authenticated).user : null;
   }
 
   /// Check if auth is in loading state
   bool get isLoading {
-    return state.whenOrNull(loading: () => true) ?? false;
+    return (state is Loading) ? true : false;
   }
 
   /// Check if there's an error
   String? get errorMessage {
-    return state.whenOrNull(error: (message) => message);
+    return (state is AuthError) ? (state as AuthError).message : null;
   }
 }

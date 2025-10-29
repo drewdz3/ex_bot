@@ -1,20 +1,16 @@
+import 'package:ex_bot/domain/repositories/lookup_repository.dart';
+import 'package:ex_bot/features/onboarding/cubits/welcome_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
-part 'welcome_cubit.freezed.dart';
-
-@freezed
-class WelcomeState with _$WelcomeState {
-  const factory WelcomeState.initial() = _Initial;
-  const factory WelcomeState.ready({required String givenName}) = _Ready;
-}
 
 @injectable
 class WelcomeCubit extends Cubit<WelcomeState> {
-  WelcomeCubit() : super(const WelcomeState.initial());
+  final LookupRepository _lookupRepository;
 
-  void initialize(String givenName) {
+  WelcomeCubit(this._lookupRepository) : super(const WelcomeState.initial());
+
+  Future<void> initialize(String givenName) async {
+    await _lookupRepository.initialize();
     emit(WelcomeState.ready(givenName: givenName));
   }
 

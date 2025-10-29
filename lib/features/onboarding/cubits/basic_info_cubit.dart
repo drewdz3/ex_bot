@@ -1,3 +1,4 @@
+import 'package:ex_bot/domain/repositories/lookup_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'basic_info_state.dart';

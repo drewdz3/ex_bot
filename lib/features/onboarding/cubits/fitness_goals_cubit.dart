@@ -1,25 +1,29 @@
+import 'package:ex_bot/data/models/fitness_goal.dart';
+import 'package:ex_bot/domain/repositories/lookup_repository.dart';
+import 'package:ex_bot/features/onboarding/cubits/fitness_goals_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
-
-part 'fitness_goals_cubit.freezed.dart';
-
-@freezed
-class FitnessGoalsState with _$FitnessGoalsState {
-  const factory FitnessGoalsState.initial() = _Initial;
-  const factory FitnessGoalsState.loaded({required Set<String> selectedGoals}) = _Loaded;
-}
 
 @injectable
 class FitnessGoalsCubit extends Cubit<FitnessGoalsState> {
-  FitnessGoalsCubit() : super(const FitnessGoalsState.initial());
+  final LookupRepository _lookupRepository;
+
+  List<FitnessGoal> fitnessGoals = [];
+
+  FitnessGoalsCubit(this._lookupRepository) : super(const FitnessGoalsState.initial());
 
   void updateSelectedGoals(Set<String> goals) {
     emit(FitnessGoalsState.loaded(selectedGoals: goals));
   }
 
+  Future<void> initialize() async {
+    fitnessGoals = await _lookupRepository.getFitnessGoals();
+    // Simulate any initialization logic if needed
+    emit(const FitnessGoalsState.loaded(selectedGoals: {}));
+  }
+
   void toggleGoal(String goalId) {
-    final currentGoals = state.maybeWhen(loaded: (goals) => Set<String>.from(goals), orElse: () => <String>{});
+    var currentGoals = (state is Loaded) ? (state as Loaded).selectedGoals : <String>{};
 
     if (currentGoals.contains(goalId)) {
       currentGoals.remove(goalId);
@@ -31,10 +35,10 @@ class FitnessGoalsCubit extends Cubit<FitnessGoalsState> {
   }
 
   bool get canContinue {
-    return state.maybeWhen(loaded: (goals) => goals.isNotEmpty, orElse: () => false);
+    return (state is Loaded) ? (state as Loaded).selectedGoals.isNotEmpty : false;
   }
 
   Set<String> get selectedGoals {
-    return state.maybeWhen(loaded: (goals) => goals, orElse: () => <String>{});
+    return (state is Loaded) ? (state as Loaded).selectedGoals : <String>{};
   }
 }
