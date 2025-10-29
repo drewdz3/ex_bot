@@ -22,19 +22,33 @@ import 'package:ex_bot/features/onboarding/pages/welcome_page.dart';
 import 'package:ex_bot/features/onboarding/pages/workout_preferences_page.dart';
 import 'package:ex_bot/features/onboarding/pages/workout_schedule_page.dart';
 
+class RouteConstants {
+  static const String landing = '/';
+  static const String welcome = '/welcome/:givenName';
+  static const String welcomeShort = '/welcome/';
+  static const String onboardingBasicInfo = '/onboarding';
+  static const String onboardingGoals = '/onboarding/goals';
+  static const String onboardingPreferences = '/onboarding/preferences';
+  static const String onboardingSchedule = '/onboarding/schedule';
+  static const String onboardingLimitations = '/onboarding/limitations';
+  static const String onboardingDietary = '/onboarding/dietary';
+  static const String onboardingComplete = '/onboarding/complete';
+  static const String chat = '/chat';
+}
+
 /// App router configuration
 final GoRouter appRouter = GoRouter(
-  initialLocation: '/',
+  initialLocation: RouteConstants.landing,
   routes: [
     GoRoute(
-      path: '/',
+      path: RouteConstants.landing,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<LandingCubit>()..initializeAuth(), child: const LandingPage());
       },
     ),
 
     GoRoute(
-      path: '/welcome/:givenName',
+      path: RouteConstants.welcome,
       builder: (context, state) {
         final givenName = state.pathParameters['givenName'] ?? 'User';
         return BlocProvider(
@@ -45,21 +59,21 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/onboarding',
+      path: RouteConstants.onboardingBasicInfo,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<BasicInfoCubit>(), child: const BasicInfoPage());
       },
     ),
 
     GoRoute(
-      path: '/onboarding/goals',
+      path: RouteConstants.onboardingGoals,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<FitnessGoalsCubit>()..initialize(), child: FitnessGoalsPage());
       },
     ),
 
     GoRoute(
-      path: '/onboarding/preferences',
+      path: RouteConstants.onboardingPreferences,
       builder: (context, state) {
         return BlocProvider(
           create: (_) => getIt<WorkoutPreferencesCubit>()..initialize(),
@@ -69,32 +83,32 @@ final GoRouter appRouter = GoRouter(
     ),
 
     GoRoute(
-      path: '/onboarding/schedule',
+      path: RouteConstants.onboardingSchedule,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<WorkoutScheduleCubit>(), child: const WorkoutSchedulePage());
       },
     ),
 
     GoRoute(
-      path: '/onboarding/limitations',
+      path: RouteConstants.onboardingLimitations,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<HealthLimitationsCubit>(), child: const HealthLimitationsPage());
       },
     ),
 
     GoRoute(
-      path: '/onboarding/dietary',
+      path: RouteConstants.onboardingDietary,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<DietaryPreferencesCubit>(), child: const DietaryPreferencesPage());
       },
     ),
 
     GoRoute(
-      path: '/onboarding/complete',
+      path: RouteConstants.onboardingComplete,
       builder: (context, state) =>
           BlocProvider(create: (_) => getIt<OnboardingCompleteCubit>(), child: const OnboardingCompletePage()),
     ),
 
-    GoRoute(path: '/chat', builder: (context, state) => const AIChatTestPage()),
+    GoRoute(path: RouteConstants.chat, builder: (context, state) => const AIChatTestPage()),
   ],
 );

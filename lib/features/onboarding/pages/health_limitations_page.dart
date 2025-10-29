@@ -1,4 +1,6 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/features/onboarding/cubits/health_limitations_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -30,13 +32,13 @@ class _HealthLimitationsView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Health & Limitations'),
+            title: Text(AppLocalizations.of(context)!.pageTitleHealthLimitations),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => context.go('/onboarding/schedule'), // Back to WorkoutSchedulePage
+              onPressed: () => context.go(RouteConstants.onboardingSchedule), // Back to WorkoutSchedulePage
             ),
           ),
           body: SafeArea(
@@ -55,14 +57,14 @@ class _HealthLimitationsView extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    'Any health considerations?',
+                    AppLocalizations.of(context)!.infoHealthLimitations,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 8),
 
                   Text(
-                    'Help us personalize safe workouts for you. All information is optional and kept private.',
+                    AppLocalizations.of(context)!.labelHealthLimitations,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                   ),
 
@@ -75,8 +77,8 @@ class _HealthLimitationsView extends StatelessWidget {
                         children: [
                           // Health Conditions Section
                           _SectionHeader(
-                            title: 'Health Conditions',
-                            subtitle: 'Select any conditions that may affect your workouts',
+                            title: AppLocalizations.of(context)!.labelHealthConditions,
+                            subtitle: AppLocalizations.of(context)!.infoHealthConditions,
                           ),
                           const SizedBox(height: 16),
                           _HealthConditionsSection(
@@ -89,8 +91,8 @@ class _HealthLimitationsView extends StatelessWidget {
 
                           // Injuries/Physical Limitations Section
                           _SectionHeader(
-                            title: 'Injuries & Physical Limitations',
-                            subtitle: 'Any current or past injuries we should know about',
+                            title: AppLocalizations.of(context)!.labelLimitations,
+                            subtitle: AppLocalizations.of(context)!.infoLimitations,
                           ),
                           const SizedBox(height: 16),
                           _InjuriesSection(
@@ -114,7 +116,10 @@ class _HealthLimitationsView extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        AppLocalizations.of(context)!.labelContinue,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
 
@@ -123,7 +128,10 @@ class _HealthLimitationsView extends StatelessWidget {
                   // Skip button
                   SizedBox(
                     width: double.infinity,
-                    child: TextButton(onPressed: () => context.go('/chat'), child: const Text('Skip for now')),
+                    child: TextButton(
+                      onPressed: () => context.go(RouteConstants.chat),
+                      child: Text(AppLocalizations.of(context)!.labelSkip),
+                    ),
                   ),
                 ],
               ),
@@ -139,7 +147,7 @@ class _HealthLimitationsView extends StatelessWidget {
     DebugLogger.debug('Health Limitations: ${cubit.limitationsData}');
 
     // Navigate to dietary preferences page
-    context.go('/onboarding/dietary');
+    context.go(RouteConstants.onboardingDietary);
   }
 }
 

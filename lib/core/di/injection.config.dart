@@ -42,7 +42,6 @@ import '../../domain/repositories/coach_repository.dart' as _i926;
 import '../../domain/repositories/lookup_repository.dart' as _i383;
 import '../../domain/usecases/get_workout_types_usecase.dart' as _i226;
 import '../../domain/usecases/send_message_to_coach.dart' as _i856;
-import '../../features/auth/pages/landing_page.dart' as _i471;
 import '../../features/landing/cubits/landing_cubit.dart' as _i1066;
 import '../../features/landing/pages/landing_page.dart' as _i258;
 import '../../features/onboarding/cubits/basic_info_cubit.dart' as _i666;
@@ -73,13 +72,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i577.UserStorageDataSource>(
       () => _i577.UserStorageDataSource(),
     );
-    gh.factory<_i471.LandingPage>(() => const _i471.LandingPage());
     gh.factory<_i258.LandingPage>(() => const _i258.LandingPage());
     gh.factory<_i1018.DietaryPreferencesCubit>(
       () => _i1018.DietaryPreferencesCubit(),
     );
     gh.factory<_i68.HealthLimitationsCubit>(
       () => _i68.HealthLimitationsCubit(),
+    );
+    gh.factory<_i147.OnboardingCompleteCubit>(
+      () => _i147.OnboardingCompleteCubit(),
     );
     gh.factory<_i722.WorkoutScheduleCubit>(() => _i722.WorkoutScheduleCubit());
     gh.factory<_i822.MainApp>(() => const _i822.MainApp());
@@ -143,9 +144,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i226.GetWorkoutTypesUsecase>(
       () => _i226.GetWorkoutTypesUsecaseImpl(gh<_i383.LookupRepository>()),
-    );
-    gh.factory<_i147.OnboardingCompleteCubit>(
-      () => _i147.OnboardingCompleteCubit(gh<_i226.GetWorkoutTypesUsecase>()),
     );
     return this;
   }

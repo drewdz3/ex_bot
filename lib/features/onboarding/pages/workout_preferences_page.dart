@@ -1,6 +1,8 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
 import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -23,13 +25,13 @@ class WorkoutPreferencesPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Workout Preferences'),
+            title: Text(AppLocalizations.of(context)!.pageTitleWorkouts),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => context.go('/onboarding/goals'), // Back to FitnessGoalsPage
+              onPressed: () => context.go(RouteConstants.onboardingGoals), // Back to FitnessGoalsPage
             ),
           ),
           body: SafeArea(
@@ -48,14 +50,14 @@ class WorkoutPreferencesPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    'How you like to work out?',
+                    AppLocalizations.of(context)!.labelWorkoutPreferences,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 8),
 
                   Text(
-                    'Help us personalize your fitness experience.',
+                    AppLocalizations.of(context)!.infoWorkoutPreferences,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                   ),
 
@@ -67,7 +69,10 @@ class WorkoutPreferencesPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Workout Types Section
-                          SectionHeader(title: 'Preferred Workouts', subtitle: 'Select the training styles you enjoy'),
+                          SectionHeader(
+                            title: AppLocalizations.of(context)!.labelWorkoutSelect,
+                            subtitle: AppLocalizations.of(context)!.infoWorkoutSelect,
+                          ),
                           const SizedBox(height: 16),
                           MultiselectGrid(
                             selectedItems: currentWorkoutTypes,
@@ -88,8 +93,8 @@ class WorkoutPreferencesPage extends StatelessWidget {
 
                           // Available Equipment Section
                           SectionHeader(
-                            title: 'Available Equipment',
-                            subtitle: 'What equipment do you have access to?',
+                            title: AppLocalizations.of(context)!.labelEquipment,
+                            subtitle: AppLocalizations.of(context)!.infoEquipment,
                           ),
                           const SizedBox(height: 16),
                           MultiselectGrid(
@@ -116,7 +121,9 @@ class WorkoutPreferencesPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
-                        cubit.canContinue ? 'Continue' : 'Select at least one workout type',
+                        cubit.canContinue
+                            ? AppLocalizations.of(context)!.labelContinue
+                            : AppLocalizations.of(context)!.validatorWorkouts,
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -127,7 +134,10 @@ class WorkoutPreferencesPage extends StatelessWidget {
                   // Skip button
                   SizedBox(
                     width: double.infinity,
-                    child: TextButton(onPressed: () => context.go('/chat'), child: const Text('Skip for now')),
+                    child: TextButton(
+                      onPressed: () => context.go(RouteConstants.chat),
+                      child: Text(AppLocalizations.of(context)!.labelSkip),
+                    ),
                   ),
                 ],
               ),

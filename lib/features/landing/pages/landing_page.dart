@@ -1,3 +1,4 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,11 +23,11 @@ class LandingPage extends StatelessWidget {
           final user = state.user;
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
-              content: Text(AppLocalizations.of(context)!.welcomeBack(user.displayName ?? 'who are you?')),
+              content: Text(AppLocalizations.of(context)!.welcomeBack(user.displayName ?? '?')),
               backgroundColor: Colors.green,
             ),
           );
-          context.go('/welcome/${user.displayName ?? AppConstants.emptyString}');
+          context.go('${RouteConstants.welcomeShort}${user.displayName ?? AppConstants.emptyString}');
         } else if (state is Unauthenticated) {
           // Stay on login page
         } else if (state is AuthError) {

@@ -1,38 +1,36 @@
-import 'package:ex_bot/core/utils/icon_lookup.dart';
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/cubits/fitness_goals_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/fitness_goals_state.dart';
 import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 /// Fitness goals selection page
 class FitnessGoalsPage extends StatelessWidget {
-  FitnessGoalsPage({super.key});
-
-  Set<String> _selectedGoals = {};
+  const FitnessGoalsPage({super.key});
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<FitnessGoalsCubit, FitnessGoalsState>(
       builder: (context, state) {
         final cubit = context.read<FitnessGoalsCubit>();
-
-        _selectedGoals = (state is Loaded) ? state.selectedGoals : <String>{};
+        Set<String> selectedGoals = (state is Loaded) ? state.selectedGoals : <String>{};
         final goalsList = cubit.fitnessGoals
             .map((goal) => LookupItem(id: goal.id, name: goal.name, description: goal.description, icon: goal.icon))
             .toList();
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Fitness Goals'),
+            title: Text(AppLocalizations.of(context)!.pageTitleFitnessGoals),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => context.go('/onboarding'), // Back to BasicInfoPage
+              onPressed: () => context.go(RouteConstants.onboardingBasicInfo), // Back to BasicInfoPage
             ),
           ),
           body: SafeArea(
@@ -51,14 +49,14 @@ class FitnessGoalsPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    'What are your fitness goals?',
+                    AppLocalizations.of(context)!.labelFitnessGoals,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 8),
 
                   Text(
-                    'Select all that apply. You can change these later.',
+                    AppLocalizations.of(context)!.labelSelectAllChange,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                   ),
 
@@ -66,7 +64,7 @@ class FitnessGoalsPage extends StatelessWidget {
 
                   Expanded(
                     child: MultiselectGrid(
-                      selectedItems: _selectedGoals,
+                      selectedItems: selectedGoals,
                       items: goalsList,
                       onSelectionChanged: (newSelection) {
                         cubit.updateSelectedGoals(newSelection.toSet());
@@ -80,9 +78,9 @@ class FitnessGoalsPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: _selectedGoals.isNotEmpty
+                      onPressed: selectedGoals.isNotEmpty
                           ? () {
-                              context.go('/onboarding/preferences');
+                              context.go(RouteConstants.onboardingPreferences);
                             }
                           : null,
                       style: ElevatedButton.styleFrom(
@@ -90,9 +88,9 @@ class FitnessGoalsPage extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
-                        _selectedGoals.isEmpty
-                            ? 'Select at least one goal'
-                            : 'Continue (${_selectedGoals.length} selected)',
+                        selectedGoals.isEmpty
+                            ? AppLocalizations.of(context)!.validatorFitnessGoals
+                            : AppLocalizations.of(context)!.labelContinue,
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -103,7 +101,10 @@ class FitnessGoalsPage extends StatelessWidget {
                   // Skip button
                   SizedBox(
                     width: double.infinity,
-                    child: TextButton(onPressed: () => context.go('/chat'), child: const Text('Skip for now')),
+                    child: TextButton(
+                      onPressed: () => context.go(RouteConstants.chat),
+                      child: Text(AppLocalizations.of(context)!.labelSkip),
+                    ),
                   ),
                 ],
               ),
@@ -112,15 +113,5 @@ class FitnessGoalsPage extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _toggleSelection(FitnessGoalsCubit cubit, String goals) {
-    final newSelection = Set<String>.from(_selectedGoals);
-    if (newSelection.contains(goals)) {
-      newSelection.remove(goals);
-    } else {
-      newSelection.add(goals);
-    }
-    cubit.updateSelectedGoals(newSelection);
   }
 }

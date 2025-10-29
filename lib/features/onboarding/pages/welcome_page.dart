@@ -1,4 +1,6 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/features/onboarding/cubits/welcome_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -45,7 +47,7 @@ class WelcomePage extends StatelessWidget {
 
                   // Welcome text
                   Text(
-                    'Welcome to ExBot, $givenName! 👋',
+                    '${AppLocalizations.of(context)!.pageTitleWelcome} $givenName! 👋',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),
@@ -53,7 +55,7 @@ class WelcomePage extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    'Your AI-powered fitness coach is ready to help you achieve your fitness goals.',
+                    AppLocalizations.of(context)!.labelWelcome,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),
@@ -68,20 +70,20 @@ class WelcomePage extends StatelessWidget {
                         children: [
                           _FeatureItem(
                             icon: Icons.psychology,
-                            title: 'Personalized Coaching',
-                            description: 'AI-powered guidance tailored to your needs',
+                            title: AppLocalizations.of(context)!.labelFeaturePersonalized,
+                            description: AppLocalizations.of(context)!.infoFeaturePersonalized,
                           ),
                           const SizedBox(height: 16),
                           _FeatureItem(
                             icon: Icons.track_changes,
-                            title: 'Progress Tracking',
-                            description: 'Monitor your fitness journey over time',
+                            title: AppLocalizations.of(context)!.labelFeatureTracking,
+                            description: AppLocalizations.of(context)!.infoFeatureTracking,
                           ),
                           const SizedBox(height: 16),
                           _FeatureItem(
                             icon: Icons.restaurant,
-                            title: 'Nutrition Guidance',
-                            description: 'Meal planning and dietary recommendations',
+                            title: AppLocalizations.of(context)!.labelFeatureNutrition,
+                            description: AppLocalizations.of(context)!.infoFeatureNutrition,
                           ),
                         ],
                       ),
@@ -96,13 +98,16 @@ class WelcomePage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: () {
                         cubit.startOnboarding();
-                        context.go('/onboarding');
+                        context.go(RouteConstants.onboardingBasicInfo);
                       },
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text('Get Started', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                      child: Text(
+                        AppLocalizations.of(context)!.labelGetStarted,
+                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                      ),
                     ),
                   ),
 
@@ -111,9 +116,9 @@ class WelcomePage extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       cubit.skipOnboarding();
-                      context.go('/chat');
+                      context.go(RouteConstants.chat);
                     },
-                    child: const Text('Skip for now'),
+                    child: Text(AppLocalizations.of(context)!.labelSkip),
                   ),
                 ],
               ),
