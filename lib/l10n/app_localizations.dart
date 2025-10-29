@@ -100,185 +100,509 @@ abstract class AppLocalizations {
   /// **'ExBot'**
   String get appTitle;
 
+  /// Title for the basic information page
+  ///
+  /// In en, this message translates to:
+  /// **'Basic Information'**
+  String get pageTitleBasicInfo;
+
+  /// Label for gender selection
+  ///
+  /// In en, this message translates to:
+  /// **'Gender'**
+  String get labelGender;
+
+  /// Info text for gender selection
+  ///
+  /// In en, this message translates to:
+  /// **'Used for accurate BMI and fitness calculations'**
+  String get infoGender;
+
+  /// Validation message for gender selection
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your gender'**
+  String get validatorGender;
+
+  /// Gender option
+  ///
+  /// In en, this message translates to:
+  /// **'Male'**
+  String get genderMale;
+
+  /// Gender option
+  ///
+  /// In en, this message translates to:
+  /// **'Female'**
+  String get genderFemale;
+
+  /// Label for height input field
+  ///
+  /// In en, this message translates to:
+  /// **'Height'**
+  String get labelHeight;
+
+  /// Info text for height input field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your height'**
+  String get infoHeight;
+
+  /// Suffix for height input field in metric units
+  ///
+  /// In en, this message translates to:
+  /// **'cm'**
+  String get suffixHeight;
+
+  /// Validation message for height input field
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your height'**
+  String get validatorHeight;
+
+  /// Validation message for height input field when out of range
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid height between 100 and 250 cm'**
+  String get validatorHeightLimit;
+
+  /// Label for weight input field
+  ///
+  /// In en, this message translates to:
+  /// **'Weight'**
+  String get labelWeight;
+
+  /// Info text for weight input field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your weight'**
+  String get infoWeight;
+
+  /// Suffix for weight input field in metric units
+  ///
+  /// In en, this message translates to:
+  /// **'kg'**
+  String get suffixWeight;
+
+  /// Validation message for weight input field
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your weight'**
+  String get validatorWeight;
+
+  /// Validation message for weight input field when out of range
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid weight between 30 and 300 kg'**
+  String get validatorWeightLimit;
+
+  /// Label for fitness level selection
+  ///
+  /// In en, this message translates to:
+  /// **'Current Fitness Level'**
+  String get labelFitnessLevel;
+
+  /// Validation message for fitness level selection
+  ///
+  /// In en, this message translates to:
+  /// **'Please select your current fitness level'**
+  String get validatorFitnessLevel;
+
+  /// Button text to continue to the next step
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get labelContinue;
+
+  /// Label for the basic information form
+  ///
+  /// In en, this message translates to:
+  /// **'Tell us about yourself'**
+  String get labelAbout;
+
+  /// Info text for the basic information form
+  ///
+  /// In en, this message translates to:
+  /// **'This information helps us tailor your fitness plan'**
+  String get infoAbout;
+
+  /// Label for age input field
+  ///
+  /// In en, this message translates to:
+  /// **'Age'**
+  String get labelAge;
+
+  /// Hint text for age input field
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your age'**
+  String get infoAge;
+
+  /// Suffix for age input field
+  ///
+  /// In en, this message translates to:
+  /// **'years'**
+  String get labelAgeSuffix;
+
+  /// Button text to skip the current step
+  ///
+  /// In en, this message translates to:
+  /// **'Skip for now'**
+  String get labelSkip;
+
+  /// Validation message for age input field
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter your age'**
+  String get validatorAge;
+
+  /// Validation message for age input field when out of range
+  ///
+  /// In en, this message translates to:
+  /// **'Please enter a valid age between 13 and 120 years'**
+  String get validatorAgeLimit;
+
+  /// Title for the fitness goals page
+  ///
+  /// In en, this message translates to:
+  /// **'Fitness Goals'**
+  String get pageTitleFitnessGoals;
+
   /// Title for the fitness goals selection page
   ///
   /// In en, this message translates to:
   /// **'What are your fitness goals?'**
-  String get fitnessGoalsTitle;
+  String get labelFitnessGoals;
 
   /// Subtitle for the fitness goals selection page
   ///
   /// In en, this message translates to:
-  /// **'Select all that apply to customize your workout recommendations'**
-  String get fitnessGoalsSubtitle;
+  /// **'Select all that apply. You can change these later.'**
+  String get labelSelectAllChange;
 
-  /// Fitness goal option
+  /// Validation message for fitness goals selection
   ///
   /// In en, this message translates to:
-  /// **'Lose Weight'**
-  String get loseWeight;
+  /// **'Select at least one goal'**
+  String get validatorFitnessGoals;
 
-  /// Fitness goal option
+  /// Title for the diet preferences page
   ///
   /// In en, this message translates to:
-  /// **'Build Muscle'**
-  String get buildMuscle;
+  /// **'Diet Preferences'**
+  String get pageTitleDietaryPreferences;
 
-  /// Fitness goal option
+  /// Subtitle for the diet preferences selection page
   ///
   /// In en, this message translates to:
-  /// **'Improve Endurance'**
-  String get improveEndurance;
+  /// **'Any dietary preferences?'**
+  String get infoDietaryPreferences;
 
-  /// Fitness goal option
+  /// Title for the diet preferences selection page
   ///
   /// In en, this message translates to:
-  /// **'Increase Strength'**
-  String get increaseStrength;
+  /// **'This helps us provide relevant nutrition guidance. All information is optional.'**
+  String get labelDietaryPreferences;
 
-  /// Fitness goal option
+  /// Label for dietary restrictions selection
   ///
   /// In en, this message translates to:
-  /// **'Improve Flexibility'**
-  String get improveFlexibility;
+  /// **'Dietary Restrictions'**
+  String get labelDietaryRestrictions;
 
-  /// Fitness goal option
+  /// Info text for dietary restrictions selection
   ///
   /// In en, this message translates to:
-  /// **'Stay Active'**
-  String get stayActive;
+  /// **'Select any that apply to you'**
+  String get infoDietaryRestrictions;
 
-  /// Title for the equipment preferences page
+  /// Label for food allergies selection
+  ///
+  /// In en, this message translates to:
+  /// **'Food Allergies'**
+  String get labelFoodAllergies;
+
+  /// Info text for food allergies selection
+  ///
+  /// In en, this message translates to:
+  /// **'Let us know about any food allergies'**
+  String get infoFoodAllergies;
+
+  /// Title for the health limitations page
+  ///
+  /// In en, this message translates to:
+  /// **'Health & Limitations'**
+  String get pageTitleHealthLimitations;
+
+  /// Subtitle for the health limitations selection page
+  ///
+  /// In en, this message translates to:
+  /// **'Any health considerations?'**
+  String get infoHealthLimitations;
+
+  /// Title for the health limitations selection page
+  ///
+  /// In en, this message translates to:
+  /// **'Help us personalize safe workouts for you. All information is optional and kept private.'**
+  String get labelHealthLimitations;
+
+  /// Label for health conditions selection
+  ///
+  /// In en, this message translates to:
+  /// **'Health Conditions'**
+  String get labelHealthConditions;
+
+  /// Info text for health conditions selection
+  ///
+  /// In en, this message translates to:
+  /// **'Select any conditions that may affect your workouts'**
+  String get infoHealthConditions;
+
+  /// Label for injuries and physical limitations selection
+  ///
+  /// In en, this message translates to:
+  /// **'Injuries & Physical Limitations'**
+  String get labelLimitations;
+
+  /// Info text for injuries and physical limitations selection
+  ///
+  /// In en, this message translates to:
+  /// **'Any current or past injuries we should know about?'**
+  String get infoLimitations;
+
+  /// Title for the completion page
+  ///
+  /// In en, this message translates to:
+  /// **'\'Preferences Saved!'**
+  String get pageTitleComplete;
+
+  /// Subtitle for the completion page
+  ///
+  /// In en, this message translates to:
+  /// **'Your personalized fitness preferences are ready. Let\'s start your fitness journey with ExBot!'**
+  String get infoComplete;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized Workouts'**
+  String get labelOverviewWorkouts;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Custom plans based on your preferences'**
+  String get infoOverviewWorkouts;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Tracking'**
+  String get labelOverviewTracking;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor your fitness journey'**
+  String get infoOverviewTracking;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'AI Coach Support'**
+  String get labelOverviewCoach;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'24/7 guidance and motivation'**
+  String get infoOverviewCoach;
+
+  /// Button text to start using the app
+  ///
+  /// In en, this message translates to:
+  /// **'Start My Fitness Journey'**
+  String get labelStart;
+
+  /// Info text about updating preferences later
+  ///
+  /// In en, this message translates to:
+  /// **'You can update your preferences anytime in settings'**
+  String get labelUpdateInfo;
+
+  /// Welcome title on landing page
+  ///
+  /// In en, this message translates to:
+  /// **'Welcome to ExBot, '**
+  String get pageTitleWelcome;
+
+  /// Welcome subtitle on landing page
+  ///
+  /// In en, this message translates to:
+  /// **'Your AI-powered fitness coach is ready to help you achieve your fitness goals.'**
+  String get labelWelcome;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Personalized Coaching'**
+  String get labelFeaturePersonalized;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'AI-powered guidance tailored to your needs'**
+  String get infoFeaturePersonalized;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Progress Tracking'**
+  String get labelFeatureTracking;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Monitor your fitness journey over time'**
+  String get infoFeatureTracking;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Nutrition Guidance'**
+  String get labelFeatureNutrition;
+
+  /// Feature highlight
+  ///
+  /// In en, this message translates to:
+  /// **'Meal planning and dietary recommendations'**
+  String get infoFeatureNutrition;
+
+  /// Button text to get started
+  ///
+  /// In en, this message translates to:
+  /// **'Get Started'**
+  String get labelGetStarted;
+
+  /// Title for the workout preferences page
+  ///
+  /// In en, this message translates to:
+  /// **'Workout Preferences'**
+  String get pageTitleWorkouts;
+
+  /// Title for the workout preferences selection page
+  ///
+  /// In en, this message translates to:
+  /// **'How you like to work out?'**
+  String get labelWorkoutPreferences;
+
+  /// Subtitle for the workout preferences selection page
+  ///
+  /// In en, this message translates to:
+  /// **'Help us personalize your fitness experience.'**
+  String get infoWorkoutPreferences;
+
+  /// Label for workout preferences selection
+  ///
+  /// In en, this message translates to:
+  /// **'Preferred Workouts'**
+  String get labelWorkoutSelect;
+
+  /// Info text for workout preferences selection
+  ///
+  /// In en, this message translates to:
+  /// **'Select the training styles you enjoy'**
+  String get infoWorkoutSelect;
+
+  /// Label for available equipment selection
+  ///
+  /// In en, this message translates to:
+  /// **'Available Equipment'**
+  String get labelEquipment;
+
+  /// Info text for available equipment selection
   ///
   /// In en, this message translates to:
   /// **'What equipment do you have access to?'**
-  String get equipmentPreferencesTitle;
+  String get infoEquipment;
 
-  /// Subtitle for the equipment preferences page
+  /// Validation message for workout preferences selection
   ///
   /// In en, this message translates to:
-  /// **'Select your available equipment and preferred workout types'**
-  String get equipmentPreferencesSubtitle;
+  /// **'Select at least one workout type'**
+  String get validatorWorkouts;
 
-  /// Equipment option
+  /// Title for the workout schedule page
   ///
   /// In en, this message translates to:
-  /// **'Dumbbells'**
-  String get dumbbells;
+  /// **'Workout Schedule'**
+  String get pageTitleSchedule;
 
-  /// Equipment option
+  /// Title for the workout schedule selection page
   ///
   /// In en, this message translates to:
-  /// **'Barbells'**
-  String get barbells;
+  /// **'What\'s your ideal workout schedule?'**
+  String get labelSchedule;
 
-  /// Equipment option
+  /// Subtitle for the workout schedule selection page
   ///
   /// In en, this message translates to:
-  /// **'Kettlebells'**
-  String get kettlebells;
+  /// **'Help us plan your fitness journey with a realistic schedule.'**
+  String get infoSchedule;
 
-  /// Equipment option
+  /// Validation message for workout schedule selection
   ///
   /// In en, this message translates to:
-  /// **'Resistance Bands'**
-  String get resistanceBands;
+  /// **'Select your workout schedule'**
+  String get validatorSchedule;
 
-  /// Equipment option
+  /// Label for number of workout days selection
   ///
   /// In en, this message translates to:
-  /// **'Pull-up Bar'**
-  String get pullUpBar;
+  /// **'Workouts per week'**
+  String get labelScheduleDays;
 
-  /// Equipment option
+  /// Info text for number of workout days selection
   ///
   /// In en, this message translates to:
-  /// **'Treadmill'**
-  String get treadmill;
+  /// **'How many times can you realistically work out each week?'**
+  String get infoScheduleDays;
 
-  /// Equipment option
+  /// Label for workout duration selection
   ///
   /// In en, this message translates to:
-  /// **'Stationary Bike'**
-  String get stationaryBike;
+  /// **'Workout duration'**
+  String get labelDuration;
 
-  /// Equipment option
+  /// Info text for workout duration selection
   ///
   /// In en, this message translates to:
-  /// **'Yoga Mat'**
-  String get yogaMat;
+  /// **'How long do you prefer each workout session to be?'**
+  String get infoDuration;
 
-  /// Equipment option
+  /// Title for workout schedule tips
   ///
   /// In en, this message translates to:
-  /// **'Bench/Press'**
-  String get benchPress;
+  /// **'Tips for Success'**
+  String get labelScheduleTips;
 
-  /// Equipment option for no equipment workouts
+  /// Workout schedule tip
   ///
   /// In en, this message translates to:
-  /// **'Bodyweight Only'**
-  String get bodyweightOnly;
+  /// **'Start with a realistic schedule you can maintain'**
+  String get infoScheduleTip1;
 
-  /// Workout preference option
+  /// Workout schedule tip
   ///
   /// In en, this message translates to:
-  /// **'Strength Training'**
-  String get strength;
+  /// **'Consistency is more important than intensity'**
+  String get infoScheduleTip2;
 
-  /// Workout preference option
+  /// Workout schedule tip
   ///
   /// In en, this message translates to:
-  /// **'Cardio'**
-  String get cardio;
-
-  /// Workout preference option
-  ///
-  /// In en, this message translates to:
-  /// **'Yoga'**
-  String get yoga;
-
-  /// Workout preference option
-  ///
-  /// In en, this message translates to:
-  /// **'HIIT'**
-  String get hiit;
-
-  /// Workout preference option
-  ///
-  /// In en, this message translates to:
-  /// **'Sports'**
-  String get sports;
-
-  /// Button text to proceed to next step
-  ///
-  /// In en, this message translates to:
-  /// **'Next'**
-  String get next;
-
-  /// Button text to go to previous step
-  ///
-  /// In en, this message translates to:
-  /// **'Back'**
-  String get back;
-
-  /// Validation message when no options are selected
-  ///
-  /// In en, this message translates to:
-  /// **'Please select at least one option'**
-  String get validationSelectAtLeastOne;
-
-  /// Validation message for fitness goals
-  ///
-  /// In en, this message translates to:
-  /// **'Please select at least one fitness goal'**
-  String get validationSelectAtLeastOneGoal;
-
-  /// Validation message for equipment preferences page
-  ///
-  /// In en, this message translates to:
-  /// **'Please select at least one equipment type and workout preference'**
-  String get validationSelectEquipmentAndPreference;
+  /// **'You can always adjust your schedule later'**
+  String get infoScheduleTip3;
 
   /// Greeting for returning users
   ///

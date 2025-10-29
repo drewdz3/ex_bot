@@ -1,20 +1,15 @@
 import 'package:ex_bot/data/models/equipment.dart';
-import 'package:ex_bot/data/models/fitness_goal.dart';
 import 'package:ex_bot/data/models/workout_type.dart';
-import 'package:ex_bot/domain/usecases/get_workout_types_usecase.dart';
 import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:ex_bot/core/utils/debug_logger.dart';
-import 'package:ex_bot/domain/entities/user_profile.dart';
 
 /// Cubit for managing the onboarding completion process
 @injectable
 class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
-  GetWorkoutTypesUsecase _getWorkoutTypesUsecase;
-
-  OnboardingCompleteCubit(this._getWorkoutTypesUsecase) : super(const OnboardingCompleteState.initial());
+  OnboardingCompleteCubit() : super(const OnboardingCompleteState.initial());
 
   // Basic info data storage
   String? _userId;

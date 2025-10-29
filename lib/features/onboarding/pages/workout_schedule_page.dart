@@ -1,9 +1,10 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_schedule_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_schedule_cubit.dart';
 
 /// Workout schedule preferences page
@@ -29,13 +30,13 @@ class _WorkoutScheduleView extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Workout Schedule'),
+            title: Text(AppLocalizations.of(context)!.pageTitleSchedule),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => context.go('/onboarding/preferences'), // Back to WorkoutPreferencesPage
+              onPressed: () => context.go(RouteConstants.onboardingPreferences), // Back to WorkoutPreferencesPage
             ),
           ),
           body: SafeArea(
@@ -54,14 +55,14 @@ class _WorkoutScheduleView extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    'What\'s your ideal workout schedule?',
+                    AppLocalizations.of(context)!.labelSchedule,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 8),
 
                   Text(
-                    'Help us plan your fitness journey with a realistic schedule.',
+                    AppLocalizations.of(context)!.infoSchedule,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                   ),
 
@@ -95,7 +96,9 @@ class _WorkoutScheduleView extends StatelessWidget {
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
                       child: Text(
-                        cubit.canContinue ? 'Continue' : 'Select your workout schedule',
+                        cubit.canContinue
+                            ? AppLocalizations.of(context)!.labelContinue
+                            : AppLocalizations.of(context)!.validatorSchedule,
                         style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -106,7 +109,10 @@ class _WorkoutScheduleView extends StatelessWidget {
                   // Skip button
                   SizedBox(
                     width: double.infinity,
-                    child: TextButton(onPressed: () => context.go('/chat'), child: const Text('Skip for now')),
+                    child: TextButton(
+                      onPressed: () => context.go(RouteConstants.chat),
+                      child: Text(AppLocalizations.of(context)!.labelSkip),
+                    ),
                   ),
                 ],
               ),
@@ -118,10 +124,8 @@ class _WorkoutScheduleView extends StatelessWidget {
   }
 
   void _continueToNext(BuildContext context, WorkoutScheduleCubit cubit) {
-    DebugLogger.debug('Workout Schedule: ${cubit.scheduleData}');
-
     // Navigate to health limitations page
-    context.go('/onboarding/limitations');
+    context.go(RouteConstants.onboardingLimitations);
   }
 }
 
@@ -154,14 +158,14 @@ class _ScheduleSelectors extends StatelessWidget {
                     Icon(Icons.calendar_today, size: 20, color: Theme.of(context).primaryColor),
                     const SizedBox(width: 8),
                     Text(
-                      'Workouts per week',
+                      AppLocalizations.of(context)!.labelScheduleDays,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'How many times can you realistically work out each week?',
+                  AppLocalizations.of(context)!.infoScheduleDays,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                 ),
                 const SizedBox(height: 16),
@@ -198,14 +202,14 @@ class _ScheduleSelectors extends StatelessWidget {
                     Icon(Icons.schedule, size: 20, color: Theme.of(context).primaryColor),
                     const SizedBox(width: 8),
                     Text(
-                      'Workout duration',
+                      AppLocalizations.of(context)!.labelDuration,
                       style: Theme.of(context).textTheme.titleMedium?.copyWith(fontWeight: FontWeight.w600),
                     ),
                   ],
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  'How long do you prefer each workout session to be?',
+                  AppLocalizations.of(context)!.infoDuration,
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                 ),
                 const SizedBox(height: 16),
@@ -243,7 +247,7 @@ class _ScheduleSelectors extends StatelessWidget {
                     Icon(Icons.lightbulb_outline, size: 20, color: Theme.of(context).primaryColor),
                     const SizedBox(width: 8),
                     Text(
-                      'Tips for Success',
+                      AppLocalizations.of(context)!.labelScheduleTips,
                       style: Theme.of(context).textTheme.titleSmall?.copyWith(
                         fontWeight: FontWeight.w600,
                         color: Theme.of(context).primaryColor,
@@ -253,7 +257,7 @@ class _ScheduleSelectors extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  '• Start with a realistic schedule you can maintain\n• Consistency is more important than intensity\n• You can always adjust your schedule later',
+                  '• ${AppLocalizations.of(context)!.infoScheduleTip1}\n• ${AppLocalizations.of(context)!.infoScheduleTip2}\n• ${AppLocalizations.of(context)!.infoScheduleTip3}',
                   style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[700]),
                 ),
               ],

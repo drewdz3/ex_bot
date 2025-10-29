@@ -1,3 +1,5 @@
+import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -26,7 +28,7 @@ class BasicInfoPage extends StatelessWidget {
 
   Widget _buildForm(BuildContext context, BasicInfoCubit cubit, BasicInfoState state) {
     final formKey = GlobalKey<FormState>();
-    const genderOptions = ['Male', 'Female'];
+    List<String> genderOptions = [AppLocalizations.of(context)!.genderMale, AppLocalizations.of(context)!.genderFemale];
 
     // Get current values from state
     String? currentAge;
@@ -47,7 +49,7 @@ class BasicInfoPage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Basic Information'),
+        title: Text(AppLocalizations.of(context)!.pageTitleBasicInfo),
         centerTitle: true,
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -71,14 +73,14 @@ class BasicInfoPage extends StatelessWidget {
                 const SizedBox(height: 32),
 
                 Text(
-                  'Tell us about yourself',
+                  AppLocalizations.of(context)!.labelAbout,
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                 ),
 
                 const SizedBox(height: 8),
 
                 Text(
-                  'This helps us personalize your fitness experience',
+                  AppLocalizations.of(context)!.infoAbout,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                 ),
 
@@ -92,11 +94,11 @@ class BasicInfoPage extends StatelessWidget {
                         TextFormField(
                           initialValue: currentAge ?? '',
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Age',
-                            hintText: 'Enter your age',
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.labelAge,
+                            hintText: AppLocalizations.of(context)!.infoAge,
                             border: OutlineInputBorder(),
-                            suffixText: 'years',
+                            suffixText: AppLocalizations.of(context)!.labelAgeSuffix,
                           ),
                           onChanged: (value) {
                             final age = int.tryParse(value);
@@ -104,11 +106,11 @@ class BasicInfoPage extends StatelessWidget {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your age';
+                              return AppLocalizations.of(context)!.validatorAge;
                             }
                             final age = int.tryParse(value);
                             if (age == null || age < 13 || age > 120) {
-                              return 'Please enter a valid age (13-120)';
+                              return AppLocalizations.of(context)!.validatorAgeLimit;
                             }
                             return null;
                           },
@@ -119,9 +121,9 @@ class BasicInfoPage extends StatelessWidget {
                         // Gender dropdown
                         DropdownButtonFormField<String>(
                           initialValue: currentGender,
-                          decoration: const InputDecoration(
-                            labelText: 'Gender',
-                            helperText: 'Used for accurate BMI and fitness calculations',
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.labelGender,
+                            helperText: AppLocalizations.of(context)!.infoGender,
                             border: OutlineInputBorder(),
                           ),
                           items: genderOptions.map((String gender) {
@@ -130,7 +132,7 @@ class BasicInfoPage extends StatelessWidget {
                           onChanged: cubit.updateGender,
                           validator: (value) {
                             if (value == null) {
-                              return 'Please select your gender';
+                              return AppLocalizations.of(context)!.validatorGender;
                             }
                             return null;
                           },
@@ -142,11 +144,11 @@ class BasicInfoPage extends StatelessWidget {
                         TextFormField(
                           initialValue: currentHeight ?? '',
                           keyboardType: TextInputType.number,
-                          decoration: const InputDecoration(
-                            labelText: 'Height',
-                            hintText: 'Enter your height',
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.labelHeight,
+                            hintText: AppLocalizations.of(context)!.infoHeight,
                             border: OutlineInputBorder(),
-                            suffixText: 'cm',
+                            suffixText: AppLocalizations.of(context)!.suffixHeight,
                           ),
                           onChanged: (value) {
                             final height = int.tryParse(value);
@@ -154,11 +156,11 @@ class BasicInfoPage extends StatelessWidget {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your height';
+                              return AppLocalizations.of(context)!.validatorHeight;
                             }
                             final height = int.tryParse(value);
                             if (height == null || height < 100 || height > 250) {
-                              return 'Please enter a valid height (100-250 cm)';
+                              return AppLocalizations.of(context)!.validatorHeightLimit;
                             }
                             return null;
                           },
@@ -170,11 +172,11 @@ class BasicInfoPage extends StatelessWidget {
                         TextFormField(
                           initialValue: currentWeight ?? '',
                           keyboardType: const TextInputType.numberWithOptions(decimal: true),
-                          decoration: const InputDecoration(
-                            labelText: 'Weight',
-                            hintText: 'Enter your weight',
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.labelWeight,
+                            hintText: AppLocalizations.of(context)!.infoWeight,
                             border: OutlineInputBorder(),
-                            suffixText: 'kg',
+                            suffixText: AppLocalizations.of(context)!.suffixWeight,
                           ),
                           onChanged: (value) {
                             final weight = double.tryParse(value);
@@ -182,11 +184,11 @@ class BasicInfoPage extends StatelessWidget {
                           },
                           validator: (value) {
                             if (value == null || value.isEmpty) {
-                              return 'Please enter your weight';
+                              return AppLocalizations.of(context)!.validatorWeight;
                             }
                             final weight = double.tryParse(value);
                             if (weight == null || weight < 30 || weight > 300) {
-                              return 'Please enter a valid weight (30-300 kg)';
+                              return AppLocalizations.of(context)!.validatorWeightLimit;
                             }
                             return null;
                           },
@@ -197,20 +199,17 @@ class BasicInfoPage extends StatelessWidget {
                         // Fitness level dropdown
                         DropdownButtonFormField<String>(
                           initialValue: currentFitnessLevel,
-                          decoration: const InputDecoration(
-                            labelText: 'Current Fitness Level',
+                          decoration: InputDecoration(
+                            labelText: AppLocalizations.of(context)!.labelFitnessLevel,
                             border: OutlineInputBorder(),
                           ),
-                          //   items: fitnessLevelOptions.map((String level) {
-                          //     return DropdownMenuItem<String>(value: level, child: Text(level));
-                          //   }).toList(),
                           items: cubit.fitnessLevels.map((f) {
                             return DropdownMenuItem<String>(value: f.id, child: Text(f.name));
                           }).toList(),
                           onChanged: cubit.updateFitnessLevel,
                           validator: (value) {
                             if (value == null) {
-                              return 'Please select your fitness level';
+                              return AppLocalizations.of(context)!.validatorFitnessLevel;
                             }
                             return null;
                           },
@@ -231,7 +230,10 @@ class BasicInfoPage extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(vertical: 16),
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                     ),
-                    child: const Text('Continue', style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                    child: Text(
+                      AppLocalizations.of(context)!.labelContinue,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
+                    ),
                   ),
                 ),
 
@@ -240,7 +242,10 @@ class BasicInfoPage extends StatelessWidget {
                 // Skip button
                 SizedBox(
                   width: double.infinity,
-                  child: TextButton(onPressed: () => context.go('/chat'), child: const Text('Skip for now')),
+                  child: TextButton(
+                    onPressed: () => context.go(RouteConstants.chat),
+                    child: Text(AppLocalizations.of(context)!.labelSkip),
+                  ),
                 ),
               ],
             ),
@@ -254,7 +259,7 @@ class BasicInfoPage extends StatelessWidget {
     if (formKey.currentState!.validate()) {
       cubit.saveChanges();
       // Navigate to fitness goals page
-      context.go('/onboarding/goals');
+      context.go(RouteConstants.onboardingGoals);
     }
   }
 }

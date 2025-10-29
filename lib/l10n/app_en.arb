@@ -1,183 +1,408 @@
 {
-  "@@locale": "en",
-  "appTitle": "ExBot",
-  "@appTitle": {
-    "description": "AI Powered Fitness Coach"
-  },
-  "fitnessGoalsTitle": "What are your fitness goals?",
-  "@fitnessGoalsTitle": {
-    "description": "Title for the fitness goals selection page"
-  },
-  "fitnessGoalsSubtitle": "Select all that apply to customize your workout recommendations",
-  "@fitnessGoalsSubtitle": {
-    "description": "Subtitle for the fitness goals selection page"
-  },
-  "loseWeight": "Lose Weight",
-  "@loseWeight": {
-    "description": "Fitness goal option"
-  },
-  "buildMuscle": "Build Muscle",
-  "@buildMuscle": {
-    "description": "Fitness goal option"
-  },
-  "improveEndurance": "Improve Endurance",
-  "@improveEndurance": {
-    "description": "Fitness goal option"
-  },
-  "increaseStrength": "Increase Strength",
-  "@increaseStrength": {
-    "description": "Fitness goal option"
-  },
-  "improveFlexibility": "Improve Flexibility",
-  "@improveFlexibility": {
-    "description": "Fitness goal option"
-  },
-  "stayActive": "Stay Active",
-  "@stayActive": {
-    "description": "Fitness goal option"
-  },
-  "equipmentPreferencesTitle": "What equipment do you have access to?",
-  "@equipmentPreferencesTitle": {
-    "description": "Title for the equipment preferences page"
-  },
-  "equipmentPreferencesSubtitle": "Select your available equipment and preferred workout types",
-  "@equipmentPreferencesSubtitle": {
-    "description": "Subtitle for the equipment preferences page"
-  },
-  "dumbbells": "Dumbbells",
-  "@dumbbells": {
-    "description": "Equipment option"
-  },
-  "barbells": "Barbells",
-  "@barbells": {
-    "description": "Equipment option"
-  },
-  "kettlebells": "Kettlebells",
-  "@kettlebells": {
-    "description": "Equipment option"
-  },
-  "resistanceBands": "Resistance Bands",
-  "@resistanceBands": {
-    "description": "Equipment option"
-  },
-  "pullUpBar": "Pull-up Bar",
-  "@pullUpBar": {
-    "description": "Equipment option"
-  },
-  "treadmill": "Treadmill",
-  "@treadmill": {
-    "description": "Equipment option"
-  },
-  "stationaryBike": "Stationary Bike",
-  "@stationaryBike": {
-    "description": "Equipment option"
-  },
-  "yogaMat": "Yoga Mat",
-  "@yogaMat": {
-    "description": "Equipment option"
-  },
-  "benchPress": "Bench/Press",
-  "@benchPress": {
-    "description": "Equipment option"
-  },
-  "bodyweightOnly": "Bodyweight Only",
-  "@bodyweightOnly": {
-    "description": "Equipment option for no equipment workouts"
-  },
-  "strength": "Strength Training",
-  "@strength": {
-    "description": "Workout preference option"
-  },
-  "cardio": "Cardio",
-  "@cardio": {
-    "description": "Workout preference option"
-  },
-  "yoga": "Yoga",
-  "@yoga": {
-    "description": "Workout preference option"
-  },
-  "hiit": "HIIT",
-  "@hiit": {
-    "description": "Workout preference option"
-  },
-  "sports": "Sports",
-  "@sports": {
-    "description": "Workout preference option"
-  },
-  "next": "Next",
-  "@next": {
-    "description": "Button text to proceed to next step"
-  },
-  "back": "Back",
-  "@back": {
-    "description": "Button text to go to previous step"
-  },
-  "validationSelectAtLeastOne": "Please select at least one option",
-  "@validationSelectAtLeastOne": {
-    "description": "Validation message when no options are selected"
-  },
-  "validationSelectAtLeastOneGoal": "Please select at least one fitness goal",
-  "@validationSelectAtLeastOneGoal": {
-    "description": "Validation message for fitness goals"
-  },
-  "validationSelectEquipmentAndPreference": "Please select at least one equipment type and workout preference",
-  "@validationSelectEquipmentAndPreference": {
-    "description": "Validation message for equipment preferences page"
-  },
-  "welcomeBack": "Welcome back, {user}!",
-  "@welcomeBack": {
-    "description": "Greeting for returning users",
-    "placeholders": {
-      "user": {
-        "type": "String",
-        "example": "Bob"
-      }
+    "@@locale": "en",
+    "appTitle": "ExBot",
+    "@appTitle": {
+        "description": "AI Powered Fitness Coach"
+    },
+
+    "pageTitleBasicInfo": "Basic Information",
+    "@pageTitleBasicInfo": {
+        "description": "Title for the basic information page"
+    },
+    "labelGender": "Gender",
+    "@labelGender": {
+        "description": "Label for gender selection"
+    },
+    "infoGender": "Used for accurate BMI and fitness calculations",
+    "@infoGender": {
+        "description": "Info text for gender selection"
+    },
+    "validatorGender": "Please select your gender",
+    "@validatorGender": {
+        "description": "Validation message for gender selection"
+    },
+    "genderMale": "Male",
+    "@genderMale": {
+        "description": "Gender option"
+    },
+    "genderFemale": "Female",
+    "@genderFemale": {
+        "description": "Gender option"
+    },
+    "labelHeight":"Height",
+    "@labelHeight": {
+        "description": "Label for height input field"
+    },
+    "infoHeight": "Enter your height",
+    "@infoHeight": {
+        "description": "Info text for height input field"
+    },
+    "suffixHeight": "cm",
+    "@suffixHeight": {
+        "description": "Suffix for height input field in metric units"
+    },
+    "validatorHeight": "Please enter your height",
+    "@validatorHeight": {
+        "description": "Validation message for height input field"
+    },
+    "validatorHeightLimit": "Please enter a valid height between 100 and 250 cm",
+    "@validatorHeightLimit": {
+        "description": "Validation message for height input field when out of range"
+    },
+    "labelWeight":"Weight",
+    "@labelWeight": {
+        "description": "Label for weight input field"
+    },  
+    "infoWeight": "Enter your weight",
+    "@infoWeight": {
+        "description": "Info text for weight input field"
+    },
+    "suffixWeight": "kg",
+    "@suffixWeight": {  
+        "description": "Suffix for weight input field in metric units"
+    },
+    "validatorWeight": "Please enter your weight",
+    "@validatorWeight": {
+        "description": "Validation message for weight input field"
+    },
+    "validatorWeightLimit": "Please enter a valid weight between 30 and 300 kg",
+    "@validatorWeightLimit": {
+        "description": "Validation message for weight input field when out of range"
+    },
+    "labelFitnessLevel": "Current Fitness Level",
+    "@labelFitnessLevel": {
+        "description": "Label for fitness level selection"
+    },  
+    "validatorFitnessLevel": "Please select your current fitness level",
+    "@validatorFitnessLevel": {
+        "description": "Validation message for fitness level selection"
+    },
+    "labelContinue": "Continue",
+    "@labelContinue": {
+        "description": "Button text to continue to the next step"
+    },  
+    "labelAbout": "Tell us about yourself",
+    "@labelAbout": {
+        "description": "Label for the basic information form"
+    },
+    "infoAbout": "This information helps us tailor your fitness plan",
+    "@infoAbout": {
+        "description": "Info text for the basic information form"
+    },
+    "labelAge": "Age",
+    "@labelAge": {
+        "description": "Label for age input field"
+    },
+    "infoAge": "Enter your age",
+    "@infoAge": {
+        "description": "Hint text for age input field"
+    },
+    "labelAgeSuffix": "years",
+    "@labelAgeSuffix": {
+        "description": "Suffix for age input field"
+    },
+    "labelSkip": "Skip for now",
+    "@labelSkip": {
+        "description": "Button text to skip the current step"
+    },
+    "validatorAge": "Please enter your age",
+    "@validatorAge": {
+        "description": "Validation message for age input field"
+    },
+    "validatorAgeLimit": "Please enter a valid age between 13 and 120 years",
+    "@validatorAgeLimit": {
+        "description": "Validation message for age input field when out of range"
+    },
+    
+    "pageTitleFitnessGoals": "Fitness Goals",
+    "@pageTitleFitnessGoals": {
+        "description": "Title for the fitness goals page"
+    },
+    "labelFitnessGoals": "What are your fitness goals?",
+    "@labelFitnessGoals": {
+        "description": "Title for the fitness goals selection page"
+    },
+    "labelSelectAllChange": "Select all that apply. You can change these later.",
+    "@labelSelectAllChange": {
+        "description": "Subtitle for the fitness goals selection page"
+    },
+    "validatorFitnessGoals": "Select at least one goal",
+    "@validatorFitnessGoals": {
+        "description": "Validation message for fitness goals selection"
+    },
+
+    "pageTitleDietaryPreferences": "Diet Preferences",
+    "@pageTitleDietaryPreferences": {
+        "description": "Title for the diet preferences page"
+    },
+    "infoDietaryPreferences": "Any dietary preferences?",
+    "@infoDietaryPreferences": {
+        "description": "Subtitle for the diet preferences selection page"
+    },
+    "labelDietaryPreferences": "This helps us provide relevant nutrition guidance. All information is optional.",
+    "@labelDietaryPreferences": {
+        "description": "Title for the diet preferences selection page"
+    },
+    "labelDietaryRestrictions": "Dietary Restrictions",
+    "@labelDietaryRestrictions": {  
+        "description": "Label for dietary restrictions selection"
+    },
+    "infoDietaryRestrictions": "Select any that apply to you",
+    "@infoDietaryRestrictions": {
+        "description": "Info text for dietary restrictions selection"
+    },
+    "labelFoodAllergies": "Food Allergies",
+    "@labelFoodAllergies": {
+        "description": "Label for food allergies selection"
+    },
+    "infoFoodAllergies": "Let us know about any food allergies",
+    "@infoFoodAllergies": {
+        "description": "Info text for food allergies selection"
+    },
+
+    "pageTitleHealthLimitations": "Health & Limitations",
+    "@pageTitleHealthLimitations": {
+        "description": "Title for the health limitations page"
+    },
+    "infoHealthLimitations": "Any health considerations?",
+    "@infoHealthLimitations": {
+        "description": "Subtitle for the health limitations selection page"
+    },
+    "labelHealthLimitations": "Help us personalize safe workouts for you. All information is optional and kept private.",
+    "@labelHealthLimitations": {
+        "description": "Title for the health limitations selection page"
+    },
+    "labelHealthConditions": "Health Conditions",
+    "@labelHealthConditions": {
+        "description": "Label for health conditions selection"
+    },
+    "infoHealthConditions": "Select any conditions that may affect your workouts",
+    "@infoHealthConditions": {
+        "description": "Info text for health conditions selection"
+    },
+    "labelLimitations": "Injuries & Physical Limitations",
+    "@labelLimitations": {
+        "description": "Label for injuries and physical limitations selection"
+    },
+    "infoLimitations": "Any current or past injuries we should know about?",
+    "@infoLimitations": {
+        "description": "Info text for injuries and physical limitations selection"
+    },
+
+    "pageTitleComplete": "'Preferences Saved!",
+    "@pageTitleComplete": {
+        "description": "Title for the completion page"
+    },
+    "infoComplete": "Your personalized fitness preferences are ready. Let's start your fitness journey with ExBot!",
+    "@infoComplete": {
+        "description": "Subtitle for the completion page"
+    },
+    "labelOverviewWorkouts": "Personalized Workouts",
+    "@labelOverviewWorkouts": {
+        "description": "Feature highlight"
+    },
+    "infoOverviewWorkouts": "Custom plans based on your preferences",
+    "@infoOverviewWorkouts": {
+        "description": "Feature highlight"
+    },
+    "labelOverviewTracking": "Progress Tracking",
+    "@labelOverviewTracking": {
+        "description": "Feature highlight"
+    },
+    "infoOverviewTracking": "Monitor your fitness journey",
+    "@infoOverviewTracking": {
+        "description": "Feature highlight"
+    },
+    "labelOverviewCoach": "AI Coach Support",
+    "@labelOverviewCoach": {
+        "description": "Feature highlight"
+    },
+    "infoOverviewCoach": "24/7 guidance and motivation",
+    "@infoOverviewCoach": {
+        "description": "Feature highlight"
+    },
+    "labelStart": "Start My Fitness Journey",
+    "@labelStart": {
+        "description": "Button text to start using the app"
+    },
+    "labelUpdateInfo": "You can update your preferences anytime in settings",
+    "@labelUpdateInfo": {
+        "description": "Info text about updating preferences later"
+    },
+
+    "pageTitleWelcome": "Welcome to ExBot, ",
+    "@pageTitleWelcome": {
+        "description": "Welcome title on landing page"
+    },
+    "labelWelcome": "Your AI-powered fitness coach is ready to help you achieve your fitness goals.",
+    "@labelWelcome": {
+        "description": "Welcome subtitle on landing page"
+    },
+    "labelFeaturePersonalized": "Personalized Coaching",
+    "@labelFeaturePersonalized": {
+        "description": "Feature highlight"
+    },
+    "infoFeaturePersonalized": "AI-powered guidance tailored to your needs",
+    "@infoFeaturePersonalized": {
+        "description": "Feature highlight"
+    },
+    "labelFeatureTracking": "Progress Tracking",
+    "@labelFeatureTracking": {
+        "description": "Feature highlight"
+    },
+    "infoFeatureTracking": "Monitor your fitness journey over time",
+    "@infoFeatureTracking": {
+        "description": "Feature highlight"
+    },
+    "labelFeatureNutrition": "Nutrition Guidance",
+    "@labelFeatureNutrition": {
+        "description": "Feature highlight"
+    },
+    "infoFeatureNutrition": "Meal planning and dietary recommendations",
+    "@infoFeatureNutrition": {
+        "description": "Feature highlight"
+    },
+    "labelGetStarted": "Get Started",
+    "@labelGetStarted": {
+        "description": "Button text to get started"
+    },
+
+    "pageTitleWorkouts": "Workout Preferences",
+    "@pageTitleWorkouts": {
+        "description": "Title for the workout preferences page"
+    },
+    "labelWorkoutPreferences": "How you like to work out?",
+    "@labelWorkoutPreferences": {
+        "description": "Title for the workout preferences selection page"
+    },
+    "infoWorkoutPreferences": "Help us personalize your fitness experience.",
+    "@infoWorkoutPreferences": {
+        "description": "Subtitle for the workout preferences selection page"
+    },
+    "labelWorkoutSelect": "Preferred Workouts",
+    "@labelWorkoutSelect": {
+        "description": "Label for workout preferences selection"
+    },
+    "infoWorkoutSelect": "Select the training styles you enjoy",
+    "@infoWorkoutSelect": {
+        "description": "Info text for workout preferences selection"
+    },
+    "labelEquipment": "Available Equipment",
+    "@labelEquipment": {
+        "description": "Label for available equipment selection"
+    },
+    "infoEquipment": "What equipment do you have access to?",
+    "@infoEquipment": {
+        "description": "Info text for available equipment selection"
+    },
+    "validatorWorkouts": "Select at least one workout type",
+    "@validatorWorkouts": {
+        "description": "Validation message for workout preferences selection"
+    },
+
+    "pageTitleSchedule": "Workout Schedule",
+    "@pageTitleSchedule": {
+        "description": "Title for the workout schedule page"
+    },
+    "labelSchedule": "What's your ideal workout schedule?",
+    "@labelSchedule": {
+        "description": "Title for the workout schedule selection page"
+    },
+    "infoSchedule": "Help us plan your fitness journey with a realistic schedule.",
+    "@infoSchedule": {
+        "description": "Subtitle for the workout schedule selection page"
+    },
+    "validatorSchedule": "Select your workout schedule",
+    "@validatorSchedule": {
+        "description": "Validation message for workout schedule selection"
+    },
+    "labelScheduleDays": "Workouts per week",
+    "@labelScheduleDays": {
+        "description": "Label for number of workout days selection"
+    },
+    "infoScheduleDays": "How many times can you realistically work out each week?",
+    "@infoScheduleDays": {
+        "description": "Info text for number of workout days selection"
+    },
+    "labelDuration": "Workout duration",
+    "@labelDuration": {
+        "description": "Label for workout duration selection"
+    },
+    "infoDuration": "How long do you prefer each workout session to be?",
+    "@infoDuration": {
+        "description": "Info text for workout duration selection"
+    },
+    "labelScheduleTips": "Tips for Success",
+    "@labelScheduleTips": {
+        "description": "Title for workout schedule tips"
+    },
+    "infoScheduleTip1": "Start with a realistic schedule you can maintain",
+    "@infoScheduleTip1": {
+        "description": "Workout schedule tip"
+    },
+    "infoScheduleTip2": "Consistency is more important than intensity",
+    "@infoScheduleTip2": {
+        "description": "Workout schedule tip"
+    },
+    "infoScheduleTip3": "You can always adjust your schedule later",
+    "@infoScheduleTip3": {
+        "description": "Workout schedule tip"
+    },
+    
+    "welcomeBack": "Welcome back, {user}!",
+    "@welcomeBack": {
+        "description": "Greeting for returning users",
+        "placeholders": {
+            "user": {
+                "type": "String",
+                "example": "Bob"
+            }
+        }
+    },
+    "infoPersonalizedCouching": "Personalized AI coaching",
+    "@infoPersonalizedCouching": {
+        "description": "Feature highlight"
+    },
+    "infoProgressTracking": "Progress tracking",
+    "@infoProgressTracking": {
+        "description": "Feature highlight"
+    },
+    "infoNutritionAdvice": "Nutrition advice",
+    "@infoNutritionAdvice": {
+        "description": "Feature highlight"
+    },
+    "infoSigningIn": "Signing in...",
+    "@infoSigningIn": {
+        "description": "Loading state when signing in"
+    },
+    "btnSignIn": "Sign in",
+    "@btnSignIn": {
+        "description": "Button text to sign in"
+    },
+    "btnGuest": "Continue as Guest",
+    "@btnGuest": {
+        "description": "Button text to continue as guest"
+    },
+    "infoTermsPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy.",
+    "@infoTermsPrivacy": {
+        "description": "Terms and privacy link on sign in page"
+    },
+    "errorSignInFailed": "Sign-in failed. {message}",
+    "@errorSignInFailed": {
+        "description": "Error message when sign-in fails",
+        "placeholders": {
+            "message": {
+                "type": "String",
+                "example": "message"
+            }
+        }
+    },
+    "errorAuthFailed": "Sign-in was cancelled or failed.",
+    "@errorAuthFailed": {
+        "description": "Generic authentication failure message"
+    },
+    "infoAuthRequired": "You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.",
+    "@infoAuthRequired": {
+        "description": "Information text explaining that authentication is required to use the app"
     }
-  },
-  "infoPersonalizedCouching": "Personalized AI coaching",
-  "@infoPersonalizedCouching": {
-    "description": "Feature highlight"
-  },
-  "infoProgressTracking": "Progress tracking",
-  "@infoProgressTracking": {
-    "description": "Feature highlight"
-  },
-  "infoNutritionAdvice": "Nutrition advice",
-  "@infoNutritionAdvice": {
-    "description": "Feature highlight"
-  },
-  "infoSigningIn": "Signing in...",
-  "@infoSigningIn": {
-    "description": "Loading state when signing in"
-  },
-  "btnSignIn": "Sign in",
-  "@btnSignIn": {
-    "description": "Button text to sign in"
-  },
-  "btnGuest": "Continue as Guest",
-  "@btnGuest": {
-    "description": "Button text to continue as guest"
-  },
-  "infoTermsPrivacy": "By continuing, you agree to our Terms of Service and Privacy Policy.",
-  "@infoTermsPrivacy": {
-    "description": "Terms and privacy link on sign in page"
-  },
-  "errorSignInFailed": "Sign-in failed. {message}",
-  "@errorSignInFailed": {
-    "description": "Error message when sign-in fails",
-    "placeholders": {
-      "message": {
-        "type": "String",
-        "example": "message"
-      }
-    }
-  },
-  "errorAuthFailed": "Sign-in was cancelled or failed.",
-  "@errorAuthFailed": {
-    "description": "Generic authentication failure message"
-  },
-  "infoAuthRequired": "You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.",
-  "@infoAuthRequired": {
-    "description": "Information text explaining that authentication is required to use the app"
-  }
 }

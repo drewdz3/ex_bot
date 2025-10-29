@@ -1,9 +1,12 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_cubit.dart';
+import 'package:realm/realm.dart';
 
 /// Onboarding completion page that celebrates the user's setup completion
 class OnboardingCompletePage extends StatelessWidget {
@@ -33,7 +36,7 @@ class OnboardingCompletePage extends StatelessWidget {
 
                   // Success message
                   Text(
-                    'Preferences Saved! 🎉',
+                    '${AppLocalizations.of(context)!.pageTitleComplete} 🎉',
                     style: Theme.of(
                       context,
                     ).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold, color: Colors.green),
@@ -43,7 +46,7 @@ class OnboardingCompletePage extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   Text(
-                    'Your personalized fitness preferences are ready. Let\'s start your fitness journey with ExBot!',
+                    AppLocalizations.of(context)!.infoComplete,
                     style: Theme.of(context).textTheme.bodyLarge?.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),
@@ -58,20 +61,20 @@ class OnboardingCompletePage extends StatelessWidget {
                         children: [
                           _FeatureItem(
                             icon: Icons.psychology,
-                            title: 'Personalized Workouts',
-                            description: 'Custom plans based on your preferences',
+                            title: AppLocalizations.of(context)!.labelOverviewWorkouts,
+                            description: AppLocalizations.of(context)!.infoOverviewWorkouts,
                           ),
                           const SizedBox(height: 16),
                           _FeatureItem(
                             icon: Icons.track_changes,
-                            title: 'Progress Tracking',
-                            description: 'Monitor your fitness journey',
+                            title: AppLocalizations.of(context)!.labelOverviewTracking,
+                            description: AppLocalizations.of(context)!.infoOverviewTracking,
                           ),
                           const SizedBox(height: 16),
                           _FeatureItem(
                             icon: Icons.chat,
-                            title: 'AI Coach Support',
-                            description: '24/7 guidance and motivation',
+                            title: AppLocalizations.of(context)!.labelOverviewCoach,
+                            description: AppLocalizations.of(context)!.infoOverviewCoach,
                           ),
                         ],
                       ),
@@ -89,8 +92,8 @@ class OnboardingCompletePage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text(
-                        'Start My Fitness Journey',
+                      child: Text(
+                        AppLocalizations.of(context)!.labelStart,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -100,7 +103,7 @@ class OnboardingCompletePage extends StatelessWidget {
 
                   // Settings note
                   Text(
-                    'You can update your preferences anytime in settings',
+                    AppLocalizations.of(context)!.labelUpdateInfo,
                     style: Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey[600]),
                     textAlign: TextAlign.center,
                   ),
@@ -116,7 +119,7 @@ class OnboardingCompletePage extends StatelessWidget {
   void _startJourney(BuildContext context) {
     final cubit = context.read<OnboardingCompleteCubit>();
     cubit.completeOnboarding();
-    context.go('/chat');
+    context.go(RouteConstants.chat);
   }
 }
 

@@ -1,4 +1,6 @@
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -22,13 +24,13 @@ class DietaryPreferencesPage extends StatelessWidget {
 
         return Scaffold(
           appBar: AppBar(
-            title: const Text('Dietary Preferences'),
+            title: Text(AppLocalizations.of(context)!.pageTitleDietaryPreferences),
             centerTitle: true,
             backgroundColor: Colors.transparent,
             elevation: 0,
             leading: IconButton(
               icon: const Icon(Icons.arrow_back),
-              onPressed: () => context.go('/onboarding/limitations'), // Back to HealthLimitationsPage
+              onPressed: () => context.go(RouteConstants.onboardingLimitations), // Back to HealthLimitationsPage
             ),
           ),
           body: SafeArea(
@@ -47,14 +49,14 @@ class DietaryPreferencesPage extends StatelessWidget {
                   const SizedBox(height: 32),
 
                   Text(
-                    'Any dietary preferences?',
+                    AppLocalizations.of(context)!.infoDietaryPreferences,
                     style: Theme.of(context).textTheme.headlineSmall?.copyWith(fontWeight: FontWeight.bold),
                   ),
 
                   const SizedBox(height: 8),
 
                   Text(
-                    'This helps us provide relevant nutrition guidance. All information is optional.',
+                    AppLocalizations.of(context)!.labelDietaryPreferences,
                     style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600]),
                   ),
 
@@ -66,7 +68,10 @@ class DietaryPreferencesPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Dietary Restrictions Section
-                          _SectionHeader(title: 'Dietary Restrictions', subtitle: 'Select any that apply to you'),
+                          _SectionHeader(
+                            title: AppLocalizations.of(context)!.labelDietaryRestrictions,
+                            subtitle: AppLocalizations.of(context)!.infoDietaryRestrictions,
+                          ),
                           const SizedBox(height: 16),
                           _DietaryRestrictionsSection(
                             selectedRestrictions: currentRestrictions,
@@ -77,7 +82,10 @@ class DietaryPreferencesPage extends StatelessWidget {
                           const SizedBox(height: 32),
 
                           // Allergies Section
-                          _SectionHeader(title: 'Food Allergies', subtitle: 'Let us know about any food allergies'),
+                          _SectionHeader(
+                            title: AppLocalizations.of(context)!.labelFoodAllergies,
+                            subtitle: AppLocalizations.of(context)!.infoFoodAllergies,
+                          ),
                           const SizedBox(height: 16),
                           _AllergiesSection(
                             selectedAllergies: currentAllergies,
@@ -100,8 +108,8 @@ class DietaryPreferencesPage extends StatelessWidget {
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
                       ),
-                      child: const Text(
-                        'Save Preferences',
+                      child: Text(
+                        AppLocalizations.of(context)!.labelContinue,
                         style: TextStyle(fontSize: 16, fontWeight: FontWeight.w600),
                       ),
                     ),
@@ -112,7 +120,10 @@ class DietaryPreferencesPage extends StatelessWidget {
                   // Skip button
                   SizedBox(
                     width: double.infinity,
-                    child: TextButton(onPressed: () => context.go('/chat'), child: const Text('Skip for now')),
+                    child: TextButton(
+                      onPressed: () => context.go(RouteConstants.chat),
+                      child: Text(AppLocalizations.of(context)!.labelSkip),
+                    ),
                   ),
                 ],
               ),
@@ -128,7 +139,7 @@ class DietaryPreferencesPage extends StatelessWidget {
     DebugLogger.debug('Dietary Preferences: ${cubit.dietaryData}');
 
     // Navigate to onboarding completion page
-    context.go('/onboarding/complete');
+    context.go(RouteConstants.onboardingComplete);
   }
 }
 
