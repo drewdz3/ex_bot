@@ -19,24 +19,14 @@ class BasicInfoPage extends StatelessWidget {
         if (state is BasicInfoInitial) {
           cubit.initialize();
         }
-
-        // Gender options for health and fitness calculations (BMI, metabolic rate, etc.)
-        const genderOptions = ['Male', 'Female'];
-        const fitnessLevelOptions = ['Beginner', 'Intermediate', 'Advanced', 'Athlete'];
-
-        return _buildForm(context, cubit, state, genderOptions, fitnessLevelOptions);
+        return _buildForm(context, cubit, state);
       },
     );
   }
 
-  Widget _buildForm(
-    BuildContext context,
-    BasicInfoCubit cubit,
-    BasicInfoState state,
-    List<String> genderOptions,
-    List<String> fitnessLevelOptions,
-  ) {
+  Widget _buildForm(BuildContext context, BasicInfoCubit cubit, BasicInfoState state) {
     final formKey = GlobalKey<FormState>();
+    const genderOptions = ['Male', 'Female'];
 
     // Get current values from state
     String? currentAge;
@@ -49,8 +39,8 @@ class BasicInfoPage extends StatelessWidget {
     if (state is BasicInfoLoaded) {
       currentAge = state.age?.toString();
       currentGender = state.gender;
-      currentHeight = state.heightCm?.toString();
-      currentWeight = state.weightKg?.toString();
+      currentHeight = state.height?.toString();
+      currentWeight = state.weight?.toString();
       currentFitnessLevel = state.fitnessLevel;
       complete = state.complete;
     }
@@ -211,8 +201,11 @@ class BasicInfoPage extends StatelessWidget {
                             labelText: 'Current Fitness Level',
                             border: OutlineInputBorder(),
                           ),
-                          items: fitnessLevelOptions.map((String level) {
-                            return DropdownMenuItem<String>(value: level, child: Text(level));
+                          //   items: fitnessLevelOptions.map((String level) {
+                          //     return DropdownMenuItem<String>(value: level, child: Text(level));
+                          //   }).toList(),
+                          items: cubit.fitnessLevels.map((f) {
+                            return DropdownMenuItem<String>(value: f.id, child: Text(f.name));
                           }).toList(),
                           onChanged: cubit.updateFitnessLevel,
                           validator: (value) {

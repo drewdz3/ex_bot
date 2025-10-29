@@ -11,8 +11,8 @@ class BasicInfoState with _$BasicInfoState {
   const factory BasicInfoState.loaded({
     int? age,
     String? gender,
-    int? heightCm,
-    double? weightKg,
+    int? height,
+    double? weight,
     String? fitnessLevel,
     @Default(false) bool complete,
   }) = BasicInfoLoaded;

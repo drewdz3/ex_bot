@@ -110,13 +110,13 @@ String toString() {
 
 
 class BasicInfoLoaded implements BasicInfoState {
-  const BasicInfoLoaded({this.age, this.gender, this.heightCm, this.weightKg, this.fitnessLevel, this.complete = false});
+  const BasicInfoLoaded({this.age, this.gender, this.height, this.weight, this.fitnessLevel, this.complete = false});
   
 
  final  int? age;
  final  String? gender;
- final  int? heightCm;
- final  double? weightKg;
+ final  int? height;
+ final  double? weight;
  final  String? fitnessLevel;
 @JsonKey() final  bool complete;
 
@@ -130,16 +130,16 @@ $BasicInfoLoadedCopyWith<BasicInfoLoaded> get copyWith => _$BasicInfoLoadedCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BasicInfoLoaded&&(identical(other.age, age) || other.age == age)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.heightCm, heightCm) || other.heightCm == heightCm)&&(identical(other.weightKg, weightKg) || other.weightKg == weightKg)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.complete, complete) || other.complete == complete));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BasicInfoLoaded&&(identical(other.age, age) || other.age == age)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.complete, complete) || other.complete == complete));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,age,gender,heightCm,weightKg,fitnessLevel,complete);
+int get hashCode => Object.hash(runtimeType,age,gender,height,weight,fitnessLevel,complete);
 
 @override
 String toString() {
-  return 'BasicInfoState.loaded(age: $age, gender: $gender, heightCm: $heightCm, weightKg: $weightKg, fitnessLevel: $fitnessLevel, complete: $complete)';
+  return 'BasicInfoState.loaded(age: $age, gender: $gender, height: $height, weight: $weight, fitnessLevel: $fitnessLevel, complete: $complete)';
 }
 
 
@@ -150,7 +150,7 @@ abstract mixin class $BasicInfoLoadedCopyWith<$Res> implements $BasicInfoStateCo
   factory $BasicInfoLoadedCopyWith(BasicInfoLoaded value, $Res Function(BasicInfoLoaded) _then) = _$BasicInfoLoadedCopyWithImpl;
 @useResult
 $Res call({
- int? age, String? gender, int? heightCm, double? weightKg, String? fitnessLevel, bool complete
+ int? age, String? gender, int? height, double? weight, String? fitnessLevel, bool complete
 });
 
 
@@ -167,12 +167,12 @@ class _$BasicInfoLoadedCopyWithImpl<$Res>
 
 /// Create a copy of BasicInfoState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? age = freezed,Object? gender = freezed,Object? heightCm = freezed,Object? weightKg = freezed,Object? fitnessLevel = freezed,Object? complete = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? age = freezed,Object? gender = freezed,Object? height = freezed,Object? weight = freezed,Object? fitnessLevel = freezed,Object? complete = null,}) {
   return _then(BasicInfoLoaded(
 age: freezed == age ? _self.age : age // ignore: cast_nullable_to_non_nullable
 as int?,gender: freezed == gender ? _self.gender : gender // ignore: cast_nullable_to_non_nullable
-as String?,heightCm: freezed == heightCm ? _self.heightCm : heightCm // ignore: cast_nullable_to_non_nullable
-as int?,weightKg: freezed == weightKg ? _self.weightKg : weightKg // ignore: cast_nullable_to_non_nullable
+as String?,height: freezed == height ? _self.height : height // ignore: cast_nullable_to_non_nullable
+as int?,weight: freezed == weight ? _self.weight : weight // ignore: cast_nullable_to_non_nullable
 as double?,fitnessLevel: freezed == fitnessLevel ? _self.fitnessLevel : fitnessLevel // ignore: cast_nullable_to_non_nullable
 as String?,complete: null == complete ? _self.complete : complete // ignore: cast_nullable_to_non_nullable
 as bool,

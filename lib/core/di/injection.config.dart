@@ -75,7 +75,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i471.LandingPage>(() => const _i471.LandingPage());
     gh.factory<_i258.LandingPage>(() => const _i258.LandingPage());
-    gh.factory<_i666.BasicInfoCubit>(() => _i666.BasicInfoCubit());
     gh.factory<_i1018.DietaryPreferencesCubit>(
       () => _i1018.DietaryPreferencesCubit(),
     );
@@ -129,6 +128,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i1066.LandingCubit>(
       () => _i1066.LandingCubit(gh<_i1073.AuthRepository>()),
+    );
+    gh.factory<_i666.BasicInfoCubit>(
+      () => _i666.BasicInfoCubit(gh<_i383.LookupRepository>()),
     );
     gh.factory<_i1031.FitnessGoalsCubit>(
       () => _i1031.FitnessGoalsCubit(gh<_i383.LookupRepository>()),
