@@ -1,3 +1,4 @@
+import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -15,12 +16,9 @@ class DietaryPreferencesPage extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<DietaryPreferencesCubit>();
 
-        final currentRestrictions = state.maybeWhen(
-          loaded: (restrictions, _) => restrictions,
-          orElse: () => <String>[],
-        );
+        final currentRestrictions = (state is Loaded) ? state.dietaryRestrictions : <String>[];
 
-        final currentAllergies = state.maybeWhen(loaded: (_, allergies) => allergies, orElse: () => <String>[]);
+        final currentAllergies = (state is Loaded) ? state.allergies : <String>[];
 
         return Scaffold(
           appBar: AppBar(

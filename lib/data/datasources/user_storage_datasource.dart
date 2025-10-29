@@ -1,11 +1,11 @@
 import 'dart:convert';
 
+import 'package:ex_bot/data/models/app_user.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:injectable/injectable.dart';
 
 import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
-import 'package:ex_bot/domain/entities/app_user.dart';
 
 /// Local storage for user authentication data using secure storage
 @injectable

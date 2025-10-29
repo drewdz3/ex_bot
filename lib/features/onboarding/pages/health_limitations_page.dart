@@ -1,3 +1,4 @@
+import 'package:ex_bot/features/onboarding/cubits/health_limitations_state.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -24,12 +25,8 @@ class _HealthLimitationsView extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<HealthLimitationsCubit>();
 
-        final currentHealthConditions = state.maybeWhen(
-          loaded: (conditions, _) => conditions,
-          orElse: () => <String>[],
-        );
-
-        final currentInjuries = state.maybeWhen(loaded: (_, injuries) => injuries, orElse: () => <String>[]);
+        final currentHealthConditions = (state is Loaded) ? state.healthConditions : <String>[];
+        final currentInjuries = (state is Loaded) ? state.injuriesOrLimitations : <String>[];
 
         return Scaffold(
           appBar: AppBar(
