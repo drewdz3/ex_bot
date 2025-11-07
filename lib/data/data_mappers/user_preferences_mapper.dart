@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:injectable/injectable.dart';
 import 'package:realm/realm.dart';
 
@@ -17,9 +19,11 @@ class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferenc
       age: data.age,
       height: data.height,
       weight: data.weight,
+      gender: data.gender,
       workoutsPerWeek: data.workoutsPerWeek,
       workoutDurationMinutes: data.workoutDurationMinutes,
       onboardingCompleted: data.onboardingCompleted,
+      onboardingPath: data.onboardingPath,
       fitnessGoals: data.fitnessGoals,
       availableEquipment: data.availableEquipment,
       preferredWorkoutTypes: data.preferredWorkoutTypes,
@@ -44,8 +48,10 @@ class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferenc
       age: entity.age,
       height: entity.height,
       weight: entity.weight,
+      gender: entity.gender,
       workoutsPerWeek: entity.workoutsPerWeek,
       workoutDurationMinutes: entity.workoutDurationMinutes,
+      onboardingPath: entity.onboardingPath,
       fitnessGoals: entity.fitnessGoals,
       availableEquipment: entity.availableEquipment,
       preferredWorkoutTypes: entity.preferredWorkoutTypes,

@@ -9,20 +9,29 @@ import 'package:ex_bot/features/onboarding/cubits/welcome_cubit.dart';
 
 /// Welcome page for new users after authentication
 class WelcomePage extends StatelessWidget {
-  const WelcomePage({super.key, required this.userId});
-
-  final String userId;
+  const WelcomePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WelcomeCubit, WelcomeState>(
+    return BlocConsumer<WelcomeCubit, WelcomeState>(
+      listener: (context, state) {
+        if (state is WelcomeStateComplete) {
+          context.go(RouteConstants.chat);
+        } else if (state is WelcomeStateNext) {
+          context.go(state.path);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is WelcomeStateReady;
+      },
       builder: (context, state) {
         final cubit = context.read<WelcomeCubit>();
+        final displayName = (state is WelcomeStateReady) ? state.givenName : '';
 
         // Initialize with the user id
-        WidgetsBinding.instance.addPostFrameCallback((_) {
-          cubit.initialize(userId);
-        });
+        // WidgetsBinding.instance.addPostFrameCallback((_) {
+        //   cubit.initialize(userId);
+        // });
 
         return Scaffold(
           body: SafeArea(
@@ -47,7 +56,7 @@ class WelcomePage extends StatelessWidget {
 
                   // Welcome text
                   Text(
-                    '${AppLocalizations.of(context)!.pageTitleWelcome} $userId! 👋',
+                    '${AppLocalizations.of(context)!.pageTitleWelcome} $displayName! 👋',
                     style: Theme.of(context).textTheme.headlineMedium?.copyWith(fontWeight: FontWeight.bold),
                     textAlign: TextAlign.center,
                   ),

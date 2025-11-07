@@ -24,7 +24,15 @@ class WelcomeCubit extends Cubit<WelcomeState> {
     }
     //  get user preferences
     var preferences = await _userRepository.getPreferences(userId);
-    emit(WelcomeState.ready(givenName: user.displayName ?? ''));
+    if (preferences.onboardingCompleted) {
+      //  user has already completed onboarding
+      emit(WelcomeState.complete());
+    } else if (preferences.onboardingPath != null && preferences.onboardingPath!.isNotEmpty) {
+      //  user has partially completed onboarding
+      emit(WelcomeState.next(path: preferences.onboardingPath!));
+    } else {
+      emit(WelcomeState.ready(givenName: user.displayName ?? ''));
+    }
   }
 
   void startOnboarding() {

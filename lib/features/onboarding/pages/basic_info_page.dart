@@ -13,14 +13,20 @@ class BasicInfoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BasicInfoCubit, BasicInfoState>(
+    return BlocConsumer<BasicInfoCubit, BasicInfoState>(
+      listener: (context, state) {
+        //  TODO: this logic can be moved earlier so that this page is not hit at all if onboarding is complete
+        if (state is BasicInfoComplete) {
+          context.go(RouteConstants.chat);
+        } else if (state is BasicInfoNext) {
+          context.go(RouteConstants.onboardingGoals);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is BasicInfoLoaded;
+      },
       builder: (context, state) {
         final cubit = context.read<BasicInfoCubit>();
-
-        // Initialize if needed
-        if (state is BasicInfoInitial) {
-          cubit.initialize();
-        }
         return _buildForm(context, cubit, state);
       },
     );
@@ -255,11 +261,9 @@ class BasicInfoPage extends StatelessWidget {
     );
   }
 
-  void _submitForm(BuildContext context, GlobalKey<FormState> formKey, BasicInfoCubit cubit) {
+  void _submitForm(BuildContext context, GlobalKey<FormState> formKey, BasicInfoCubit cubit) async {
     if (formKey.currentState!.validate()) {
-      cubit.saveChanges();
-      // Navigate to fitness goals page
-      context.go(RouteConstants.onboardingGoals);
+      await cubit.saveChanges();
     }
   }
 }

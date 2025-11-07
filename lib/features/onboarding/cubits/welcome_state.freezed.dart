@@ -45,8 +45,8 @@ $WelcomeStateCopyWith(WelcomeState _, $Res Function(WelcomeState) __);
 /// @nodoc
 
 
-class _Initial implements WelcomeState {
-  const _Initial();
+class WelcomeStateInitial implements WelcomeState {
+  const WelcomeStateInitial();
   
 
 
@@ -56,7 +56,7 @@ class _Initial implements WelcomeState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WelcomeStateInitial);
 }
 
 
@@ -77,8 +77,8 @@ String toString() {
 /// @nodoc
 
 
-class _Ready implements WelcomeState {
-  const _Ready({required this.givenName});
+class WelcomeStateReady implements WelcomeState {
+  const WelcomeStateReady({required this.givenName});
   
 
  final  String givenName;
@@ -87,13 +87,13 @@ class _Ready implements WelcomeState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-_$ReadyCopyWith<_Ready> get copyWith => __$ReadyCopyWithImpl<_Ready>(this, _$identity);
+$WelcomeStateReadyCopyWith<WelcomeStateReady> get copyWith => _$WelcomeStateReadyCopyWithImpl<WelcomeStateReady>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Ready&&(identical(other.givenName, givenName) || other.givenName == givenName));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WelcomeStateReady&&(identical(other.givenName, givenName) || other.givenName == givenName));
 }
 
 
@@ -109,8 +109,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class _$ReadyCopyWith<$Res> implements $WelcomeStateCopyWith<$Res> {
-  factory _$ReadyCopyWith(_Ready value, $Res Function(_Ready) _then) = __$ReadyCopyWithImpl;
+abstract mixin class $WelcomeStateReadyCopyWith<$Res> implements $WelcomeStateCopyWith<$Res> {
+  factory $WelcomeStateReadyCopyWith(WelcomeStateReady value, $Res Function(WelcomeStateReady) _then) = _$WelcomeStateReadyCopyWithImpl;
 @useResult
 $Res call({
  String givenName
@@ -121,17 +121,17 @@ $Res call({
 
 }
 /// @nodoc
-class __$ReadyCopyWithImpl<$Res>
-    implements _$ReadyCopyWith<$Res> {
-  __$ReadyCopyWithImpl(this._self, this._then);
+class _$WelcomeStateReadyCopyWithImpl<$Res>
+    implements $WelcomeStateReadyCopyWith<$Res> {
+  _$WelcomeStateReadyCopyWithImpl(this._self, this._then);
 
-  final _Ready _self;
-  final $Res Function(_Ready) _then;
+  final WelcomeStateReady _self;
+  final $Res Function(WelcomeStateReady) _then;
 
 /// Create a copy of WelcomeState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? givenName = null,}) {
-  return _then(_Ready(
+  return _then(WelcomeStateReady(
 givenName: null == givenName ? _self.givenName : givenName // ignore: cast_nullable_to_non_nullable
 as String,
   ));
@@ -139,5 +139,103 @@ as String,
 
 
 }
+
+/// @nodoc
+
+
+class WelcomeStateNext implements WelcomeState {
+  const WelcomeStateNext({required this.path});
+  
+
+ final  String path;
+
+/// Create a copy of WelcomeState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$WelcomeStateNextCopyWith<WelcomeStateNext> get copyWith => _$WelcomeStateNextCopyWithImpl<WelcomeStateNext>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WelcomeStateNext&&(identical(other.path, path) || other.path == path));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,path);
+
+@override
+String toString() {
+  return 'WelcomeState.next(path: $path)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $WelcomeStateNextCopyWith<$Res> implements $WelcomeStateCopyWith<$Res> {
+  factory $WelcomeStateNextCopyWith(WelcomeStateNext value, $Res Function(WelcomeStateNext) _then) = _$WelcomeStateNextCopyWithImpl;
+@useResult
+$Res call({
+ String path
+});
+
+
+
+
+}
+/// @nodoc
+class _$WelcomeStateNextCopyWithImpl<$Res>
+    implements $WelcomeStateNextCopyWith<$Res> {
+  _$WelcomeStateNextCopyWithImpl(this._self, this._then);
+
+  final WelcomeStateNext _self;
+  final $Res Function(WelcomeStateNext) _then;
+
+/// Create a copy of WelcomeState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? path = null,}) {
+  return _then(WelcomeStateNext(
+path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class WelcomeStateComplete implements WelcomeState {
+  const WelcomeStateComplete();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is WelcomeStateComplete);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'WelcomeState.complete()';
+}
+
+
+}
+
+
+
 
 // dart format on
