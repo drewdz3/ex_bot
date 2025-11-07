@@ -669,6 +669,18 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.'**
   String get infoAuthRequired;
+
+  /// Generic error message for unknown errors
+  ///
+  /// In en, this message translates to:
+  /// **'Something went wrong, please try again.'**
+  String get unknownError;
+
+  /// Error message when saving preferences fails
+  ///
+  /// In en, this message translates to:
+  /// **'Failed to save changes. Please try again.'**
+  String get saveError;
 }
 
 class _AppLocalizationsDelegate

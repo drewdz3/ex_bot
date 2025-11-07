@@ -1,15 +1,14 @@
-import 'package:ex_bot/app/routing/app_router.dart';
-import 'package:ex_bot/domain/entities/lookup_item.dart';
-import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
-import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
-import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:ex_bot/core/utils/debug_logger.dart';
+import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_preference_state.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_preferences_cubit.dart';
+import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
+import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 
 /// Workout preferences selection page
 class WorkoutPreferencesPage extends StatelessWidget {
@@ -17,11 +16,27 @@ class WorkoutPreferencesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<WorkoutPreferencesCubit, WorkoutPreferencesState>(
+    return BlocConsumer<WorkoutPreferencesCubit, WorkoutPreferencesState>(
+      listener: (context, state) {
+        if (state is WorkoutPreferencesStateNext) {
+          context.go(state.path);
+        } else if (state is WorkoutPreferencesStateComplete) {
+          context.go(RouteConstants.chat);
+        } else if (state is WorkoutPreferencesStateError) {
+          final snackBar = SnackBar(
+            content: Text(AppLocalizations.of(context)!.saveError),
+            backgroundColor: Colors.red,
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is WorkoutPreferencesStateLoaded;
+      },
       builder: (context, state) {
         final cubit = context.read<WorkoutPreferencesCubit>();
-        final Set<String> currentWorkoutTypes = (state is Loaded) ? state.workoutTypes : {};
-        final Set<String> currentEquipment = (state is Loaded) ? state.availableEquipment : {};
+        final Set<String> currentWorkoutTypes = (state is WorkoutPreferencesStateLoaded) ? state.workoutTypes : {};
+        final Set<String> currentEquipment = (state is WorkoutPreferencesStateLoaded) ? state.availableEquipment : {};
 
         return Scaffold(
           appBar: AppBar(
@@ -115,7 +130,8 @@ class WorkoutPreferencesPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: cubit.canContinue ? () => _continueToNext(context, cubit) : null,
+                      //  TODO: validation required here
+                      onPressed: cubit.canContinue ? cubit.save : null,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -146,13 +162,5 @@ class WorkoutPreferencesPage extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _continueToNext(BuildContext context, WorkoutPreferencesCubit cubit) {
-    // TODO: Save workout preferences and navigate to workout schedule page
-    DebugLogger.debug('Workout Preferences: ${cubit.preferencesData}');
-
-    // Navigate to workout schedule page
-    context.go('/onboarding/schedule');
   }
 }

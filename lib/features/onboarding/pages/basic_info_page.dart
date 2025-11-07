@@ -1,4 +1,5 @@
 import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -15,11 +16,24 @@ class BasicInfoPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocConsumer<BasicInfoCubit, BasicInfoState>(
       listener: (context, state) {
-        //  TODO: this logic can be moved earlier so that this page is not hit at all if onboarding is complete
         if (state is BasicInfoComplete) {
           context.go(RouteConstants.chat);
         } else if (state is BasicInfoNext) {
           context.go(RouteConstants.onboardingGoals);
+        } else if (state is BasicInfoError) {
+          String message = AppConstants.emptyString;
+          if (state.message == AppConstants.unknownError) {
+            message = AppLocalizations.of(context)!.unknownError;
+          } else if (state.message == AppConstants.saveError) {
+            message = AppLocalizations.of(context)!.saveError;
+          }
+
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(AppLocalizations.of(context)!.errorSignInFailed(message)),
+              backgroundColor: Colors.red,
+            ),
+          );
         }
       },
       buildWhen: (previous, current) {

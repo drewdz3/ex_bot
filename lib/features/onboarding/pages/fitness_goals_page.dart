@@ -14,10 +14,24 @@ class FitnessGoalsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<FitnessGoalsCubit, FitnessGoalsState>(
+    return BlocConsumer<FitnessGoalsCubit, FitnessGoalsState>(
+      listener: (context, state) {
+        if (state is FitnessGoalsStateNext) {
+          context.go(state.path);
+        } else if (state is FitnessGoalsStateComplete) {
+          context.go(RouteConstants.chat);
+        } else if (state is FitnessGoalsStateError) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text(AppLocalizations.of(context)!.unknownError), backgroundColor: Colors.red),
+          );
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is FitnessGoalsStateLoaded;
+      },
       builder: (context, state) {
         final cubit = context.read<FitnessGoalsCubit>();
-        Set<String> selectedGoals = (state is Loaded) ? state.selectedGoals : <String>{};
+        Set<String> selectedGoals = (state is FitnessGoalsStateLoaded) ? state.selectedGoals : <String>{};
         final goalsList = cubit.fitnessGoals
             .map((goal) => LookupItem(id: goal.id, name: goal.name, description: goal.description, icon: goal.icon))
             .toList();
@@ -80,7 +94,7 @@ class FitnessGoalsPage extends StatelessWidget {
                     child: ElevatedButton(
                       onPressed: selectedGoals.isNotEmpty
                           ? () {
-                              context.go(RouteConstants.onboardingPreferences);
+                              cubit.save();
                             }
                           : null,
                       style: ElevatedButton.styleFrom(

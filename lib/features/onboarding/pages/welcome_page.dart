@@ -28,11 +28,6 @@ class WelcomePage extends StatelessWidget {
         final cubit = context.read<WelcomeCubit>();
         final displayName = (state is WelcomeStateReady) ? state.givenName : '';
 
-        // Initialize with the user id
-        // WidgetsBinding.instance.addPostFrameCallback((_) {
-        //   cubit.initialize(userId);
-        // });
-
         return Scaffold(
           body: SafeArea(
             child: Padding(

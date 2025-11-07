@@ -20,6 +20,8 @@ sealed class UserPreferences with _$UserPreferences {
     @Default([]) List<String> preferredWorkoutTypes,
     @Default([]) List<String> dietaryRestrictions,
     @Default([]) List<String> medicalConditions,
+    @Default([]) List<String> injuries,
+    @Default([]) List<String> allergies,
     DateTime? lastUpdated,
   }) = _UserPreferences;
 }

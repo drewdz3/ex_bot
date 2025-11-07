@@ -6,7 +6,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_cubit.dart';
-import 'package:realm/realm.dart';
 
 /// Onboarding completion page that celebrates the user's setup completion
 class OnboardingCompletePage extends StatelessWidget {

@@ -45,8 +45,8 @@ $FitnessGoalsStateCopyWith(FitnessGoalsState _, $Res Function(FitnessGoalsState)
 /// @nodoc
 
 
-class _Initial implements FitnessGoalsState {
-  const _Initial();
+class FitnessGoalsStateInitial implements FitnessGoalsState {
+  const FitnessGoalsStateInitial();
   
 
 
@@ -56,7 +56,7 @@ class _Initial implements FitnessGoalsState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FitnessGoalsStateInitial);
 }
 
 
@@ -77,8 +77,8 @@ String toString() {
 /// @nodoc
 
 
-class Loaded implements FitnessGoalsState {
-  const Loaded({required final  Set<String> selectedGoals}): _selectedGoals = selectedGoals;
+class FitnessGoalsStateLoaded implements FitnessGoalsState {
+  const FitnessGoalsStateLoaded({required final  Set<String> selectedGoals}): _selectedGoals = selectedGoals;
   
 
  final  Set<String> _selectedGoals;
@@ -93,13 +93,13 @@ class Loaded implements FitnessGoalsState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+$FitnessGoalsStateLoadedCopyWith<FitnessGoalsStateLoaded> get copyWith => _$FitnessGoalsStateLoadedCopyWithImpl<FitnessGoalsStateLoaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._selectedGoals, _selectedGoals));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FitnessGoalsStateLoaded&&const DeepCollectionEquality().equals(other._selectedGoals, _selectedGoals));
 }
 
 
@@ -115,8 +115,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $LoadedCopyWith<$Res> implements $FitnessGoalsStateCopyWith<$Res> {
-  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+abstract mixin class $FitnessGoalsStateLoadedCopyWith<$Res> implements $FitnessGoalsStateCopyWith<$Res> {
+  factory $FitnessGoalsStateLoadedCopyWith(FitnessGoalsStateLoaded value, $Res Function(FitnessGoalsStateLoaded) _then) = _$FitnessGoalsStateLoadedCopyWithImpl;
 @useResult
 $Res call({
  Set<String> selectedGoals
@@ -127,17 +127,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$LoadedCopyWithImpl<$Res>
-    implements $LoadedCopyWith<$Res> {
-  _$LoadedCopyWithImpl(this._self, this._then);
+class _$FitnessGoalsStateLoadedCopyWithImpl<$Res>
+    implements $FitnessGoalsStateLoadedCopyWith<$Res> {
+  _$FitnessGoalsStateLoadedCopyWithImpl(this._self, this._then);
 
-  final Loaded _self;
-  final $Res Function(Loaded) _then;
+  final FitnessGoalsStateLoaded _self;
+  final $Res Function(FitnessGoalsStateLoaded) _then;
 
 /// Create a copy of FitnessGoalsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? selectedGoals = null,}) {
-  return _then(Loaded(
+  return _then(FitnessGoalsStateLoaded(
 selectedGoals: null == selectedGoals ? _self._selectedGoals : selectedGoals // ignore: cast_nullable_to_non_nullable
 as Set<String>,
   ));
@@ -145,5 +145,169 @@ as Set<String>,
 
 
 }
+
+/// @nodoc
+
+
+class FitnessGoalsStateError implements FitnessGoalsState {
+  const FitnessGoalsStateError({required this.message});
+  
+
+ final  String message;
+
+/// Create a copy of FitnessGoalsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FitnessGoalsStateErrorCopyWith<FitnessGoalsStateError> get copyWith => _$FitnessGoalsStateErrorCopyWithImpl<FitnessGoalsStateError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FitnessGoalsStateError&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'FitnessGoalsState.error(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FitnessGoalsStateErrorCopyWith<$Res> implements $FitnessGoalsStateCopyWith<$Res> {
+  factory $FitnessGoalsStateErrorCopyWith(FitnessGoalsStateError value, $Res Function(FitnessGoalsStateError) _then) = _$FitnessGoalsStateErrorCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$FitnessGoalsStateErrorCopyWithImpl<$Res>
+    implements $FitnessGoalsStateErrorCopyWith<$Res> {
+  _$FitnessGoalsStateErrorCopyWithImpl(this._self, this._then);
+
+  final FitnessGoalsStateError _self;
+  final $Res Function(FitnessGoalsStateError) _then;
+
+/// Create a copy of FitnessGoalsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(FitnessGoalsStateError(
+message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class FitnessGoalsStateNext implements FitnessGoalsState {
+  const FitnessGoalsStateNext({required this.path});
+  
+
+ final  String path;
+
+/// Create a copy of FitnessGoalsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$FitnessGoalsStateNextCopyWith<FitnessGoalsStateNext> get copyWith => _$FitnessGoalsStateNextCopyWithImpl<FitnessGoalsStateNext>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FitnessGoalsStateNext&&(identical(other.path, path) || other.path == path));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,path);
+
+@override
+String toString() {
+  return 'FitnessGoalsState.next(path: $path)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $FitnessGoalsStateNextCopyWith<$Res> implements $FitnessGoalsStateCopyWith<$Res> {
+  factory $FitnessGoalsStateNextCopyWith(FitnessGoalsStateNext value, $Res Function(FitnessGoalsStateNext) _then) = _$FitnessGoalsStateNextCopyWithImpl;
+@useResult
+$Res call({
+ String path
+});
+
+
+
+
+}
+/// @nodoc
+class _$FitnessGoalsStateNextCopyWithImpl<$Res>
+    implements $FitnessGoalsStateNextCopyWith<$Res> {
+  _$FitnessGoalsStateNextCopyWithImpl(this._self, this._then);
+
+  final FitnessGoalsStateNext _self;
+  final $Res Function(FitnessGoalsStateNext) _then;
+
+/// Create a copy of FitnessGoalsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? path = null,}) {
+  return _then(FitnessGoalsStateNext(
+path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class FitnessGoalsStateComplete implements FitnessGoalsState {
+  const FitnessGoalsStateComplete();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is FitnessGoalsStateComplete);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'FitnessGoalsState.complete()';
+}
+
+
+}
+
+
+
 
 // dart format on

@@ -29,6 +29,8 @@ class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferenc
       preferredWorkoutTypes: data.preferredWorkoutTypes,
       dietaryRestrictions: data.dietaryRestrictions,
       medicalConditions: data.medicalConditions,
+      injuries: data.injuries,
+      allergies: data.allergies,
       lastUpdated: data.lastUpdated,
     );
   }
@@ -57,6 +59,8 @@ class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferenc
       preferredWorkoutTypes: entity.preferredWorkoutTypes,
       dietaryRestrictions: entity.dietaryRestrictions,
       medicalConditions: entity.medicalConditions,
+      injuries: entity.injuries,
+      allergies: entity.allergies,
     );
   }
 

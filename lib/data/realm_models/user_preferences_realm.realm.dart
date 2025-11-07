@@ -28,6 +28,8 @@ class UserPreferencesRealm extends _UserPreferencesRealm
     Iterable<String> preferredWorkoutTypes = const [],
     Iterable<String> dietaryRestrictions = const [],
     Iterable<String> medicalConditions = const [],
+    Iterable<String> injuries = const [],
+    Iterable<String> allergies = const [],
   }) {
     RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'fitnessLevel', fitnessLevel);
@@ -63,6 +65,16 @@ class UserPreferencesRealm extends _UserPreferencesRealm
       this,
       'medicalConditions',
       RealmList<String>(medicalConditions),
+    );
+    RealmObjectBase.set<RealmList<String>>(
+      this,
+      'injuries',
+      RealmList<String>(injuries),
+    );
+    RealmObjectBase.set<RealmList<String>>(
+      this,
+      'allergies',
+      RealmList<String>(allergies),
     );
     RealmObjectBase.set(this, 'lastUpdated', lastUpdated);
   }
@@ -169,6 +181,20 @@ class UserPreferencesRealm extends _UserPreferencesRealm
       throw RealmUnsupportedSetError();
 
   @override
+  RealmList<String> get injuries =>
+      RealmObjectBase.get<String>(this, 'injuries') as RealmList<String>;
+  @override
+  set injuries(covariant RealmList<String> value) =>
+      throw RealmUnsupportedSetError();
+
+  @override
+  RealmList<String> get allergies =>
+      RealmObjectBase.get<String>(this, 'allergies') as RealmList<String>;
+  @override
+  set allergies(covariant RealmList<String> value) =>
+      throw RealmUnsupportedSetError();
+
+  @override
   DateTime get lastUpdated =>
       RealmObjectBase.get<DateTime>(this, 'lastUpdated') as DateTime;
   @override
@@ -205,6 +231,8 @@ class UserPreferencesRealm extends _UserPreferencesRealm
       'preferredWorkoutTypes': preferredWorkoutTypes.toEJson(),
       'dietaryRestrictions': dietaryRestrictions.toEJson(),
       'medicalConditions': medicalConditions.toEJson(),
+      'injuries': injuries.toEJson(),
+      'allergies': allergies.toEJson(),
       'lastUpdated': lastUpdated.toEJson(),
     };
   }
@@ -235,6 +263,8 @@ class UserPreferencesRealm extends _UserPreferencesRealm
           preferredWorkoutTypes: fromEJson(ejson['preferredWorkoutTypes']),
           dietaryRestrictions: fromEJson(ejson['dietaryRestrictions']),
           medicalConditions: fromEJson(ejson['medicalConditions']),
+          injuries: fromEJson(ejson['injuries']),
+          allergies: fromEJson(ejson['allergies']),
         ),
       _ => raiseInvalidEJson(ejson),
     };
@@ -296,6 +326,16 @@ class UserPreferencesRealm extends _UserPreferencesRealm
         ),
         SchemaProperty(
           'medicalConditions',
+          RealmPropertyType.string,
+          collectionType: RealmCollectionType.list,
+        ),
+        SchemaProperty(
+          'injuries',
+          RealmPropertyType.string,
+          collectionType: RealmCollectionType.list,
+        ),
+        SchemaProperty(
+          'allergies',
           RealmPropertyType.string,
           collectionType: RealmCollectionType.list,
         ),

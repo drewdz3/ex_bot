@@ -1,4 +1,5 @@
 import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_schedule_state.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
@@ -13,20 +14,29 @@ class WorkoutSchedulePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _WorkoutScheduleView();
-  }
-}
-
-class _WorkoutScheduleView extends StatelessWidget {
-  const _WorkoutScheduleView();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<WorkoutScheduleCubit, WorkoutScheduleState>(
+    return BlocConsumer<WorkoutScheduleCubit, WorkoutScheduleState>(
+      listener: (context, state) {
+        if (state is WorkoutScheduleStateError) {
+          var message = AppConstants.emptyString;
+          if (state.message == AppConstants.saveError) {
+            message = AppLocalizations.of(context)!.saveError;
+          } else {
+            message = AppLocalizations.of(context)!.unknownError;
+          }
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red));
+        } else if (state is WorkoutScheduleStateNext) {
+          context.go(state.path);
+        } else if (state is WorkoutScheduleStateComplete) {
+          context.go(RouteConstants.chat);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is WorkoutScheduleStateLoaded;
+      },
       builder: (context, state) {
         final cubit = context.read<WorkoutScheduleCubit>();
-        final currentFrequency = (state is Loaded) ? state.frequency : null;
-        final currentDuration = (state is Loaded) ? state.duration : null;
+        final currentFrequency = (state is WorkoutScheduleStateLoaded) ? state.frequency : null;
+        final currentDuration = (state is WorkoutScheduleStateLoaded) ? state.duration : null;
 
         return Scaffold(
           appBar: AppBar(
@@ -90,7 +100,7 @@ class _WorkoutScheduleView extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: cubit.canContinue ? () => _continueToNext(context, cubit) : null,
+                      onPressed: cubit.canContinue ? cubit.save : null,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -121,11 +131,6 @@ class _WorkoutScheduleView extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _continueToNext(BuildContext context, WorkoutScheduleCubit cubit) {
-    // Navigate to health limitations page
-    context.go(RouteConstants.onboardingLimitations);
   }
 }
 

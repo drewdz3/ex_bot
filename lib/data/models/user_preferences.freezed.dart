@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$UserPreferences {
 
- String get id; String? get fitnessLevel; int? get age; int? get height; double? get weight; String? get gender; int? get workoutsPerWeek; int? get workoutDurationMinutes; String? get onboardingPath; bool get onboardingCompleted; List<String> get fitnessGoals; List<String> get availableEquipment; List<String> get preferredWorkoutTypes; List<String> get dietaryRestrictions; List<String> get medicalConditions; DateTime? get lastUpdated;
+ String get id; String? get fitnessLevel; int? get age; int? get height; double? get weight; String? get gender; int? get workoutsPerWeek; int? get workoutDurationMinutes; String? get onboardingPath; bool get onboardingCompleted; List<String> get fitnessGoals; List<String> get availableEquipment; List<String> get preferredWorkoutTypes; List<String> get dietaryRestrictions; List<String> get medicalConditions; List<String> get injuries; List<String> get allergies; DateTime? get lastUpdated;
 /// Create a copy of UserPreferences
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -26,16 +26,16 @@ $UserPreferencesCopyWith<UserPreferences> get copyWith => _$UserPreferencesCopyW
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserPreferences&&(identical(other.id, id) || other.id == id)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.age, age) || other.age == age)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.workoutsPerWeek, workoutsPerWeek) || other.workoutsPerWeek == workoutsPerWeek)&&(identical(other.workoutDurationMinutes, workoutDurationMinutes) || other.workoutDurationMinutes == workoutDurationMinutes)&&(identical(other.onboardingPath, onboardingPath) || other.onboardingPath == onboardingPath)&&(identical(other.onboardingCompleted, onboardingCompleted) || other.onboardingCompleted == onboardingCompleted)&&const DeepCollectionEquality().equals(other.fitnessGoals, fitnessGoals)&&const DeepCollectionEquality().equals(other.availableEquipment, availableEquipment)&&const DeepCollectionEquality().equals(other.preferredWorkoutTypes, preferredWorkoutTypes)&&const DeepCollectionEquality().equals(other.dietaryRestrictions, dietaryRestrictions)&&const DeepCollectionEquality().equals(other.medicalConditions, medicalConditions)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is UserPreferences&&(identical(other.id, id) || other.id == id)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.age, age) || other.age == age)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.workoutsPerWeek, workoutsPerWeek) || other.workoutsPerWeek == workoutsPerWeek)&&(identical(other.workoutDurationMinutes, workoutDurationMinutes) || other.workoutDurationMinutes == workoutDurationMinutes)&&(identical(other.onboardingPath, onboardingPath) || other.onboardingPath == onboardingPath)&&(identical(other.onboardingCompleted, onboardingCompleted) || other.onboardingCompleted == onboardingCompleted)&&const DeepCollectionEquality().equals(other.fitnessGoals, fitnessGoals)&&const DeepCollectionEquality().equals(other.availableEquipment, availableEquipment)&&const DeepCollectionEquality().equals(other.preferredWorkoutTypes, preferredWorkoutTypes)&&const DeepCollectionEquality().equals(other.dietaryRestrictions, dietaryRestrictions)&&const DeepCollectionEquality().equals(other.medicalConditions, medicalConditions)&&const DeepCollectionEquality().equals(other.injuries, injuries)&&const DeepCollectionEquality().equals(other.allergies, allergies)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,fitnessLevel,age,height,weight,gender,workoutsPerWeek,workoutDurationMinutes,onboardingPath,onboardingCompleted,const DeepCollectionEquality().hash(fitnessGoals),const DeepCollectionEquality().hash(availableEquipment),const DeepCollectionEquality().hash(preferredWorkoutTypes),const DeepCollectionEquality().hash(dietaryRestrictions),const DeepCollectionEquality().hash(medicalConditions),lastUpdated);
+int get hashCode => Object.hash(runtimeType,id,fitnessLevel,age,height,weight,gender,workoutsPerWeek,workoutDurationMinutes,onboardingPath,onboardingCompleted,const DeepCollectionEquality().hash(fitnessGoals),const DeepCollectionEquality().hash(availableEquipment),const DeepCollectionEquality().hash(preferredWorkoutTypes),const DeepCollectionEquality().hash(dietaryRestrictions),const DeepCollectionEquality().hash(medicalConditions),const DeepCollectionEquality().hash(injuries),const DeepCollectionEquality().hash(allergies),lastUpdated);
 
 @override
 String toString() {
-  return 'UserPreferences(id: $id, fitnessLevel: $fitnessLevel, age: $age, height: $height, weight: $weight, gender: $gender, workoutsPerWeek: $workoutsPerWeek, workoutDurationMinutes: $workoutDurationMinutes, onboardingPath: $onboardingPath, onboardingCompleted: $onboardingCompleted, fitnessGoals: $fitnessGoals, availableEquipment: $availableEquipment, preferredWorkoutTypes: $preferredWorkoutTypes, dietaryRestrictions: $dietaryRestrictions, medicalConditions: $medicalConditions, lastUpdated: $lastUpdated)';
+  return 'UserPreferences(id: $id, fitnessLevel: $fitnessLevel, age: $age, height: $height, weight: $weight, gender: $gender, workoutsPerWeek: $workoutsPerWeek, workoutDurationMinutes: $workoutDurationMinutes, onboardingPath: $onboardingPath, onboardingCompleted: $onboardingCompleted, fitnessGoals: $fitnessGoals, availableEquipment: $availableEquipment, preferredWorkoutTypes: $preferredWorkoutTypes, dietaryRestrictions: $dietaryRestrictions, medicalConditions: $medicalConditions, injuries: $injuries, allergies: $allergies, lastUpdated: $lastUpdated)';
 }
 
 
@@ -46,7 +46,7 @@ abstract mixin class $UserPreferencesCopyWith<$Res>  {
   factory $UserPreferencesCopyWith(UserPreferences value, $Res Function(UserPreferences) _then) = _$UserPreferencesCopyWithImpl;
 @useResult
 $Res call({
- String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, DateTime? lastUpdated
+ String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, List<String> injuries, List<String> allergies, DateTime? lastUpdated
 });
 
 
@@ -63,7 +63,7 @@ class _$UserPreferencesCopyWithImpl<$Res>
 
 /// Create a copy of UserPreferences
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? fitnessLevel = freezed,Object? age = freezed,Object? height = freezed,Object? weight = freezed,Object? gender = freezed,Object? workoutsPerWeek = freezed,Object? workoutDurationMinutes = freezed,Object? onboardingPath = freezed,Object? onboardingCompleted = null,Object? fitnessGoals = null,Object? availableEquipment = null,Object? preferredWorkoutTypes = null,Object? dietaryRestrictions = null,Object? medicalConditions = null,Object? lastUpdated = freezed,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? id = null,Object? fitnessLevel = freezed,Object? age = freezed,Object? height = freezed,Object? weight = freezed,Object? gender = freezed,Object? workoutsPerWeek = freezed,Object? workoutDurationMinutes = freezed,Object? onboardingPath = freezed,Object? onboardingCompleted = null,Object? fitnessGoals = null,Object? availableEquipment = null,Object? preferredWorkoutTypes = null,Object? dietaryRestrictions = null,Object? medicalConditions = null,Object? injuries = null,Object? allergies = null,Object? lastUpdated = freezed,}) {
   return _then(_self.copyWith(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,fitnessLevel: freezed == fitnessLevel ? _self.fitnessLevel : fitnessLevel // ignore: cast_nullable_to_non_nullable
@@ -80,6 +80,8 @@ as List<String>,availableEquipment: null == availableEquipment ? _self.available
 as List<String>,preferredWorkoutTypes: null == preferredWorkoutTypes ? _self.preferredWorkoutTypes : preferredWorkoutTypes // ignore: cast_nullable_to_non_nullable
 as List<String>,dietaryRestrictions: null == dietaryRestrictions ? _self.dietaryRestrictions : dietaryRestrictions // ignore: cast_nullable_to_non_nullable
 as List<String>,medicalConditions: null == medicalConditions ? _self.medicalConditions : medicalConditions // ignore: cast_nullable_to_non_nullable
+as List<String>,injuries: null == injuries ? _self.injuries : injuries // ignore: cast_nullable_to_non_nullable
+as List<String>,allergies: null == allergies ? _self.allergies : allergies // ignore: cast_nullable_to_non_nullable
 as List<String>,lastUpdated: freezed == lastUpdated ? _self.lastUpdated : lastUpdated // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));
@@ -92,7 +94,7 @@ as DateTime?,
 
 
 class _UserPreferences implements UserPreferences {
-  const _UserPreferences({required this.id, this.fitnessLevel, this.age, this.height, this.weight, this.gender, this.workoutsPerWeek, this.workoutDurationMinutes, this.onboardingPath, this.onboardingCompleted = false, final  List<String> fitnessGoals = const [], final  List<String> availableEquipment = const [], final  List<String> preferredWorkoutTypes = const [], final  List<String> dietaryRestrictions = const [], final  List<String> medicalConditions = const [], this.lastUpdated}): _fitnessGoals = fitnessGoals,_availableEquipment = availableEquipment,_preferredWorkoutTypes = preferredWorkoutTypes,_dietaryRestrictions = dietaryRestrictions,_medicalConditions = medicalConditions;
+  const _UserPreferences({required this.id, this.fitnessLevel, this.age, this.height, this.weight, this.gender, this.workoutsPerWeek, this.workoutDurationMinutes, this.onboardingPath, this.onboardingCompleted = false, final  List<String> fitnessGoals = const [], final  List<String> availableEquipment = const [], final  List<String> preferredWorkoutTypes = const [], final  List<String> dietaryRestrictions = const [], final  List<String> medicalConditions = const [], final  List<String> injuries = const [], final  List<String> allergies = const [], this.lastUpdated}): _fitnessGoals = fitnessGoals,_availableEquipment = availableEquipment,_preferredWorkoutTypes = preferredWorkoutTypes,_dietaryRestrictions = dietaryRestrictions,_medicalConditions = medicalConditions,_injuries = injuries,_allergies = allergies;
   
 
 @override final  String id;
@@ -140,6 +142,20 @@ class _UserPreferences implements UserPreferences {
   return EqualUnmodifiableListView(_medicalConditions);
 }
 
+ final  List<String> _injuries;
+@override@JsonKey() List<String> get injuries {
+  if (_injuries is EqualUnmodifiableListView) return _injuries;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_injuries);
+}
+
+ final  List<String> _allergies;
+@override@JsonKey() List<String> get allergies {
+  if (_allergies is EqualUnmodifiableListView) return _allergies;
+  // ignore: implicit_dynamic_type
+  return EqualUnmodifiableListView(_allergies);
+}
+
 @override final  DateTime? lastUpdated;
 
 /// Create a copy of UserPreferences
@@ -152,16 +168,16 @@ _$UserPreferencesCopyWith<_UserPreferences> get copyWith => __$UserPreferencesCo
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserPreferences&&(identical(other.id, id) || other.id == id)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.age, age) || other.age == age)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.workoutsPerWeek, workoutsPerWeek) || other.workoutsPerWeek == workoutsPerWeek)&&(identical(other.workoutDurationMinutes, workoutDurationMinutes) || other.workoutDurationMinutes == workoutDurationMinutes)&&(identical(other.onboardingPath, onboardingPath) || other.onboardingPath == onboardingPath)&&(identical(other.onboardingCompleted, onboardingCompleted) || other.onboardingCompleted == onboardingCompleted)&&const DeepCollectionEquality().equals(other._fitnessGoals, _fitnessGoals)&&const DeepCollectionEquality().equals(other._availableEquipment, _availableEquipment)&&const DeepCollectionEquality().equals(other._preferredWorkoutTypes, _preferredWorkoutTypes)&&const DeepCollectionEquality().equals(other._dietaryRestrictions, _dietaryRestrictions)&&const DeepCollectionEquality().equals(other._medicalConditions, _medicalConditions)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserPreferences&&(identical(other.id, id) || other.id == id)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.age, age) || other.age == age)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.workoutsPerWeek, workoutsPerWeek) || other.workoutsPerWeek == workoutsPerWeek)&&(identical(other.workoutDurationMinutes, workoutDurationMinutes) || other.workoutDurationMinutes == workoutDurationMinutes)&&(identical(other.onboardingPath, onboardingPath) || other.onboardingPath == onboardingPath)&&(identical(other.onboardingCompleted, onboardingCompleted) || other.onboardingCompleted == onboardingCompleted)&&const DeepCollectionEquality().equals(other._fitnessGoals, _fitnessGoals)&&const DeepCollectionEquality().equals(other._availableEquipment, _availableEquipment)&&const DeepCollectionEquality().equals(other._preferredWorkoutTypes, _preferredWorkoutTypes)&&const DeepCollectionEquality().equals(other._dietaryRestrictions, _dietaryRestrictions)&&const DeepCollectionEquality().equals(other._medicalConditions, _medicalConditions)&&const DeepCollectionEquality().equals(other._injuries, _injuries)&&const DeepCollectionEquality().equals(other._allergies, _allergies)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,id,fitnessLevel,age,height,weight,gender,workoutsPerWeek,workoutDurationMinutes,onboardingPath,onboardingCompleted,const DeepCollectionEquality().hash(_fitnessGoals),const DeepCollectionEquality().hash(_availableEquipment),const DeepCollectionEquality().hash(_preferredWorkoutTypes),const DeepCollectionEquality().hash(_dietaryRestrictions),const DeepCollectionEquality().hash(_medicalConditions),lastUpdated);
+int get hashCode => Object.hash(runtimeType,id,fitnessLevel,age,height,weight,gender,workoutsPerWeek,workoutDurationMinutes,onboardingPath,onboardingCompleted,const DeepCollectionEquality().hash(_fitnessGoals),const DeepCollectionEquality().hash(_availableEquipment),const DeepCollectionEquality().hash(_preferredWorkoutTypes),const DeepCollectionEquality().hash(_dietaryRestrictions),const DeepCollectionEquality().hash(_medicalConditions),const DeepCollectionEquality().hash(_injuries),const DeepCollectionEquality().hash(_allergies),lastUpdated);
 
 @override
 String toString() {
-  return 'UserPreferences(id: $id, fitnessLevel: $fitnessLevel, age: $age, height: $height, weight: $weight, gender: $gender, workoutsPerWeek: $workoutsPerWeek, workoutDurationMinutes: $workoutDurationMinutes, onboardingPath: $onboardingPath, onboardingCompleted: $onboardingCompleted, fitnessGoals: $fitnessGoals, availableEquipment: $availableEquipment, preferredWorkoutTypes: $preferredWorkoutTypes, dietaryRestrictions: $dietaryRestrictions, medicalConditions: $medicalConditions, lastUpdated: $lastUpdated)';
+  return 'UserPreferences(id: $id, fitnessLevel: $fitnessLevel, age: $age, height: $height, weight: $weight, gender: $gender, workoutsPerWeek: $workoutsPerWeek, workoutDurationMinutes: $workoutDurationMinutes, onboardingPath: $onboardingPath, onboardingCompleted: $onboardingCompleted, fitnessGoals: $fitnessGoals, availableEquipment: $availableEquipment, preferredWorkoutTypes: $preferredWorkoutTypes, dietaryRestrictions: $dietaryRestrictions, medicalConditions: $medicalConditions, injuries: $injuries, allergies: $allergies, lastUpdated: $lastUpdated)';
 }
 
 
@@ -172,7 +188,7 @@ abstract mixin class _$UserPreferencesCopyWith<$Res> implements $UserPreferences
   factory _$UserPreferencesCopyWith(_UserPreferences value, $Res Function(_UserPreferences) _then) = __$UserPreferencesCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, DateTime? lastUpdated
+ String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, List<String> injuries, List<String> allergies, DateTime? lastUpdated
 });
 
 
@@ -189,7 +205,7 @@ class __$UserPreferencesCopyWithImpl<$Res>
 
 /// Create a copy of UserPreferences
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? fitnessLevel = freezed,Object? age = freezed,Object? height = freezed,Object? weight = freezed,Object? gender = freezed,Object? workoutsPerWeek = freezed,Object? workoutDurationMinutes = freezed,Object? onboardingPath = freezed,Object? onboardingCompleted = null,Object? fitnessGoals = null,Object? availableEquipment = null,Object? preferredWorkoutTypes = null,Object? dietaryRestrictions = null,Object? medicalConditions = null,Object? lastUpdated = freezed,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? id = null,Object? fitnessLevel = freezed,Object? age = freezed,Object? height = freezed,Object? weight = freezed,Object? gender = freezed,Object? workoutsPerWeek = freezed,Object? workoutDurationMinutes = freezed,Object? onboardingPath = freezed,Object? onboardingCompleted = null,Object? fitnessGoals = null,Object? availableEquipment = null,Object? preferredWorkoutTypes = null,Object? dietaryRestrictions = null,Object? medicalConditions = null,Object? injuries = null,Object? allergies = null,Object? lastUpdated = freezed,}) {
   return _then(_UserPreferences(
 id: null == id ? _self.id : id // ignore: cast_nullable_to_non_nullable
 as String,fitnessLevel: freezed == fitnessLevel ? _self.fitnessLevel : fitnessLevel // ignore: cast_nullable_to_non_nullable
@@ -206,6 +222,8 @@ as List<String>,availableEquipment: null == availableEquipment ? _self._availabl
 as List<String>,preferredWorkoutTypes: null == preferredWorkoutTypes ? _self._preferredWorkoutTypes : preferredWorkoutTypes // ignore: cast_nullable_to_non_nullable
 as List<String>,dietaryRestrictions: null == dietaryRestrictions ? _self._dietaryRestrictions : dietaryRestrictions // ignore: cast_nullable_to_non_nullable
 as List<String>,medicalConditions: null == medicalConditions ? _self._medicalConditions : medicalConditions // ignore: cast_nullable_to_non_nullable
+as List<String>,injuries: null == injuries ? _self._injuries : injuries // ignore: cast_nullable_to_non_nullable
+as List<String>,allergies: null == allergies ? _self._allergies : allergies // ignore: cast_nullable_to_non_nullable
 as List<String>,lastUpdated: freezed == lastUpdated ? _self.lastUpdated : lastUpdated // ignore: cast_nullable_to_non_nullable
 as DateTime?,
   ));

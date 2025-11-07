@@ -45,8 +45,8 @@ $DietaryPreferencesStateCopyWith(DietaryPreferencesState _, $Res Function(Dietar
 /// @nodoc
 
 
-class Initial implements DietaryPreferencesState {
-  const Initial();
+class DietaryPreferencesStateInitial implements DietaryPreferencesState {
+  const DietaryPreferencesStateInitial();
   
 
 
@@ -56,7 +56,7 @@ class Initial implements DietaryPreferencesState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateInitial);
 }
 
 
@@ -77,8 +77,8 @@ String toString() {
 /// @nodoc
 
 
-class Loaded implements DietaryPreferencesState {
-  const Loaded({required final  List<String> dietaryRestrictions, required final  List<String> allergies}): _dietaryRestrictions = dietaryRestrictions,_allergies = allergies;
+class DietaryPreferencesStateLoaded implements DietaryPreferencesState {
+  const DietaryPreferencesStateLoaded({required final  List<String> dietaryRestrictions, required final  List<String> allergies}): _dietaryRestrictions = dietaryRestrictions,_allergies = allergies;
   
 
  final  List<String> _dietaryRestrictions;
@@ -100,13 +100,13 @@ class Loaded implements DietaryPreferencesState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+$DietaryPreferencesStateLoadedCopyWith<DietaryPreferencesStateLoaded> get copyWith => _$DietaryPreferencesStateLoadedCopyWithImpl<DietaryPreferencesStateLoaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._dietaryRestrictions, _dietaryRestrictions)&&const DeepCollectionEquality().equals(other._allergies, _allergies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateLoaded&&const DeepCollectionEquality().equals(other._dietaryRestrictions, _dietaryRestrictions)&&const DeepCollectionEquality().equals(other._allergies, _allergies));
 }
 
 
@@ -122,8 +122,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $LoadedCopyWith<$Res> implements $DietaryPreferencesStateCopyWith<$Res> {
-  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+abstract mixin class $DietaryPreferencesStateLoadedCopyWith<$Res> implements $DietaryPreferencesStateCopyWith<$Res> {
+  factory $DietaryPreferencesStateLoadedCopyWith(DietaryPreferencesStateLoaded value, $Res Function(DietaryPreferencesStateLoaded) _then) = _$DietaryPreferencesStateLoadedCopyWithImpl;
 @useResult
 $Res call({
  List<String> dietaryRestrictions, List<String> allergies
@@ -134,17 +134,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$LoadedCopyWithImpl<$Res>
-    implements $LoadedCopyWith<$Res> {
-  _$LoadedCopyWithImpl(this._self, this._then);
+class _$DietaryPreferencesStateLoadedCopyWithImpl<$Res>
+    implements $DietaryPreferencesStateLoadedCopyWith<$Res> {
+  _$DietaryPreferencesStateLoadedCopyWithImpl(this._self, this._then);
 
-  final Loaded _self;
-  final $Res Function(Loaded) _then;
+  final DietaryPreferencesStateLoaded _self;
+  final $Res Function(DietaryPreferencesStateLoaded) _then;
 
 /// Create a copy of DietaryPreferencesState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? dietaryRestrictions = null,Object? allergies = null,}) {
-  return _then(Loaded(
+  return _then(DietaryPreferencesStateLoaded(
 dietaryRestrictions: null == dietaryRestrictions ? _self._dietaryRestrictions : dietaryRestrictions // ignore: cast_nullable_to_non_nullable
 as List<String>,allergies: null == allergies ? _self._allergies : allergies // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -153,5 +153,169 @@ as List<String>,
 
 
 }
+
+/// @nodoc
+
+
+class DietaryPreferencesStateError implements DietaryPreferencesState {
+  const DietaryPreferencesStateError({required this.message});
+  
+
+ final  String message;
+
+/// Create a copy of DietaryPreferencesState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DietaryPreferencesStateErrorCopyWith<DietaryPreferencesStateError> get copyWith => _$DietaryPreferencesStateErrorCopyWithImpl<DietaryPreferencesStateError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateError&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'DietaryPreferencesState.error(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DietaryPreferencesStateErrorCopyWith<$Res> implements $DietaryPreferencesStateCopyWith<$Res> {
+  factory $DietaryPreferencesStateErrorCopyWith(DietaryPreferencesStateError value, $Res Function(DietaryPreferencesStateError) _then) = _$DietaryPreferencesStateErrorCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$DietaryPreferencesStateErrorCopyWithImpl<$Res>
+    implements $DietaryPreferencesStateErrorCopyWith<$Res> {
+  _$DietaryPreferencesStateErrorCopyWithImpl(this._self, this._then);
+
+  final DietaryPreferencesStateError _self;
+  final $Res Function(DietaryPreferencesStateError) _then;
+
+/// Create a copy of DietaryPreferencesState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(DietaryPreferencesStateError(
+message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DietaryPreferencesStateNext implements DietaryPreferencesState {
+  const DietaryPreferencesStateNext({required this.path});
+  
+
+ final  String path;
+
+/// Create a copy of DietaryPreferencesState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$DietaryPreferencesStateNextCopyWith<DietaryPreferencesStateNext> get copyWith => _$DietaryPreferencesStateNextCopyWithImpl<DietaryPreferencesStateNext>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateNext&&(identical(other.path, path) || other.path == path));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,path);
+
+@override
+String toString() {
+  return 'DietaryPreferencesState.next(path: $path)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $DietaryPreferencesStateNextCopyWith<$Res> implements $DietaryPreferencesStateCopyWith<$Res> {
+  factory $DietaryPreferencesStateNextCopyWith(DietaryPreferencesStateNext value, $Res Function(DietaryPreferencesStateNext) _then) = _$DietaryPreferencesStateNextCopyWithImpl;
+@useResult
+$Res call({
+ String path
+});
+
+
+
+
+}
+/// @nodoc
+class _$DietaryPreferencesStateNextCopyWithImpl<$Res>
+    implements $DietaryPreferencesStateNextCopyWith<$Res> {
+  _$DietaryPreferencesStateNextCopyWithImpl(this._self, this._then);
+
+  final DietaryPreferencesStateNext _self;
+  final $Res Function(DietaryPreferencesStateNext) _then;
+
+/// Create a copy of DietaryPreferencesState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? path = null,}) {
+  return _then(DietaryPreferencesStateNext(
+path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class DietaryPreferencesStateComplete implements DietaryPreferencesState {
+  const DietaryPreferencesStateComplete();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateComplete);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'DietaryPreferencesState.complete()';
+}
+
+
+}
+
+
+
 
 // dart format on
