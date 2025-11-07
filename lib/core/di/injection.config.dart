@@ -12,6 +12,7 @@
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../data/data_mappers/app_user_mapper.dart' as _i62;
 import '../../data/data_mappers/entity_mapper.dart' as _i69;
 import '../../data/data_mappers/equipment_mapper.dart' as _i724;
 import '../../data/data_mappers/fitness_goal_mapper.dart' as _i446;
@@ -23,12 +24,13 @@ import '../../data/datasources/auth_storage_datasource.dart' as _i477;
 import '../../data/datasources/database_datasource.dart' as _i1000;
 import '../../data/datasources/lookup_seed_datasource.dart' as _i50;
 import '../../data/datasources/realm_datasource.dart' as _i334;
-import '../../data/datasources/user_storage_datasource.dart' as _i577;
+import '../../data/models/app_user.dart' as _i103;
 import '../../data/models/equipment.dart' as _i596;
 import '../../data/models/fitness_goal.dart' as _i317;
 import '../../data/models/fitness_level.dart' as _i805;
 import '../../data/models/user_preferences.dart' as _i779;
 import '../../data/models/workout_type.dart' as _i696;
+import '../../data/realm_models/app_user_realm.dart' as _i991;
 import '../../data/realm_models/equipment_realm.dart' as _i510;
 import '../../data/realm_models/fitness_goal_realm.dart' as _i0;
 import '../../data/realm_models/fitness_level_realm.dart' as _i878;
@@ -37,9 +39,14 @@ import '../../data/realm_models/workout_type_realm.dart' as _i554;
 import '../../data/repositories/auth_repository_impl.dart' as _i895;
 import '../../data/repositories/azure_coach_repository.dart' as _i1000;
 import '../../data/repositories/lookup_data_repository.dart' as _i710;
+import '../../data/repositories/user_repository_impl.dart' as _i790;
 import '../../domain/repositories/auth_repository.dart' as _i1073;
 import '../../domain/repositories/coach_repository.dart' as _i926;
 import '../../domain/repositories/lookup_repository.dart' as _i383;
+import '../../domain/repositories/user_repository.dart' as _i271;
+import '../../domain/usecases/authenticate_signout_usecase.dart' as _i214;
+import '../../domain/usecases/authenticate_silent_usecase.dart' as _i250;
+import '../../domain/usecases/authenticate_usecase.dart' as _i1027;
 import '../../domain/usecases/get_workout_types_usecase.dart' as _i226;
 import '../../domain/usecases/send_message_to_coach.dart' as _i856;
 import '../../features/landing/cubits/landing_cubit.dart' as _i1066;
@@ -69,9 +76,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i477.AuthStorageDatasource>(
       () => _i477.AuthStorageDatasource(),
     );
-    gh.factory<_i577.UserStorageDataSource>(
-      () => _i577.UserStorageDataSource(),
-    );
     gh.factory<_i258.LandingPage>(() => const _i258.LandingPage());
     gh.factory<_i1018.DietaryPreferencesCubit>(
       () => _i1018.DietaryPreferencesCubit(),
@@ -94,6 +98,12 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i926.CoachRepository>(
       () => _i1000.AzureCoachRepository(gh<_i9.AzureOpenAiClient>()),
     );
+    gh.singleton<_i1073.AuthRepository>(
+      () => _i895.AuthRepositoryImpl(
+        gh<_i190.AppAuthDataSource>(),
+        gh<_i477.AuthStorageDatasource>(),
+      ),
+    );
     gh.factory<_i69.DataMapper<_i596.Equipment, _i510.EquipmentRealm>>(
       () => const _i724.EquipmentMapper(),
     );
@@ -103,6 +113,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i856.SendMessageToCoach>(
       () => _i856.SendMessageToCoach(gh<_i926.CoachRepository>()),
     );
+    gh.factory<_i69.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(
+      () => const _i62.AppUserMapper(),
+    );
     gh.factory<
       _i69.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
     >(() => const _i559.UserPreferencesMapper());
@@ -110,11 +123,16 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i50.LookupSeedDatasource>(
       () => _i50.LookupSeedDatasourceImpl(),
     );
-    gh.singleton<_i1073.AuthRepository>(
-      () => _i895.AuthRepositoryImpl(
-        gh<_i190.AppAuthDataSource>(),
-        gh<_i577.UserStorageDataSource>(),
-        gh<_i477.AuthStorageDatasource>(),
+    gh.factory<_i214.AuthenticateSignoutUseCase>(
+      () => _i214.AuthenticateSignoutUseCaseImpl(gh<_i1073.AuthRepository>()),
+    );
+    gh.singleton<_i271.UserRepository>(
+      () => _i790.UserRepositoryImpl(
+        gh<_i1000.DatabaseDatasource>(),
+        gh<_i69.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(),
+        gh<
+          _i69.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
+        >(),
       ),
     );
     gh.lazySingleton<_i383.LookupRepository>(
@@ -127,8 +145,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i69.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(),
       ),
     );
-    gh.factory<_i1066.LandingCubit>(
-      () => _i1066.LandingCubit(gh<_i1073.AuthRepository>()),
+    gh.factory<_i1027.AuthenticateUseCase>(
+      () => _i1027.AuthenticateUseCaseImpl(
+        gh<_i1073.AuthRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
     );
     gh.factory<_i666.BasicInfoCubit>(
       () => _i666.BasicInfoCubit(gh<_i383.LookupRepository>()),
@@ -136,14 +157,31 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1031.FitnessGoalsCubit>(
       () => _i1031.FitnessGoalsCubit(gh<_i383.LookupRepository>()),
     );
-    gh.factory<_i40.WelcomeCubit>(
-      () => _i40.WelcomeCubit(gh<_i383.LookupRepository>()),
-    );
     gh.factory<_i673.WorkoutPreferencesCubit>(
       () => _i673.WorkoutPreferencesCubit(gh<_i383.LookupRepository>()),
     );
+    gh.factory<_i250.AuthenticateSilentUseCase>(
+      () => _i250.AuthenticateSilentUseCaseImpl(
+        gh<_i477.AuthStorageDatasource>(),
+        gh<_i190.AppAuthDataSource>(),
+        gh<_i271.UserRepository>(),
+      ),
+    );
     gh.factory<_i226.GetWorkoutTypesUsecase>(
       () => _i226.GetWorkoutTypesUsecaseImpl(gh<_i383.LookupRepository>()),
+    );
+    gh.factory<_i40.WelcomeCubit>(
+      () => _i40.WelcomeCubit(
+        gh<_i383.LookupRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
+    );
+    gh.factory<_i1066.LandingCubit>(
+      () => _i1066.LandingCubit(
+        gh<_i250.AuthenticateSilentUseCase>(),
+        gh<_i1027.AuthenticateUseCase>(),
+        gh<_i214.AuthenticateSignoutUseCase>(),
+      ),
     );
     return this;
   }

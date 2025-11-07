@@ -1,8 +1,9 @@
 import 'package:ex_bot/data/datasources/database_datasource.dart';
+import 'package:ex_bot/data/realm_models/app_user_realm.dart';
 import 'package:ex_bot/data/realm_models/equipment_realm.dart';
 import 'package:ex_bot/data/realm_models/fitness_goal_realm.dart';
 import 'package:ex_bot/data/realm_models/fitness_level_realm.dart';
-import 'package:ex_bot/data/realm_models/user_model_realm.dart';
+import 'package:ex_bot/data/realm_models/user_preferences_realm.dart';
 import 'package:ex_bot/data/realm_models/workout_type_realm.dart';
 import 'package:injectable/injectable.dart';
 import 'package:realm/realm.dart';
@@ -16,8 +17,9 @@ class RealmDatasource extends DatabaseDatasource {
       EquipmentRealm.schema,
       FitnessGoalRealm.schema,
       FitnessLevelRealm.schema,
-      UserRealm.schema,
+      AppUserRealm.schema,
       WorkoutTypeRealm.schema,
+      UserPreferencesRealm.schema,
     ]);
     _realm = Realm(config);
   }

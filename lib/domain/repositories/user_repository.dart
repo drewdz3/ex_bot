@@ -1,7 +1,18 @@
-import 'package:ex_bot/domain/entities/user_profile.dart';
+import 'package:ex_bot/data/models/app_user.dart';
+import 'package:ex_bot/data/models/user_preferences.dart';
 
 abstract class UserRepository {
-  Future<UserProfile> getUserPreferences(String userId);
+  AppUser? get currentUser;
 
-  Future<void> updateUserBasic(String userId);
+  UserPreferences? get userPreferences;
+
+  Future<UserPreferences?> getPreferences(String userId);
+
+  Future<void> updatePreferences(UserPreferences preferences);
+
+  Future<AppUser?> getUser(String userId);
+
+  Future<void> updateUser(AppUser user);
+
+  Future<void> deleteUser(AppUser user);
 }

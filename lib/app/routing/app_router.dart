@@ -24,7 +24,7 @@ import 'package:ex_bot/features/onboarding/pages/workout_schedule_page.dart';
 
 class RouteConstants {
   static const String landing = '/';
-  static const String welcome = '/welcome/:givenName';
+  static const String welcome = '/welcome/:userId';
   static const String welcomeShort = '/welcome/';
   static const String onboardingBasicInfo = '/onboarding';
   static const String onboardingGoals = '/onboarding/goals';
@@ -50,10 +50,10 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteConstants.welcome,
       builder: (context, state) {
-        final givenName = state.pathParameters['givenName'] ?? 'User';
+        final userId = state.pathParameters['userId'] ?? '0';
         return BlocProvider(
-          create: (_) => getIt<WelcomeCubit>()..initialize(givenName),
-          child: WelcomePage(givenName: givenName),
+          create: (_) => getIt<WelcomeCubit>()..initialize(userId),
+          child: WelcomePage(userId: userId),
         );
       },
     ),

@@ -241,7 +241,7 @@ class Completed implements OnboardingCompleteState {
   const Completed(this.preferences);
   
 
- final  UserProfile preferences;
+ final  UserPreferences preferences;
 
 /// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
@@ -273,11 +273,11 @@ abstract mixin class $CompletedCopyWith<$Res> implements $OnboardingCompleteStat
   factory $CompletedCopyWith(Completed value, $Res Function(Completed) _then) = _$CompletedCopyWithImpl;
 @useResult
 $Res call({
- UserProfile preferences
+ UserPreferences preferences
 });
 
 
-
+$UserPreferencesCopyWith<$Res> get preferences;
 
 }
 /// @nodoc
@@ -293,11 +293,20 @@ class _$CompletedCopyWithImpl<$Res>
 @pragma('vm:prefer-inline') $Res call({Object? preferences = null,}) {
   return _then(Completed(
 null == preferences ? _self.preferences : preferences // ignore: cast_nullable_to_non_nullable
-as UserProfile,
+as UserPreferences,
   ));
 }
 
-
+/// Create a copy of OnboardingCompleteState
+/// with the given fields replaced by the non-null parameter values.
+@override
+@pragma('vm:prefer-inline')
+$UserPreferencesCopyWith<$Res> get preferences {
+  
+  return $UserPreferencesCopyWith<$Res>(_self.preferences, (value) {
+    return _then(_self.copyWith(preferences: value));
+  });
+}
 }
 
 /// @nodoc
