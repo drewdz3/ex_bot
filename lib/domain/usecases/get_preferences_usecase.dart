@@ -3,10 +3,14 @@ import 'package:ex_bot/core/errors/failures.dart';
 import 'package:ex_bot/core/use_case.dart';
 import 'package:ex_bot/data/models/user_preferences.dart';
 import 'package:ex_bot/domain/repositories/user_repository.dart';
+import 'package:injectable/injectable.dart';
 
-class GetPreferencesUsecase implements UseCase<UserPreferences, String> {
+abstract class GetPreferencesUsecase extends UseCase<UserPreferences, String> {}
+
+@Injectable(as: GetPreferencesUsecase)
+class GetPreferencesUsecaseImpl implements GetPreferencesUsecase {
   final UserRepository _repository;
-  GetPreferencesUsecase(this._repository);
+  GetPreferencesUsecaseImpl(this._repository);
 
   @override
   Future<Either<Failure, UserPreferences>> executeAsync({required String params}) async {

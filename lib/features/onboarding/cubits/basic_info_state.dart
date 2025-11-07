@@ -18,4 +18,8 @@ class BasicInfoState with _$BasicInfoState {
   }) = BasicInfoLoaded;
 
   const factory BasicInfoState.error(String message) = BasicInfoError;
+
+  const factory BasicInfoState.complete() = BasicInfoComplete;
+
+  const factory BasicInfoState.next() = BasicInfoNext;
 }

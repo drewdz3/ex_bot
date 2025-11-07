@@ -248,4 +248,68 @@ as String,
 
 }
 
+/// @nodoc
+
+
+class BasicInfoComplete implements BasicInfoState {
+  const BasicInfoComplete();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BasicInfoComplete);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BasicInfoState.complete()';
+}
+
+
+}
+
+
+
+
+/// @nodoc
+
+
+class BasicInfoNext implements BasicInfoState {
+  const BasicInfoNext();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is BasicInfoNext);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'BasicInfoState.next()';
+}
+
+
+}
+
+
+
+
 // dart format on

@@ -51,17 +51,14 @@ final GoRouter appRouter = GoRouter(
       path: RouteConstants.welcome,
       builder: (context, state) {
         final userId = state.pathParameters['userId'] ?? '0';
-        return BlocProvider(
-          create: (_) => getIt<WelcomeCubit>()..initialize(userId),
-          child: WelcomePage(userId: userId),
-        );
+        return BlocProvider(create: (_) => getIt<WelcomeCubit>()..initialize(userId), child: WelcomePage());
       },
     ),
 
     GoRoute(
       path: RouteConstants.onboardingBasicInfo,
       builder: (context, state) {
-        return BlocProvider(create: (_) => getIt<BasicInfoCubit>(), child: const BasicInfoPage());
+        return BlocProvider(create: (_) => getIt<BasicInfoCubit>()..initialize(), child: const BasicInfoPage());
       },
     ),
 

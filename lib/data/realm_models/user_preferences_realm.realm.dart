@@ -17,10 +17,12 @@ class UserPreferencesRealm extends _UserPreferencesRealm
     DateTime lastUpdated, {
     String? fitnessLevel,
     int? age,
-    double? height,
+    int? height,
     double? weight,
+    String? gender,
     int? workoutsPerWeek,
     int? workoutDurationMinutes,
+    String? onboardingPath,
     Iterable<String> fitnessGoals = const [],
     Iterable<String> availableEquipment = const [],
     Iterable<String> preferredWorkoutTypes = const [],
@@ -32,8 +34,10 @@ class UserPreferencesRealm extends _UserPreferencesRealm
     RealmObjectBase.set(this, 'age', age);
     RealmObjectBase.set(this, 'height', height);
     RealmObjectBase.set(this, 'weight', weight);
+    RealmObjectBase.set(this, 'gender', gender);
     RealmObjectBase.set(this, 'workoutsPerWeek', workoutsPerWeek);
     RealmObjectBase.set(this, 'workoutDurationMinutes', workoutDurationMinutes);
+    RealmObjectBase.set(this, 'onboardingPath', onboardingPath);
     RealmObjectBase.set(this, 'onboardingCompleted', onboardingCompleted);
     RealmObjectBase.set<RealmList<String>>(
       this,
@@ -83,14 +87,19 @@ class UserPreferencesRealm extends _UserPreferencesRealm
   set age(int? value) => RealmObjectBase.set(this, 'age', value);
 
   @override
-  double? get height => RealmObjectBase.get<double>(this, 'height') as double?;
+  int? get height => RealmObjectBase.get<int>(this, 'height') as int?;
   @override
-  set height(double? value) => RealmObjectBase.set(this, 'height', value);
+  set height(int? value) => RealmObjectBase.set(this, 'height', value);
 
   @override
   double? get weight => RealmObjectBase.get<double>(this, 'weight') as double?;
   @override
   set weight(double? value) => RealmObjectBase.set(this, 'weight', value);
+
+  @override
+  String? get gender => RealmObjectBase.get<String>(this, 'gender') as String?;
+  @override
+  set gender(String? value) => RealmObjectBase.set(this, 'gender', value);
 
   @override
   int? get workoutsPerWeek =>
@@ -105,6 +114,13 @@ class UserPreferencesRealm extends _UserPreferencesRealm
   @override
   set workoutDurationMinutes(int? value) =>
       RealmObjectBase.set(this, 'workoutDurationMinutes', value);
+
+  @override
+  String? get onboardingPath =>
+      RealmObjectBase.get<String>(this, 'onboardingPath') as String?;
+  @override
+  set onboardingPath(String? value) =>
+      RealmObjectBase.set(this, 'onboardingPath', value);
 
   @override
   bool get onboardingCompleted =>
@@ -179,8 +195,10 @@ class UserPreferencesRealm extends _UserPreferencesRealm
       'age': age.toEJson(),
       'height': height.toEJson(),
       'weight': weight.toEJson(),
+      'gender': gender.toEJson(),
       'workoutsPerWeek': workoutsPerWeek.toEJson(),
       'workoutDurationMinutes': workoutDurationMinutes.toEJson(),
+      'onboardingPath': onboardingPath.toEJson(),
       'onboardingCompleted': onboardingCompleted.toEJson(),
       'fitnessGoals': fitnessGoals.toEJson(),
       'availableEquipment': availableEquipment.toEJson(),
@@ -208,8 +226,10 @@ class UserPreferencesRealm extends _UserPreferencesRealm
           age: fromEJson(ejson['age']),
           height: fromEJson(ejson['height']),
           weight: fromEJson(ejson['weight']),
+          gender: fromEJson(ejson['gender']),
           workoutsPerWeek: fromEJson(ejson['workoutsPerWeek']),
           workoutDurationMinutes: fromEJson(ejson['workoutDurationMinutes']),
+          onboardingPath: fromEJson(ejson['onboardingPath']),
           fitnessGoals: fromEJson(ejson['fitnessGoals']),
           availableEquipment: fromEJson(ejson['availableEquipment']),
           preferredWorkoutTypes: fromEJson(ejson['preferredWorkoutTypes']),
@@ -235,8 +255,9 @@ class UserPreferencesRealm extends _UserPreferencesRealm
           optional: true,
         ),
         SchemaProperty('age', RealmPropertyType.int, optional: true),
-        SchemaProperty('height', RealmPropertyType.double, optional: true),
+        SchemaProperty('height', RealmPropertyType.int, optional: true),
         SchemaProperty('weight', RealmPropertyType.double, optional: true),
+        SchemaProperty('gender', RealmPropertyType.string, optional: true),
         SchemaProperty(
           'workoutsPerWeek',
           RealmPropertyType.int,
@@ -245,6 +266,11 @@ class UserPreferencesRealm extends _UserPreferencesRealm
         SchemaProperty(
           'workoutDurationMinutes',
           RealmPropertyType.int,
+          optional: true,
+        ),
+        SchemaProperty(
+          'onboardingPath',
+          RealmPropertyType.string,
           optional: true,
         ),
         SchemaProperty('onboardingCompleted', RealmPropertyType.bool),

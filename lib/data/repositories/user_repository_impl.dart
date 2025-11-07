@@ -19,18 +19,20 @@ class UserRepositoryImpl implements UserRepository {
   UserPreferences? _userPreferences;
 
   @override
-  AppUser? get currentUser => _currentUser;
+  Future<UserPreferences> getPreferences(String? userId) async {
+    if (_userPreferences != null) {
+      if ((userId != null) && (_userPreferences!.id != userId)) throw Exception("User ID mismatch");
+      return _userPreferences!;
+    }
+    if (userId == null) throw Exception("User ID is null");
 
-  @override
-  UserPreferences? get userPreferences => _userPreferences;
-
-  @override
-  Future<UserPreferences?> getPreferences(String userId) async {
-    if (_userPreferences != null) return _userPreferences;
     var dbPreferences = await _databaseDatasource.getItem<UserPreferencesRealm>(userId);
-    if (dbPreferences == null) return null;
-    _userPreferences = _userPreferencesMapper.toData(dbPreferences);
-    return _userPreferences;
+    if (dbPreferences != null) {
+      _userPreferences = _userPreferencesMapper.toData(dbPreferences);
+    } else {
+      _userPreferences = UserPreferences(id: userId);
+    }
+    return _userPreferences!;
   }
 
   @override
@@ -49,8 +51,12 @@ class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<AppUser?> getUser(String userId) async {
-    if (_currentUser != null) return _currentUser;
+  Future<AppUser?> getUser(String? userId) async {
+    if (_currentUser != null) {
+      if ((userId != null) && (_currentUser!.id != userId)) throw Exception("User ID mismatch");
+      return _currentUser;
+    }
+    if (userId == null) throw Exception("User ID is null");
     var dbUser = await _databaseDatasource.getItem<AppUserRealm>(userId);
     if (dbUser == null) return null;
     _currentUser = _appUserMapper.toData(dbUser);

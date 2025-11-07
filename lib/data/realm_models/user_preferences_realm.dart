@@ -8,10 +8,12 @@ class _UserPreferencesRealm {
   late String id;
   late String? fitnessLevel;
   late int? age;
-  late double? height;
+  late int? height;
   late double? weight;
+  late String? gender;
   late int? workoutsPerWeek;
   late int? workoutDurationMinutes;
+  late String? onboardingPath;
   late bool onboardingCompleted;
   late List<String> fitnessGoals;
   late List<String> availableEquipment;

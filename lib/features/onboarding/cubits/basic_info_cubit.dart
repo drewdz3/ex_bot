@@ -1,14 +1,26 @@
-import 'package:ex_bot/data/models/fitness_level.dart';
-import 'package:ex_bot/domain/repositories/lookup_repository.dart';
+import 'package:either_dart/either.dart';
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
+
+import 'package:ex_bot/data/models/fitness_level.dart';
+import 'package:ex_bot/data/models/user_preferences.dart';
+import 'package:ex_bot/domain/repositories/lookup_repository.dart';
+import 'package:ex_bot/domain/repositories/user_repository.dart';
+import 'package:ex_bot/domain/usecases/update_preferences_usecase.dart';
+
 import 'basic_info_state.dart';
 
 @injectable
 class BasicInfoCubit extends Cubit<BasicInfoState> {
   final LookupRepository _lookupRepository;
+  final UpdatePreferencesUseCase _updateUseCase;
+  final UserRepository _userRepository;
 
-  BasicInfoCubit(this._lookupRepository) : super(const BasicInfoState.initial());
+  late UserPreferences _preferences;
+
+  BasicInfoCubit(this._lookupRepository, this._updateUseCase, this._userRepository)
+    : super(const BasicInfoState.initial());
 
   List<FitnessLevel> fitnessLevels = [];
 
@@ -17,8 +29,25 @@ class BasicInfoCubit extends Cubit<BasicInfoState> {
   DateTime weightChanged = DateTime.now();
 
   Future<void> initialize() async {
-    fitnessLevels = await _lookupRepository.getFitnessLevels();
-    emit(const BasicInfoState.loaded());
+    try {
+      //  get preferences
+      fitnessLevels = await _lookupRepository.getFitnessLevels();
+      _preferences = await _userRepository.getPreferences(null);
+
+      emit(
+        BasicInfoState.loaded(
+          age: _preferences.age,
+          gender: _preferences.gender,
+          height: _preferences.height,
+          weight: _preferences.weight,
+          fitnessLevel: _preferences.fitnessLevel,
+          complete: _preferences.onboardingCompleted,
+        ),
+      );
+    } catch (e) {
+      emit(BasicInfoState.error(e.toString()));
+      return;
+    }
   }
 
   void updateAge(int? age) {
@@ -102,5 +131,33 @@ class BasicInfoCubit extends Cubit<BasicInfoState> {
     }
   }
 
-  void saveChanges() {}
+  Future<void> saveChanges() async {
+    if (state is! BasicInfoLoaded) {
+      return;
+    }
+    try {
+      var currentState = state as BasicInfoLoaded;
+      _preferences = _preferences.copyWith(
+        age: currentState.age,
+        gender: currentState.gender,
+        height: currentState.height,
+        weight: currentState.weight,
+        fitnessLevel: currentState.fitnessLevel,
+        onboardingPath: RouteConstants.onboardingGoals,
+        onboardingCompleted: false,
+      );
+      await _updateUseCase
+          .executeAsync(params: _preferences)
+          .fold(
+            (failure) {
+              emit(BasicInfoState.error('Failed to update preferences'));
+            },
+            (success) {
+              emit(BasicInfoState.next());
+            },
+          );
+    } catch (e) {
+      emit(BasicInfoState.error(e.toString()));
+    }
+  }
 }
