@@ -1,26 +1,43 @@
-import 'package:ex_bot/app/routing/app_router.dart';
-import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_state.dart';
-import 'package:ex_bot/l10n/app_localizations.dart';
+import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:ex_bot/core/utils/debug_logger.dart';
+import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 
-/// Dietary preferences and restrictions page
 class DietaryPreferencesPage extends StatelessWidget {
   const DietaryPreferencesPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<DietaryPreferencesCubit, DietaryPreferencesState>(
+    return BlocConsumer<DietaryPreferencesCubit, DietaryPreferencesState>(
+      listener: (context, state) {
+        if (state is DietaryPreferencesStateError) {
+          var message = AppConstants.emptyString;
+          if (state.message == AppConstants.saveError) {
+            message = AppLocalizations.of(context)!.saveError;
+          } else {
+            message = AppLocalizations.of(context)!.unknownError;
+          }
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red));
+        } else if (state is DietaryPreferencesStateNext) {
+          context.go(state.path);
+        } else if (state is DietaryPreferencesStateComplete) {
+          context.go(RouteConstants.chat);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is DietaryPreferencesStateLoaded;
+      },
       builder: (context, state) {
         final cubit = context.read<DietaryPreferencesCubit>();
 
-        final currentRestrictions = (state is Loaded) ? state.dietaryRestrictions : <String>[];
+        final currentRestrictions = (state is DietaryPreferencesStateLoaded) ? state.dietaryRestrictions : <String>[];
 
-        final currentAllergies = (state is Loaded) ? state.allergies : <String>[];
+        final currentAllergies = (state is DietaryPreferencesStateLoaded) ? state.allergies : <String>[];
 
         return Scaffold(
           appBar: AppBar(
@@ -103,7 +120,7 @@ class DietaryPreferencesPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => _completeOnboarding(context, cubit),
+                      onPressed: cubit.save,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -132,14 +149,6 @@ class DietaryPreferencesPage extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _completeOnboarding(BuildContext context, DietaryPreferencesCubit cubit) {
-    // TODO: Save dietary preferences and complete onboarding
-    DebugLogger.debug('Dietary Preferences: ${cubit.dietaryData}');
-
-    // Navigate to onboarding completion page
-    context.go(RouteConstants.onboardingComplete);
   }
 }
 

@@ -404,5 +404,13 @@
     "infoAuthRequired": "You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.",
     "@infoAuthRequired": {
         "description": "Information text explaining that authentication is required to use the app"
+    },
+    "unknownError": "Something went wrong, please try again.",
+    "@unknownError": {
+        "description": "Generic error message for unknown errors"
+    },
+    "saveError": "Failed to save changes. Please try again.",
+    "@saveError": {
+        "description": "Error message when saving preferences fails"
     }
 }

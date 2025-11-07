@@ -320,4 +320,10 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get infoAuthRequired =>
       'You must create an account and sign in to use this app. All features require authentication for personalized coaching and progress tracking.';
+
+  @override
+  String get unknownError => 'Something went wrong, please try again.';
+
+  @override
+  String get saveError => 'Failed to save changes. Please try again.';
 }

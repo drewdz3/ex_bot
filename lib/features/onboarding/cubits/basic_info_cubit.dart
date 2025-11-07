@@ -1,5 +1,7 @@
 import 'package:either_dart/either.dart';
 import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/core/constants/app_constants.dart';
+import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -45,7 +47,7 @@ class BasicInfoCubit extends Cubit<BasicInfoState> {
         ),
       );
     } catch (e) {
-      emit(BasicInfoState.error(e.toString()));
+      emit(BasicInfoState.error(AppConstants.unknownError));
       return;
     }
   }
@@ -150,14 +152,15 @@ class BasicInfoCubit extends Cubit<BasicInfoState> {
           .executeAsync(params: _preferences)
           .fold(
             (failure) {
-              emit(BasicInfoState.error('Failed to update preferences'));
+              emit(BasicInfoState.error(AppConstants.saveError));
             },
             (success) {
               emit(BasicInfoState.next());
             },
           );
     } catch (e) {
-      emit(BasicInfoState.error(e.toString()));
+      DebugLogger.error('(BasicInfoCubit.saveChanges) error: $e');
+      emit(BasicInfoState.error(AppConstants.unknownError));
     }
   }
 }

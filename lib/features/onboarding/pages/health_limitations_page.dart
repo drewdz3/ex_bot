@@ -1,11 +1,11 @@
 import 'package:ex_bot/app/routing/app_router.dart';
+import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/features/onboarding/cubits/health_limitations_state.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:ex_bot/features/onboarding/cubits/health_limitations_cubit.dart';
 
 /// Health and physical limitations page
@@ -14,21 +14,31 @@ class HealthLimitationsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const _HealthLimitationsView();
-  }
-}
+    return BlocConsumer<HealthLimitationsCubit, HealthLimitationsState>(
+      listener: (context, state) {
+        if (state is HealthLimitationsStateError) {
+          var message = AppConstants.emptyString;
+          if (state.message == AppConstants.saveError) {
+            message = AppLocalizations.of(context)!.saveError;
+          } else {
+            message = AppLocalizations.of(context)!.unknownError;
+          }
 
-class _HealthLimitationsView extends StatelessWidget {
-  const _HealthLimitationsView();
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<HealthLimitationsCubit, HealthLimitationsState>(
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red));
+        } else if (state is HealthLimitationsStateNext) {
+          context.go(state.path);
+        } else if (state is HealthLimitationsStateComplete) {
+          context.go(RouteConstants.chat);
+        }
+      },
+      buildWhen: (previous, current) {
+        return current is HealthLimitationsStateLoaded;
+      },
       builder: (context, state) {
         final cubit = context.read<HealthLimitationsCubit>();
 
-        final currentHealthConditions = (state is Loaded) ? state.healthConditions : <String>[];
-        final currentInjuries = (state is Loaded) ? state.injuriesOrLimitations : <String>[];
+        final currentHealthConditions = (state is HealthLimitationsStateLoaded) ? state.healthConditions : <String>[];
+        final currentInjuries = (state is HealthLimitationsStateLoaded) ? state.injuriesOrLimitations : <String>[];
 
         return Scaffold(
           appBar: AppBar(
@@ -111,7 +121,7 @@ class _HealthLimitationsView extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => _continueToNext(context, cubit),
+                      onPressed: cubit.save,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -140,14 +150,6 @@ class _HealthLimitationsView extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _continueToNext(BuildContext context, HealthLimitationsCubit cubit) {
-    // TODO: Save health limitations and navigate to dietary preferences page
-    DebugLogger.debug('Health Limitations: ${cubit.limitationsData}');
-
-    // Navigate to dietary preferences page
-    context.go(RouteConstants.onboardingDietary);
   }
 }
 

@@ -47,7 +47,6 @@ import '../../domain/repositories/user_repository.dart' as _i271;
 import '../../domain/usecases/authenticate_signout_usecase.dart' as _i214;
 import '../../domain/usecases/authenticate_silent_usecase.dart' as _i250;
 import '../../domain/usecases/authenticate_usecase.dart' as _i1027;
-import '../../domain/usecases/get_preferences_usecase.dart' as _i623;
 import '../../domain/usecases/get_workout_types_usecase.dart' as _i226;
 import '../../domain/usecases/send_message_to_coach.dart' as _i856;
 import '../../domain/usecases/update_preferences_usecase.dart' as _i509;
@@ -79,16 +78,9 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i477.AuthStorageDatasource(),
     );
     gh.factory<_i258.LandingPage>(() => const _i258.LandingPage());
-    gh.factory<_i1018.DietaryPreferencesCubit>(
-      () => _i1018.DietaryPreferencesCubit(),
-    );
-    gh.factory<_i68.HealthLimitationsCubit>(
-      () => _i68.HealthLimitationsCubit(),
-    );
     gh.factory<_i147.OnboardingCompleteCubit>(
       () => _i147.OnboardingCompleteCubit(),
     );
-    gh.factory<_i722.WorkoutScheduleCubit>(() => _i722.WorkoutScheduleCubit());
     gh.factory<_i822.MainApp>(() => const _i822.MainApp());
     gh.singleton<_i9.AzureOpenAiClient>(() => _i9.AzureOpenAiClient());
     gh.factory<_i69.DataMapper<_i696.WorkoutType, _i554.WorkoutTypeRealm>>(
@@ -147,20 +139,11 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i69.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(),
       ),
     );
-    gh.factory<_i623.GetPreferencesUsecase>(
-      () => _i623.GetPreferencesUsecaseImpl(gh<_i271.UserRepository>()),
-    );
     gh.factory<_i1027.AuthenticateUseCase>(
       () => _i1027.AuthenticateUseCaseImpl(
         gh<_i1073.AuthRepository>(),
         gh<_i271.UserRepository>(),
       ),
-    );
-    gh.factory<_i1031.FitnessGoalsCubit>(
-      () => _i1031.FitnessGoalsCubit(gh<_i383.LookupRepository>()),
-    );
-    gh.factory<_i673.WorkoutPreferencesCubit>(
-      () => _i673.WorkoutPreferencesCubit(gh<_i383.LookupRepository>()),
     );
     gh.factory<_i509.UpdatePreferencesUseCase>(
       () => _i509.UpdatePreferencesUseCaseImpl(gh<_i271.UserRepository>()),
@@ -175,8 +158,29 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i226.GetWorkoutTypesUsecase>(
       () => _i226.GetWorkoutTypesUsecaseImpl(gh<_i383.LookupRepository>()),
     );
+    gh.factory<_i1018.DietaryPreferencesCubit>(
+      () => _i1018.DietaryPreferencesCubit(gh<_i271.UserRepository>()),
+    );
+    gh.factory<_i68.HealthLimitationsCubit>(
+      () => _i68.HealthLimitationsCubit(gh<_i271.UserRepository>()),
+    );
+    gh.factory<_i722.WorkoutScheduleCubit>(
+      () => _i722.WorkoutScheduleCubit(gh<_i271.UserRepository>()),
+    );
+    gh.factory<_i1031.FitnessGoalsCubit>(
+      () => _i1031.FitnessGoalsCubit(
+        gh<_i383.LookupRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
+    );
     gh.factory<_i40.WelcomeCubit>(
       () => _i40.WelcomeCubit(
+        gh<_i383.LookupRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
+    );
+    gh.factory<_i673.WorkoutPreferencesCubit>(
+      () => _i673.WorkoutPreferencesCubit(
         gh<_i383.LookupRepository>(),
         gh<_i271.UserRepository>(),
       ),

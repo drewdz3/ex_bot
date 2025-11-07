@@ -20,5 +20,7 @@ class _UserPreferencesRealm {
   late List<String> preferredWorkoutTypes;
   late List<String> dietaryRestrictions;
   late List<String> medicalConditions;
+  late List<String> injuries;
+  late List<String> allergies;
   late DateTime lastUpdated;
 }

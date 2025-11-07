@@ -45,8 +45,8 @@ $HealthLimitationsStateCopyWith(HealthLimitationsState _, $Res Function(HealthLi
 /// @nodoc
 
 
-class _Initial implements HealthLimitationsState {
-  const _Initial();
+class HealthLimitationsStateInitial implements HealthLimitationsState {
+  const HealthLimitationsStateInitial();
   
 
 
@@ -56,7 +56,7 @@ class _Initial implements HealthLimitationsState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateInitial);
 }
 
 
@@ -77,8 +77,8 @@ String toString() {
 /// @nodoc
 
 
-class Loaded implements HealthLimitationsState {
-  const Loaded({required final  List<String> healthConditions, required final  List<String> injuriesOrLimitations}): _healthConditions = healthConditions,_injuriesOrLimitations = injuriesOrLimitations;
+class HealthLimitationsStateLoaded implements HealthLimitationsState {
+  const HealthLimitationsStateLoaded({required final  List<String> healthConditions, required final  List<String> injuriesOrLimitations}): _healthConditions = healthConditions,_injuriesOrLimitations = injuriesOrLimitations;
   
 
  final  List<String> _healthConditions;
@@ -100,13 +100,13 @@ class Loaded implements HealthLimitationsState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$LoadedCopyWith<Loaded> get copyWith => _$LoadedCopyWithImpl<Loaded>(this, _$identity);
+$HealthLimitationsStateLoadedCopyWith<HealthLimitationsStateLoaded> get copyWith => _$HealthLimitationsStateLoadedCopyWithImpl<HealthLimitationsStateLoaded>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Loaded&&const DeepCollectionEquality().equals(other._healthConditions, _healthConditions)&&const DeepCollectionEquality().equals(other._injuriesOrLimitations, _injuriesOrLimitations));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateLoaded&&const DeepCollectionEquality().equals(other._healthConditions, _healthConditions)&&const DeepCollectionEquality().equals(other._injuriesOrLimitations, _injuriesOrLimitations));
 }
 
 
@@ -122,8 +122,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $LoadedCopyWith<$Res> implements $HealthLimitationsStateCopyWith<$Res> {
-  factory $LoadedCopyWith(Loaded value, $Res Function(Loaded) _then) = _$LoadedCopyWithImpl;
+abstract mixin class $HealthLimitationsStateLoadedCopyWith<$Res> implements $HealthLimitationsStateCopyWith<$Res> {
+  factory $HealthLimitationsStateLoadedCopyWith(HealthLimitationsStateLoaded value, $Res Function(HealthLimitationsStateLoaded) _then) = _$HealthLimitationsStateLoadedCopyWithImpl;
 @useResult
 $Res call({
  List<String> healthConditions, List<String> injuriesOrLimitations
@@ -134,17 +134,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$LoadedCopyWithImpl<$Res>
-    implements $LoadedCopyWith<$Res> {
-  _$LoadedCopyWithImpl(this._self, this._then);
+class _$HealthLimitationsStateLoadedCopyWithImpl<$Res>
+    implements $HealthLimitationsStateLoadedCopyWith<$Res> {
+  _$HealthLimitationsStateLoadedCopyWithImpl(this._self, this._then);
 
-  final Loaded _self;
-  final $Res Function(Loaded) _then;
+  final HealthLimitationsStateLoaded _self;
+  final $Res Function(HealthLimitationsStateLoaded) _then;
 
 /// Create a copy of HealthLimitationsState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? healthConditions = null,Object? injuriesOrLimitations = null,}) {
-  return _then(Loaded(
+  return _then(HealthLimitationsStateLoaded(
 healthConditions: null == healthConditions ? _self._healthConditions : healthConditions // ignore: cast_nullable_to_non_nullable
 as List<String>,injuriesOrLimitations: null == injuriesOrLimitations ? _self._injuriesOrLimitations : injuriesOrLimitations // ignore: cast_nullable_to_non_nullable
 as List<String>,
@@ -153,5 +153,169 @@ as List<String>,
 
 
 }
+
+/// @nodoc
+
+
+class HealthLimitationsStateError implements HealthLimitationsState {
+  const HealthLimitationsStateError({required this.message});
+  
+
+ final  String message;
+
+/// Create a copy of HealthLimitationsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HealthLimitationsStateErrorCopyWith<HealthLimitationsStateError> get copyWith => _$HealthLimitationsStateErrorCopyWithImpl<HealthLimitationsStateError>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateError&&(identical(other.message, message) || other.message == message));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,message);
+
+@override
+String toString() {
+  return 'HealthLimitationsState.error(message: $message)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $HealthLimitationsStateErrorCopyWith<$Res> implements $HealthLimitationsStateCopyWith<$Res> {
+  factory $HealthLimitationsStateErrorCopyWith(HealthLimitationsStateError value, $Res Function(HealthLimitationsStateError) _then) = _$HealthLimitationsStateErrorCopyWithImpl;
+@useResult
+$Res call({
+ String message
+});
+
+
+
+
+}
+/// @nodoc
+class _$HealthLimitationsStateErrorCopyWithImpl<$Res>
+    implements $HealthLimitationsStateErrorCopyWith<$Res> {
+  _$HealthLimitationsStateErrorCopyWithImpl(this._self, this._then);
+
+  final HealthLimitationsStateError _self;
+  final $Res Function(HealthLimitationsStateError) _then;
+
+/// Create a copy of HealthLimitationsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
+  return _then(HealthLimitationsStateError(
+message: null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class HealthLimitationsStateNext implements HealthLimitationsState {
+  const HealthLimitationsStateNext({required this.path});
+  
+
+ final  String path;
+
+/// Create a copy of HealthLimitationsState
+/// with the given fields replaced by the non-null parameter values.
+@JsonKey(includeFromJson: false, includeToJson: false)
+@pragma('vm:prefer-inline')
+$HealthLimitationsStateNextCopyWith<HealthLimitationsStateNext> get copyWith => _$HealthLimitationsStateNextCopyWithImpl<HealthLimitationsStateNext>(this, _$identity);
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateNext&&(identical(other.path, path) || other.path == path));
+}
+
+
+@override
+int get hashCode => Object.hash(runtimeType,path);
+
+@override
+String toString() {
+  return 'HealthLimitationsState.next(path: $path)';
+}
+
+
+}
+
+/// @nodoc
+abstract mixin class $HealthLimitationsStateNextCopyWith<$Res> implements $HealthLimitationsStateCopyWith<$Res> {
+  factory $HealthLimitationsStateNextCopyWith(HealthLimitationsStateNext value, $Res Function(HealthLimitationsStateNext) _then) = _$HealthLimitationsStateNextCopyWithImpl;
+@useResult
+$Res call({
+ String path
+});
+
+
+
+
+}
+/// @nodoc
+class _$HealthLimitationsStateNextCopyWithImpl<$Res>
+    implements $HealthLimitationsStateNextCopyWith<$Res> {
+  _$HealthLimitationsStateNextCopyWithImpl(this._self, this._then);
+
+  final HealthLimitationsStateNext _self;
+  final $Res Function(HealthLimitationsStateNext) _then;
+
+/// Create a copy of HealthLimitationsState
+/// with the given fields replaced by the non-null parameter values.
+@pragma('vm:prefer-inline') $Res call({Object? path = null,}) {
+  return _then(HealthLimitationsStateNext(
+path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
+  ));
+}
+
+
+}
+
+/// @nodoc
+
+
+class HealthLimitationsStateComplete implements HealthLimitationsState {
+  const HealthLimitationsStateComplete();
+  
+
+
+
+
+
+
+@override
+bool operator ==(Object other) {
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateComplete);
+}
+
+
+@override
+int get hashCode => runtimeType.hashCode;
+
+@override
+String toString() {
+  return 'HealthLimitationsState.complete()';
+}
+
+
+}
+
+
+
 
 // dart format on
