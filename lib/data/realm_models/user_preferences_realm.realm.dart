@@ -12,7 +12,7 @@ part of 'user_preferences_realm.dart';
 class UserPreferencesRealm extends _UserPreferencesRealm
     with RealmEntity, RealmObjectBase, RealmObject {
   UserPreferencesRealm(
-    String userId,
+    String id,
     bool onboardingCompleted,
     DateTime lastUpdated, {
     String? fitnessLevel,
@@ -27,7 +27,7 @@ class UserPreferencesRealm extends _UserPreferencesRealm
     Iterable<String> dietaryRestrictions = const [],
     Iterable<String> medicalConditions = const [],
   }) {
-    RealmObjectBase.set(this, 'userId', userId);
+    RealmObjectBase.set(this, 'id', id);
     RealmObjectBase.set(this, 'fitnessLevel', fitnessLevel);
     RealmObjectBase.set(this, 'age', age);
     RealmObjectBase.set(this, 'height', height);
@@ -66,9 +66,9 @@ class UserPreferencesRealm extends _UserPreferencesRealm
   UserPreferencesRealm._();
 
   @override
-  String get userId => RealmObjectBase.get<String>(this, 'userId') as String;
+  String get id => RealmObjectBase.get<String>(this, 'id') as String;
   @override
-  set userId(String value) => RealmObjectBase.set(this, 'userId', value);
+  set id(String value) => RealmObjectBase.set(this, 'id', value);
 
   @override
   String? get fitnessLevel =>
@@ -174,7 +174,7 @@ class UserPreferencesRealm extends _UserPreferencesRealm
 
   EJsonValue toEJson() {
     return <String, dynamic>{
-      'userId': userId.toEJson(),
+      'id': id.toEJson(),
       'fitnessLevel': fitnessLevel.toEJson(),
       'age': age.toEJson(),
       'height': height.toEJson(),
@@ -196,12 +196,12 @@ class UserPreferencesRealm extends _UserPreferencesRealm
     if (ejson is! Map<String, dynamic>) return raiseInvalidEJson(ejson);
     return switch (ejson) {
       {
-        'userId': EJsonValue userId,
+        'id': EJsonValue id,
         'onboardingCompleted': EJsonValue onboardingCompleted,
         'lastUpdated': EJsonValue lastUpdated,
       } =>
         UserPreferencesRealm(
-          fromEJson(userId),
+          fromEJson(id),
           fromEJson(onboardingCompleted),
           fromEJson(lastUpdated),
           fitnessLevel: fromEJson(ejson['fitnessLevel']),
@@ -228,7 +228,7 @@ class UserPreferencesRealm extends _UserPreferencesRealm
       UserPreferencesRealm,
       'UserPreferencesRealm',
       [
-        SchemaProperty('userId', RealmPropertyType.string, primaryKey: true),
+        SchemaProperty('id', RealmPropertyType.string, primaryKey: true),
         SchemaProperty(
           'fitnessLevel',
           RealmPropertyType.string,

@@ -5,7 +5,7 @@ part 'user_preferences_realm.realm.dart';
 @RealmModel()
 class _UserPreferencesRealm {
   @PrimaryKey()
-  late String userId;
+  late String id;
   late String? fitnessLevel;
   late int? age;
   late double? height;

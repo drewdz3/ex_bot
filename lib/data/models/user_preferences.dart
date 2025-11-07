@@ -5,7 +5,7 @@ part 'user_preferences.freezed.dart';
 @freezed
 sealed class UserPreferences with _$UserPreferences {
   const factory UserPreferences({
-    required String userId,
+    required String id,
     String? fitnessLevel,
     int? age,
     double? height,

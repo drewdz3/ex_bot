@@ -1,27 +1,39 @@
+import 'package:ex_bot/core/use_case.dart';
 import 'package:ex_bot/data/models/app_user.dart';
+import 'package:ex_bot/domain/usecases/authenticate_signout_usecase.dart';
+import 'package:ex_bot/domain/usecases/authenticate_silent_usecase.dart';
+import 'package:ex_bot/domain/usecases/authenticate_usecase.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-import 'package:ex_bot/domain/repositories/auth_repository.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:ex_bot/data/models/auth_status.dart';
 
 /// Cubit for managing authentication state
-@Injectable()
+@injectable
 class LandingCubit extends Cubit<AuthStatus> {
-  final AuthRepository _authRepository;
+  final AuthenticateSilentUseCase _authSilentUsecase;
+  final AuthenticateUseCase _authUsecase;
+  final AuthenticateSignoutUseCase _authSignout;
 
-  LandingCubit(this._authRepository) : super(const AuthStatus.loading()) {
-    // Listen to auth status changes from repository
-    _authRepository.authStatusStream.listen((status) {
-      emit(status);
-    });
-  }
+  LandingCubit(this._authSilentUsecase, this._authUsecase, this._authSignout) : super(const AuthStatus.loading());
 
   Future<void> initializeAuth() async {
     try {
       DebugLogger.info('(LandingCubit.initializeAuth) Initializing...');
-      await _authRepository.refreshTokens(true);
+      emit(const AuthStatus.loading());
+
+      var result = await _authSilentUsecase.executeAsync(params: NoParams());
+      result.fold(
+        (failure) {
+          DebugLogger.error('(LandingCubit.initializeAuth) Initialization failed: ${failure.message}');
+          emit(AuthStatus.unauthenticated());
+        },
+        (user) {
+          DebugLogger.success('(LandingCubit.initializeAuth) Initialization successful');
+          emit(AuthStatus.authenticated(user));
+        },
+      );
     } catch (e) {
       DebugLogger.error('(LandingCubit.initializeAuth) Auth initialization failed: $e');
       emit(AuthStatus.error('Initialization failed: ${e.toString()}'));
@@ -33,7 +45,7 @@ class LandingCubit extends Cubit<AuthStatus> {
       DebugLogger.info('(LandingCubit.signIn) Starting sign-in...');
       emit(const AuthStatus.loading());
 
-      final result = await _authRepository.signIn();
+      final result = await _authUsecase.executeAsync(params: NoParams());
       result.fold(
         (failure) {
           DebugLogger.error('(LandingCubit.signIn) Sign-in failed: ${failure.message}');
@@ -56,7 +68,7 @@ class LandingCubit extends Cubit<AuthStatus> {
       DebugLogger.info('(LandingCubit.signOut) Starting sign-out...');
       emit(const AuthStatus.loading());
 
-      final result = await _authRepository.signOut();
+      final result = await _authSignout.executeAsync(params: NoParams());
       result.fold(
         (failure) {
           DebugLogger.error('(LandingCubit.signOut) Sign-out failed: ${failure.message}');
@@ -70,31 +82,6 @@ class LandingCubit extends Cubit<AuthStatus> {
     } catch (e) {
       DebugLogger.error('(LandingCubit.signOut) Sign-out error: $e');
       emit(AuthStatus.error('Sign-out failed: ${e.toString()}'));
-    }
-  }
-
-  /// Refresh tokens silently
-  Future<void> refreshTokens() async {
-    try {
-      DebugLogger.info('(LandingCubit.refreshTokens) Refreshing tokens...');
-
-      // Get the current auth repository implementation to call refreshTokens
-      final result = await _authRepository.refreshTokens(true);
-
-      result.fold(
-        (failure) {
-          DebugLogger.warning('(LandingCubit.refreshTokens) Token refresh failed: ${failure.message}');
-          // Don't emit error state for token refresh failures
-          // The user is still authenticated until tokens expire
-        },
-        (user) {
-          DebugLogger.success('(LandingCubit.refreshTokens) Tokens refreshed successfully');
-          emit(AuthStatus.authenticated(user));
-        },
-      );
-    } catch (e) {
-      DebugLogger.warning('(LandingCubit.refreshTokens) Token refresh error: $e');
-      // Don't emit error state for token refresh failures
     }
   }
 

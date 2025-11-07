@@ -27,7 +27,7 @@ class LandingPage extends StatelessWidget {
               backgroundColor: Colors.green,
             ),
           );
-          context.go('${RouteConstants.welcomeShort}${user.displayName ?? AppConstants.emptyString}');
+          context.go('${RouteConstants.welcomeShort}${user.id}');
         } else if (state is Unauthenticated) {
           // Stay on login page
         } else if (state is AuthError) {

@@ -1,8 +1,9 @@
+import 'package:injectable/injectable.dart';
+import 'package:realm/realm.dart';
+
 import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
 import 'package:ex_bot/data/models/user_preferences.dart';
 import 'package:ex_bot/data/realm_models/user_preferences_realm.dart';
-import 'package:injectable/injectable.dart';
-import 'package:realm_dart/src/realm_object.dart';
 
 @Injectable(as: DataMapper<UserPreferences, UserPreferencesRealm>)
 class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferencesRealm> {
@@ -11,7 +12,7 @@ class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferenc
   @override
   UserPreferences toData(UserPreferencesRealm data) {
     return UserPreferences(
-      userId: data.userId,
+      id: data.id,
       fitnessLevel: data.fitnessLevel,
       age: data.age,
       height: data.height,
@@ -36,7 +37,7 @@ class UserPreferencesMapper implements DataMapper<UserPreferences, UserPreferenc
   @override
   UserPreferencesRealm toDatabase(UserPreferences entity) {
     return UserPreferencesRealm(
-      entity.userId,
+      entity.id,
       entity.onboardingCompleted,
       entity.lastUpdated ?? DateTime.now(),
       fitnessLevel: entity.fitnessLevel,
