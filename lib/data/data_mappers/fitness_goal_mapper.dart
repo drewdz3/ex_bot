@@ -1,6 +1,6 @@
 import 'package:ex_bot/data/realm_models/fitness_goal_realm.dart';
 import 'package:ex_bot/data/models/fitness_goal.dart';
-import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
+import 'package:ex_bot/data/data_mappers/data_mapper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:realm/realm.dart';
 

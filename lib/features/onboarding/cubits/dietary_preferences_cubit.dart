@@ -1,7 +1,10 @@
 import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
+import 'package:ex_bot/data/models/diet_type.dart';
+import 'package:ex_bot/data/models/food_allergy.dart';
 import 'package:ex_bot/data/models/user_preferences.dart';
+import 'package:ex_bot/domain/repositories/lookup_repository.dart';
 import 'package:ex_bot/domain/repositories/user_repository.dart';
 import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_state.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,17 +12,26 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 class DietaryPreferencesCubit extends Cubit<DietaryPreferencesState> {
+  final LookupRepository _lookups;
   final UserRepository _userRepository;
   late UserPreferences _preferences;
-  DietaryPreferencesCubit(this._userRepository) : super(const DietaryPreferencesState.initial());
+
+  Set<DietType> dietTypes = {};
+  Set<FoodAllergy> allergyTypes = {};
+
+  DietaryPreferencesCubit(this._lookups, this._userRepository) : super(const DietaryPreferencesState.initial());
 
   Future<void> initialize() async {
     try {
+      //  get lookups
+      dietTypes = (await _lookups.getDietTypes()).toSet();
+      allergyTypes = (await _lookups.getFoodAllergies()).toSet();
+
       _preferences = await _userRepository.getPreferences(null);
       emit(
         DietaryPreferencesState.loaded(
-          dietaryRestrictions: _preferences.dietaryRestrictions,
-          allergies: _preferences.allergies,
+          selectedDietTypes: _preferences.dietaryRestrictions.toSet(),
+          selectedAllergies: _preferences.allergies.toSet(),
         ),
       );
     } catch (e) {
@@ -28,65 +40,22 @@ class DietaryPreferencesCubit extends Cubit<DietaryPreferencesState> {
     }
   }
 
-  void updateDietaryRestrictions(List<String> restrictions) {
+  void updateDietTypes(Set<String> types) {
     if (state is DietaryPreferencesStateLoaded) {
       final loaded = (state as DietaryPreferencesStateLoaded);
-      emit(
-        DietaryPreferencesState.loaded(dietaryRestrictions: loaded.dietaryRestrictions, allergies: loaded.allergies),
-      );
+      emit(DietaryPreferencesState.loaded(selectedDietTypes: types, selectedAllergies: loaded.selectedAllergies));
     } else {
-      emit(DietaryPreferencesState.loaded(dietaryRestrictions: restrictions, allergies: const []));
+      emit(DietaryPreferencesState.loaded(selectedDietTypes: types, selectedAllergies: const {}));
     }
   }
 
-  void updateAllergies(List<String> allergies) {
+  void updateAllergies(Set<String> allergies) {
     if (state is DietaryPreferencesStateLoaded) {
       var loaded = (state as DietaryPreferencesStateLoaded);
-      emit(
-        DietaryPreferencesState.loaded(dietaryRestrictions: loaded.dietaryRestrictions, allergies: loaded.allergies),
-      );
+      emit(DietaryPreferencesState.loaded(selectedDietTypes: loaded.selectedDietTypes, selectedAllergies: allergies));
     } else {
-      emit(DietaryPreferencesState.loaded(dietaryRestrictions: const [], allergies: allergies));
+      emit(DietaryPreferencesState.loaded(selectedDietTypes: const {}, selectedAllergies: allergies));
     }
-  }
-
-  void addCustomDietaryRestriction(String restriction) {
-    if (restriction.trim().isEmpty) return;
-
-    if (state is DietaryPreferencesStateLoaded) {
-      var loaded = (state as DietaryPreferencesStateLoaded);
-      final newRestrictions = List<String>.from(loaded.dietaryRestrictions)..add(restriction.trim());
-      emit(DietaryPreferencesState.loaded(dietaryRestrictions: newRestrictions, allergies: loaded.allergies));
-    } else {
-      emit(DietaryPreferencesState.loaded(dietaryRestrictions: [restriction.trim()], allergies: const []));
-    }
-  }
-
-  void addCustomAllergy(String allergy) {
-    if (allergy.trim().isEmpty) return;
-
-    if (state is DietaryPreferencesStateLoaded) {
-      var loaded = (state as DietaryPreferencesStateLoaded);
-      final newAllergies = List<String>.from(loaded.allergies)..add(allergy.trim());
-      emit(DietaryPreferencesState.loaded(dietaryRestrictions: loaded.dietaryRestrictions, allergies: newAllergies));
-    } else {
-      emit(DietaryPreferencesState.loaded(dietaryRestrictions: const [], allergies: [allergy.trim()]));
-    }
-  }
-
-  Map<String, dynamic> get dietaryData {
-    if (state is DietaryPreferencesStateLoaded) {
-      var loaded = (state as DietaryPreferencesStateLoaded);
-      // Combine dietary restrictions and allergies for the UserPreferences model
-      final combinedRestrictions = [...loaded.dietaryRestrictions, ...loaded.allergies];
-      return {'dietaryRestrictions': combinedRestrictions};
-    } else {
-      return {'dietaryRestrictions': <String>[]};
-    }
-  }
-
-  void clearAll() {
-    emit(const DietaryPreferencesState.initial());
   }
 
   Future<void> save() async {
@@ -94,8 +63,9 @@ class DietaryPreferencesCubit extends Cubit<DietaryPreferencesState> {
     var current = (state as DietaryPreferencesStateLoaded);
     try {
       _preferences = _preferences.copyWith(
-        dietaryRestrictions: current.dietaryRestrictions,
-        allergies: current.allergies,
+        dietaryRestrictions: current.selectedDietTypes.toList(),
+        allergies: current.selectedAllergies.toList(),
+        onboardingPath: RouteConstants.onboardingComplete,
       );
       await _userRepository.updatePreferences(_preferences);
       emit(DietaryPreferencesState.next(path: RouteConstants.onboardingComplete));

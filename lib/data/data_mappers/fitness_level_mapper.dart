@@ -1,8 +1,9 @@
-import 'package:ex_bot/data/realm_models/fitness_level_realm.dart';
-import 'package:ex_bot/data/models/fitness_level.dart';
-import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
 import 'package:injectable/injectable.dart';
-import 'package:realm_dart/src/realm_object.dart';
+import 'package:realm/realm.dart';
+
+import 'package:ex_bot/data/data_mappers/data_mapper.dart';
+import 'package:ex_bot/data/models/fitness_level.dart';
+import 'package:ex_bot/data/realm_models/fitness_level_realm.dart';
 
 @Injectable(as: DataMapper<FitnessLevel, FitnessLevelRealm>)
 class FitnessLevelMapper implements DataMapper<FitnessLevel, FitnessLevelRealm> {

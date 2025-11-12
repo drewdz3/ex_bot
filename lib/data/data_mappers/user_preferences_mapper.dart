@@ -3,7 +3,7 @@ import 'dart:math';
 import 'package:injectable/injectable.dart';
 import 'package:realm/realm.dart';
 
-import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
+import 'package:ex_bot/data/data_mappers/data_mapper.dart';
 import 'package:ex_bot/data/models/user_preferences.dart';
 import 'package:ex_bot/data/realm_models/user_preferences_realm.dart';
 

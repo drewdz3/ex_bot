@@ -1,8 +1,12 @@
 import 'package:ex_bot/data/datasources/database_datasource.dart';
 import 'package:ex_bot/data/realm_models/app_user_realm.dart';
+import 'package:ex_bot/data/realm_models/common_injury_realm.dart';
+import 'package:ex_bot/data/realm_models/diet_type_realm.dart';
 import 'package:ex_bot/data/realm_models/equipment_realm.dart';
 import 'package:ex_bot/data/realm_models/fitness_goal_realm.dart';
 import 'package:ex_bot/data/realm_models/fitness_level_realm.dart';
+import 'package:ex_bot/data/realm_models/food_allergy_realm.dart';
+import 'package:ex_bot/data/realm_models/health_condition_realm.dart';
 import 'package:ex_bot/data/realm_models/user_preferences_realm.dart';
 import 'package:ex_bot/data/realm_models/workout_type_realm.dart';
 import 'package:injectable/injectable.dart';
@@ -20,6 +24,10 @@ class RealmDatasource extends DatabaseDatasource {
       AppUserRealm.schema,
       WorkoutTypeRealm.schema,
       UserPreferencesRealm.schema,
+      HealthConditionRealm.schema,
+      CommonInjuryRealm.schema,
+      DietTypeRealm.schema,
+      FoodAllergyRealm.schema,
     ]);
     _realm = Realm(config);
   }

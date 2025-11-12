@@ -1,4 +1,7 @@
 import 'package:ex_bot/core/constants/app_constants.dart';
+import 'package:ex_bot/domain/entities/lookup_item.dart';
+import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
+import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -35,9 +38,9 @@ class DietaryPreferencesPage extends StatelessWidget {
       builder: (context, state) {
         final cubit = context.read<DietaryPreferencesCubit>();
 
-        final currentRestrictions = (state is DietaryPreferencesStateLoaded) ? state.dietaryRestrictions : <String>[];
+        final selectedDietTypes = (state is DietaryPreferencesStateLoaded) ? state.selectedDietTypes : <String>{};
 
-        final currentAllergies = (state is DietaryPreferencesStateLoaded) ? state.allergies : <String>[];
+        final selectedAllergies = (state is DietaryPreferencesStateLoaded) ? state.selectedAllergies : <String>{};
 
         return Scaffold(
           appBar: AppBar(
@@ -85,29 +88,47 @@ class DietaryPreferencesPage extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           // Dietary Restrictions Section
-                          _SectionHeader(
+                          SectionHeader(
                             title: AppLocalizations.of(context)!.labelDietaryRestrictions,
                             subtitle: AppLocalizations.of(context)!.infoDietaryRestrictions,
                           ),
                           const SizedBox(height: 16),
-                          _DietaryRestrictionsSection(
-                            selectedRestrictions: currentRestrictions,
-                            onSelectionChanged: cubit.updateDietaryRestrictions,
-                            onAddCustom: cubit.addCustomDietaryRestriction,
+                          MultiselectGrid(
+                            selectedItems: selectedDietTypes,
+                            onSelectionChanged: cubit.updateDietTypes,
+                            items: cubit.dietTypes
+                                .map(
+                                  (type) => LookupItem(
+                                    id: type.id,
+                                    name: type.name,
+                                    description: AppConstants.emptyString,
+                                    icon: AppConstants.emptyString,
+                                  ),
+                                )
+                                .toList(),
                           ),
 
                           const SizedBox(height: 32),
 
                           // Allergies Section
-                          _SectionHeader(
+                          SectionHeader(
                             title: AppLocalizations.of(context)!.labelFoodAllergies,
                             subtitle: AppLocalizations.of(context)!.infoFoodAllergies,
                           ),
                           const SizedBox(height: 16),
-                          _AllergiesSection(
-                            selectedAllergies: currentAllergies,
+                          MultiselectGrid(
+                            selectedItems: selectedAllergies,
                             onSelectionChanged: cubit.updateAllergies,
-                            onAddCustom: cubit.addCustomAllergy,
+                            items: cubit.allergyTypes
+                                .map(
+                                  (type) => LookupItem(
+                                    id: type.id,
+                                    name: type.name,
+                                    description: AppConstants.emptyString,
+                                    icon: AppConstants.emptyString,
+                                  ),
+                                )
+                                .toList(),
                           ),
                         ],
                       ),
@@ -149,215 +170,5 @@ class DietaryPreferencesPage extends StatelessWidget {
         );
       },
     );
-  }
-}
-
-class _SectionHeader extends StatelessWidget {
-  const _SectionHeader({required this.title, required this.subtitle});
-
-  final String title;
-  final String subtitle;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Text(title, style: Theme.of(context).textTheme.titleLarge?.copyWith(fontWeight: FontWeight.w600)),
-        const SizedBox(height: 4),
-        Text(subtitle, style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.grey[600])),
-      ],
-    );
-  }
-}
-
-class _DietaryRestrictionsSection extends StatelessWidget {
-  const _DietaryRestrictionsSection({
-    required this.selectedRestrictions,
-    required this.onSelectionChanged,
-    required this.onAddCustom,
-  });
-
-  final List<String> selectedRestrictions;
-  final ValueChanged<List<String>> onSelectionChanged;
-  final ValueChanged<String> onAddCustom;
-
-  static const List<String> _commonRestrictions = [
-    'Vegetarian',
-    'Vegan',
-    'Gluten-Free',
-    'Dairy-Free',
-    'Keto',
-    'Paleo',
-    'Low-Carb',
-    'Low-Sodium',
-    'Diabetic Diet',
-    'None',
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _SelectionChipGrid(
-          options: _commonRestrictions,
-          selectedItems: selectedRestrictions,
-          onSelectionChanged: onSelectionChanged,
-        ),
-        const SizedBox(height: 16),
-        _AddCustomField(label: 'Add other dietary restriction', onAdd: onAddCustom),
-      ],
-    );
-  }
-}
-
-class _AllergiesSection extends StatelessWidget {
-  const _AllergiesSection({
-    required this.selectedAllergies,
-    required this.onSelectionChanged,
-    required this.onAddCustom,
-  });
-
-  final List<String> selectedAllergies;
-  final ValueChanged<List<String>> onSelectionChanged;
-  final ValueChanged<String> onAddCustom;
-
-  static const List<String> _commonAllergies = [
-    'Nuts',
-    'Peanuts',
-    'Dairy',
-    'Eggs',
-    'Shellfish',
-    'Fish',
-    'Soy',
-    'Wheat',
-    'Sesame',
-    'None',
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        _SelectionChipGrid(
-          options: _commonAllergies,
-          selectedItems: selectedAllergies,
-          onSelectionChanged: onSelectionChanged,
-        ),
-        const SizedBox(height: 16),
-        _AddCustomField(label: 'Add specific allergy', onAdd: onAddCustom),
-      ],
-    );
-  }
-}
-
-class _SelectionChipGrid extends StatelessWidget {
-  const _SelectionChipGrid({required this.options, required this.selectedItems, required this.onSelectionChanged});
-
-  final List<String> options;
-  final List<String> selectedItems;
-  final ValueChanged<List<String>> onSelectionChanged;
-
-  @override
-  Widget build(BuildContext context) {
-    return Wrap(
-      spacing: 8,
-      runSpacing: 8,
-      children: options.map((option) {
-        final isSelected = selectedItems.contains(option);
-        return FilterChip(
-          selected: isSelected,
-          label: Text(option),
-          onSelected: (selected) => _toggleSelection(option),
-        );
-      }).toList(),
-    );
-  }
-
-  void _toggleSelection(String option) {
-    final newSelection = List<String>.from(selectedItems);
-
-    // Handle "None" selection logic
-    if (option == 'None') {
-      if (newSelection.contains('None')) {
-        newSelection.remove('None');
-      } else {
-        newSelection.clear();
-        newSelection.add('None');
-      }
-    } else {
-      // Remove "None" if selecting something else
-      if (newSelection.contains('None')) {
-        newSelection.remove('None');
-      }
-
-      if (newSelection.contains(option)) {
-        newSelection.remove(option);
-      } else {
-        newSelection.add(option);
-      }
-    }
-
-    onSelectionChanged(newSelection);
-  }
-}
-
-class _AddCustomField extends StatefulWidget {
-  const _AddCustomField({required this.label, required this.onAdd});
-
-  final String label;
-  final ValueChanged<String> onAdd;
-
-  @override
-  State<_AddCustomField> createState() => _AddCustomFieldState();
-}
-
-class _AddCustomFieldState extends State<_AddCustomField> {
-  final _controller = TextEditingController();
-  final _focusNode = FocusNode();
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    _focusNode.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey[300]!),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
-        child: Row(
-          children: [
-            Expanded(
-              child: TextField(
-                controller: _controller,
-                focusNode: _focusNode,
-                decoration: InputDecoration(
-                  hintText: widget.label,
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.zero,
-                ),
-                onSubmitted: (value) => _addCustomItem(),
-              ),
-            ),
-            IconButton(onPressed: _addCustomItem, icon: const Icon(Icons.add), visualDensity: VisualDensity.compact),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void _addCustomItem() {
-    if (_controller.text.trim().isNotEmpty) {
-      widget.onAdd(_controller.text.trim());
-      _controller.clear();
-      _focusNode.unfocus();
-    }
   }
 }

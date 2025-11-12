@@ -78,21 +78,21 @@ String toString() {
 
 
 class DietaryPreferencesStateLoaded implements DietaryPreferencesState {
-  const DietaryPreferencesStateLoaded({required final  List<String> dietaryRestrictions, required final  List<String> allergies}): _dietaryRestrictions = dietaryRestrictions,_allergies = allergies;
+  const DietaryPreferencesStateLoaded({required final  Set<String> selectedDietTypes, required final  Set<String> selectedAllergies}): _selectedDietTypes = selectedDietTypes,_selectedAllergies = selectedAllergies;
   
 
- final  List<String> _dietaryRestrictions;
- List<String> get dietaryRestrictions {
-  if (_dietaryRestrictions is EqualUnmodifiableListView) return _dietaryRestrictions;
+ final  Set<String> _selectedDietTypes;
+ Set<String> get selectedDietTypes {
+  if (_selectedDietTypes is EqualUnmodifiableSetView) return _selectedDietTypes;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_dietaryRestrictions);
+  return EqualUnmodifiableSetView(_selectedDietTypes);
 }
 
- final  List<String> _allergies;
- List<String> get allergies {
-  if (_allergies is EqualUnmodifiableListView) return _allergies;
+ final  Set<String> _selectedAllergies;
+ Set<String> get selectedAllergies {
+  if (_selectedAllergies is EqualUnmodifiableSetView) return _selectedAllergies;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_allergies);
+  return EqualUnmodifiableSetView(_selectedAllergies);
 }
 
 
@@ -106,16 +106,16 @@ $DietaryPreferencesStateLoadedCopyWith<DietaryPreferencesStateLoaded> get copyWi
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateLoaded&&const DeepCollectionEquality().equals(other._dietaryRestrictions, _dietaryRestrictions)&&const DeepCollectionEquality().equals(other._allergies, _allergies));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is DietaryPreferencesStateLoaded&&const DeepCollectionEquality().equals(other._selectedDietTypes, _selectedDietTypes)&&const DeepCollectionEquality().equals(other._selectedAllergies, _selectedAllergies));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_dietaryRestrictions),const DeepCollectionEquality().hash(_allergies));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_selectedDietTypes),const DeepCollectionEquality().hash(_selectedAllergies));
 
 @override
 String toString() {
-  return 'DietaryPreferencesState.loaded(dietaryRestrictions: $dietaryRestrictions, allergies: $allergies)';
+  return 'DietaryPreferencesState.loaded(selectedDietTypes: $selectedDietTypes, selectedAllergies: $selectedAllergies)';
 }
 
 
@@ -126,7 +126,7 @@ abstract mixin class $DietaryPreferencesStateLoadedCopyWith<$Res> implements $Di
   factory $DietaryPreferencesStateLoadedCopyWith(DietaryPreferencesStateLoaded value, $Res Function(DietaryPreferencesStateLoaded) _then) = _$DietaryPreferencesStateLoadedCopyWithImpl;
 @useResult
 $Res call({
- List<String> dietaryRestrictions, List<String> allergies
+ Set<String> selectedDietTypes, Set<String> selectedAllergies
 });
 
 
@@ -143,11 +143,11 @@ class _$DietaryPreferencesStateLoadedCopyWithImpl<$Res>
 
 /// Create a copy of DietaryPreferencesState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? dietaryRestrictions = null,Object? allergies = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? selectedDietTypes = null,Object? selectedAllergies = null,}) {
   return _then(DietaryPreferencesStateLoaded(
-dietaryRestrictions: null == dietaryRestrictions ? _self._dietaryRestrictions : dietaryRestrictions // ignore: cast_nullable_to_non_nullable
-as List<String>,allergies: null == allergies ? _self._allergies : allergies // ignore: cast_nullable_to_non_nullable
-as List<String>,
+selectedDietTypes: null == selectedDietTypes ? _self._selectedDietTypes : selectedDietTypes // ignore: cast_nullable_to_non_nullable
+as Set<String>,selectedAllergies: null == selectedAllergies ? _self._selectedAllergies : selectedAllergies // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 

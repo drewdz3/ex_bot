@@ -1,20 +1,30 @@
-import 'package:ex_bot/app/routing/app_router.dart';
-import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_state.dart';
-import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_state.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 
-/// Onboarding completion page that celebrates the user's setup completion
 class OnboardingCompletePage extends StatelessWidget {
   const OnboardingCompletePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<OnboardingCompleteCubit, OnboardingCompleteState>(
+    return BlocConsumer<OnboardingCompleteCubit, OnboardingCompleteState>(
+      listener: (context, state) {
+        if (state is OnboardingCompleteStateCompleted) {
+          context.go(state.path);
+        } else if (state is OnboardingCompleteStateError) {
+          var message = AppLocalizations.of(context)!.unknownError;
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(message), backgroundColor: Colors.red));
+        }
+      },
+      buildWhen: (previous, current) {
+        return true;
+      },
       builder: (context, state) {
+        final cubit = context.read<OnboardingCompleteCubit>();
         return Scaffold(
           body: SafeArea(
             child: Padding(
@@ -86,7 +96,7 @@ class OnboardingCompletePage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: ElevatedButton(
-                      onPressed: () => _startJourney(context),
+                      onPressed: cubit.completeOnboarding,
                       style: ElevatedButton.styleFrom(
                         padding: const EdgeInsets.symmetric(vertical: 16),
                         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
@@ -113,12 +123,6 @@ class OnboardingCompletePage extends StatelessWidget {
         );
       },
     );
-  }
-
-  void _startJourney(BuildContext context) {
-    final cubit = context.read<OnboardingCompleteCubit>();
-    cubit.completeOnboarding();
-    context.go(RouteConstants.chat);
   }
 }
 

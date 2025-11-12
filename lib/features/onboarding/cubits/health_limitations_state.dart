@@ -7,8 +7,8 @@ abstract class HealthLimitationsState with _$HealthLimitationsState {
   const factory HealthLimitationsState.initial() = HealthLimitationsStateInitial;
 
   const factory HealthLimitationsState.loaded({
-    required List<String> healthConditions,
-    required List<String> injuriesOrLimitations,
+    required Set<String> selectedConditions,
+    required Set<String> selectedInjuries,
   }) = HealthLimitationsStateLoaded;
 
   const factory HealthLimitationsState.error({required String message}) = HealthLimitationsStateError;

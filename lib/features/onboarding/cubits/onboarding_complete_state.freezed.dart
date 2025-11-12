@@ -45,8 +45,8 @@ $OnboardingCompleteStateCopyWith(OnboardingCompleteState _, $Res Function(Onboar
 /// @nodoc
 
 
-class Initial implements OnboardingCompleteState {
-  const Initial();
+class OnboardingCompleteStateInitial implements OnboardingCompleteState {
+  const OnboardingCompleteStateInitial();
   
 
 
@@ -56,7 +56,7 @@ class Initial implements OnboardingCompleteState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Initial);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingCompleteStateInitial);
 }
 
 
@@ -77,8 +77,8 @@ String toString() {
 /// @nodoc
 
 
-class BasicInfoSaved implements OnboardingCompleteState {
-  const BasicInfoSaved();
+class OnboardingCompleteStateLoaded implements OnboardingCompleteState {
+  const OnboardingCompleteStateLoaded();
   
 
 
@@ -88,7 +88,7 @@ class BasicInfoSaved implements OnboardingCompleteState {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is BasicInfoSaved);
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingCompleteStateLoaded);
 }
 
 
@@ -97,7 +97,7 @@ int get hashCode => runtimeType.hashCode;
 
 @override
 String toString() {
-  return 'OnboardingCompleteState.basicInfoSaved()';
+  return 'OnboardingCompleteState.loaded()';
 }
 
 
@@ -109,211 +109,74 @@ String toString() {
 /// @nodoc
 
 
-class FitnessGoalsSaved implements OnboardingCompleteState {
-  const FitnessGoalsSaved();
+class OnboardingCompleteStateCompleted implements OnboardingCompleteState {
+  const OnboardingCompleteStateCompleted({required this.path});
   
 
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is FitnessGoalsSaved);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'OnboardingCompleteState.fitnessGoalsSaved()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class WorkoutPreferencesSaved implements OnboardingCompleteState {
-  const WorkoutPreferencesSaved();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is WorkoutPreferencesSaved);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'OnboardingCompleteState.workoutPreferencesSaved()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class PhysicalLimitationsSaved implements OnboardingCompleteState {
-  const PhysicalLimitationsSaved();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is PhysicalLimitationsSaved);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'OnboardingCompleteState.physicalLimitationsSaved()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class Saving implements OnboardingCompleteState {
-  const Saving();
-  
-
-
-
-
-
-
-@override
-bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Saving);
-}
-
-
-@override
-int get hashCode => runtimeType.hashCode;
-
-@override
-String toString() {
-  return 'OnboardingCompleteState.saving()';
-}
-
-
-}
-
-
-
-
-/// @nodoc
-
-
-class Completed implements OnboardingCompleteState {
-  const Completed(this.preferences);
-  
-
- final  UserPreferences preferences;
+ final  String path;
 
 /// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$CompletedCopyWith<Completed> get copyWith => _$CompletedCopyWithImpl<Completed>(this, _$identity);
+$OnboardingCompleteStateCompletedCopyWith<OnboardingCompleteStateCompleted> get copyWith => _$OnboardingCompleteStateCompletedCopyWithImpl<OnboardingCompleteStateCompleted>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Completed&&(identical(other.preferences, preferences) || other.preferences == preferences));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingCompleteStateCompleted&&(identical(other.path, path) || other.path == path));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,preferences);
+int get hashCode => Object.hash(runtimeType,path);
 
 @override
 String toString() {
-  return 'OnboardingCompleteState.completed(preferences: $preferences)';
+  return 'OnboardingCompleteState.completed(path: $path)';
 }
 
 
 }
 
 /// @nodoc
-abstract mixin class $CompletedCopyWith<$Res> implements $OnboardingCompleteStateCopyWith<$Res> {
-  factory $CompletedCopyWith(Completed value, $Res Function(Completed) _then) = _$CompletedCopyWithImpl;
+abstract mixin class $OnboardingCompleteStateCompletedCopyWith<$Res> implements $OnboardingCompleteStateCopyWith<$Res> {
+  factory $OnboardingCompleteStateCompletedCopyWith(OnboardingCompleteStateCompleted value, $Res Function(OnboardingCompleteStateCompleted) _then) = _$OnboardingCompleteStateCompletedCopyWithImpl;
 @useResult
 $Res call({
- UserPreferences preferences
+ String path
 });
 
 
-$UserPreferencesCopyWith<$Res> get preferences;
+
 
 }
 /// @nodoc
-class _$CompletedCopyWithImpl<$Res>
-    implements $CompletedCopyWith<$Res> {
-  _$CompletedCopyWithImpl(this._self, this._then);
+class _$OnboardingCompleteStateCompletedCopyWithImpl<$Res>
+    implements $OnboardingCompleteStateCompletedCopyWith<$Res> {
+  _$OnboardingCompleteStateCompletedCopyWithImpl(this._self, this._then);
 
-  final Completed _self;
-  final $Res Function(Completed) _then;
+  final OnboardingCompleteStateCompleted _self;
+  final $Res Function(OnboardingCompleteStateCompleted) _then;
 
 /// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? preferences = null,}) {
-  return _then(Completed(
-null == preferences ? _self.preferences : preferences // ignore: cast_nullable_to_non_nullable
-as UserPreferences,
+@pragma('vm:prefer-inline') $Res call({Object? path = null,}) {
+  return _then(OnboardingCompleteStateCompleted(
+path: null == path ? _self.path : path // ignore: cast_nullable_to_non_nullable
+as String,
   ));
 }
 
-/// Create a copy of OnboardingCompleteState
-/// with the given fields replaced by the non-null parameter values.
-@override
-@pragma('vm:prefer-inline')
-$UserPreferencesCopyWith<$Res> get preferences {
-  
-  return $UserPreferencesCopyWith<$Res>(_self.preferences, (value) {
-    return _then(_self.copyWith(preferences: value));
-  });
-}
+
 }
 
 /// @nodoc
 
 
-class Error implements OnboardingCompleteState {
-  const Error(this.message);
+class OnboardingCompleteStateError implements OnboardingCompleteState {
+  const OnboardingCompleteStateError(this.message);
   
 
  final  String message;
@@ -322,13 +185,13 @@ class Error implements OnboardingCompleteState {
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
-$ErrorCopyWith<Error> get copyWith => _$ErrorCopyWithImpl<Error>(this, _$identity);
+$OnboardingCompleteStateErrorCopyWith<OnboardingCompleteStateError> get copyWith => _$OnboardingCompleteStateErrorCopyWithImpl<OnboardingCompleteStateError>(this, _$identity);
 
 
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is Error&&(identical(other.message, message) || other.message == message));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is OnboardingCompleteStateError&&(identical(other.message, message) || other.message == message));
 }
 
 
@@ -344,8 +207,8 @@ String toString() {
 }
 
 /// @nodoc
-abstract mixin class $ErrorCopyWith<$Res> implements $OnboardingCompleteStateCopyWith<$Res> {
-  factory $ErrorCopyWith(Error value, $Res Function(Error) _then) = _$ErrorCopyWithImpl;
+abstract mixin class $OnboardingCompleteStateErrorCopyWith<$Res> implements $OnboardingCompleteStateCopyWith<$Res> {
+  factory $OnboardingCompleteStateErrorCopyWith(OnboardingCompleteStateError value, $Res Function(OnboardingCompleteStateError) _then) = _$OnboardingCompleteStateErrorCopyWithImpl;
 @useResult
 $Res call({
  String message
@@ -356,17 +219,17 @@ $Res call({
 
 }
 /// @nodoc
-class _$ErrorCopyWithImpl<$Res>
-    implements $ErrorCopyWith<$Res> {
-  _$ErrorCopyWithImpl(this._self, this._then);
+class _$OnboardingCompleteStateErrorCopyWithImpl<$Res>
+    implements $OnboardingCompleteStateErrorCopyWith<$Res> {
+  _$OnboardingCompleteStateErrorCopyWithImpl(this._self, this._then);
 
-  final Error _self;
-  final $Res Function(Error) _then;
+  final OnboardingCompleteStateError _self;
+  final $Res Function(OnboardingCompleteStateError) _then;
 
 /// Create a copy of OnboardingCompleteState
 /// with the given fields replaced by the non-null parameter values.
 @pragma('vm:prefer-inline') $Res call({Object? message = null,}) {
-  return _then(Error(
+  return _then(OnboardingCompleteStateError(
 null == message ? _self.message : message // ignore: cast_nullable_to_non_nullable
 as String,
   ));

@@ -1,4 +1,4 @@
-import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
+import 'package:ex_bot/data/data_mappers/data_mapper.dart';
 import 'package:ex_bot/data/models/app_user.dart';
 import 'package:ex_bot/data/realm_models/app_user_realm.dart';
 import 'package:injectable/injectable.dart';

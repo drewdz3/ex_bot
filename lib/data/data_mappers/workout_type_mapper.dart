@@ -1,6 +1,6 @@
 import 'package:injectable/injectable.dart';
 
-import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
+import 'package:ex_bot/data/data_mappers/data_mapper.dart';
 import 'package:ex_bot/data/models/workout_type.dart';
 import 'package:ex_bot/data/realm_models/workout_type_realm.dart';
 import 'package:realm/realm.dart';
