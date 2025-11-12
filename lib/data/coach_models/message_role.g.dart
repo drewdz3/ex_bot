@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'ai_message_role.dart';
+part of 'message_role.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator

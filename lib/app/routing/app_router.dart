@@ -3,6 +3,7 @@ import 'package:ex_bot/features/diet/diet.dart';
 import 'package:ex_bot/features/profile/profile.dart';
 import 'package:ex_bot/features/training/training.dart';
 import 'package:ex_bot/features/widgets/navigation_container.dart';
+import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -52,7 +53,14 @@ final GoRouter appRouter = GoRouter(
     GoRoute(
       path: RouteConstants.landing,
       builder: (context, state) {
-        return BlocProvider(create: (_) => getIt<LandingCubit>()..initializeAuth(), child: const LandingPage());
+        String promptText = AppLocalizations.of(context)!.agentPrompt;
+        String unspecifiedText = AppLocalizations.of(context)!.unspecifiedText;
+        String noneText = AppLocalizations.of(context)!.noneText;
+
+        return BlocProvider(
+          create: (_) => getIt<LandingCubit>()..initialize(promptText, unspecifiedText, noneText),
+          child: const LandingPage(),
+        );
       },
     ),
     GoRoute(

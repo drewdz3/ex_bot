@@ -37,6 +37,10 @@ class AppConstants {
   static const Duration notificationInterval = Duration(hours: 8);
 
   //  Internationalization constants
-  static const String unknownError = 'unknown_error';
-  static const String saveError = 'save_error';
+  static const String unknownError = 'unknownError';
+  static const String saveError = 'saveError';
+  static const String networkError = 'networkError';
+
+  //  Error message constants
+  static const String agentNotInitializedError = 'agentNotInitializedError';
 }

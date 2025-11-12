@@ -1,31 +1,25 @@
 import 'package:either_dart/either.dart';
 import 'package:ex_bot/core/errors/failures.dart';
-import 'package:ex_bot/data/ai_models/ai_conversation.dart';
-import '../../data/ai_models/ai_message.dart';
+import 'package:ex_bot/data/coach_models/conversation.dart';
+import '../../data/coach_models/message.dart';
 
-/// Repository interface for AI coaching interactions
 abstract class CoachRepository {
-  /// Send a message to the AI coach and get a response
-  Future<Either<Failure, AiMessage>> sendMessage({
+  Future<void> initialize(String promptText, String unspecifiedText, String noneText);
+
+  Future<Either<Failure, Message>> sendMessage({
     required String message,
     required String userId,
+    required String displayName,
     String? conversationId,
     Map<String, dynamic>? context,
   });
 
-  /// Get conversation history for a user
-  Future<Either<Failure, AiConversation>> getConversation({required String conversationId});
+  Future<Either<Failure, Conversation>> getConversation({required String conversationId});
 
-  /// Create a new conversation
-  Future<Either<Failure, AiConversation>> createConversation({required String userId, String? initialContext});
+  Future<Either<Failure, Conversation>> createConversation({required String userId, String? initialContext});
 
-  /// Update conversation with new message
-  Future<Either<Failure, AiConversation>> updateConversation({
-    required String conversationId,
-    required AiMessage message,
-  });
+  Future<Either<Failure, Conversation>> updateConversation({required String conversationId, required Message message});
 
-  /// Generate personalized coaching prompt based on user profile
   Future<Either<Failure, String>> generateCoachingPrompt({
     required Map<String, dynamic> userProfile,
     required String interactionType,
