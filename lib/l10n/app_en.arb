@@ -412,5 +412,29 @@
     "saveError": "Failed to save changes. Please try again.",
     "@saveError": {
         "description": "Error message when saving preferences fails"
+    },
+    "bottom_tab1": "Training",
+    "@bottom_tab1": {
+        "description": "Label for the Training tab in the bottom navigation bar"
+    },
+    "bottom_tab2": "Diet",
+    "@bottom_tab2": {
+        "description": "Label for the Diet tab in the bottom navigation bar"
+    },
+    "bottom_tab3": "Profile",
+    "@bottom_tab3": {
+        "description": "Label for the Profile tab in the bottom navigation bar"
+    },
+    "pageTitleDiet": "Meal/Diet Planning",
+    "@pageTitleDiet": {
+        "description": "Title for the meal/diet planning page"
+    },
+    "pageTitleProfile": "Profile",
+    "@pageTitleProfile": {
+        "description": "Title for the profile page"
+    },
+    "pageTitleTraining": "Training",
+    "@pageTitleTraining": {
+        "description": "Title for the training page"
     }
 }

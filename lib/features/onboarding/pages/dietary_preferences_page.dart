@@ -1,7 +1,7 @@
 import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
-import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
-import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
+import 'package:ex_bot/features/widgets/multiselect_grid.dart';
+import 'package:ex_bot/features/widgets/section_header.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
@@ -29,7 +29,7 @@ class DietaryPreferencesPage extends StatelessWidget {
         } else if (state is DietaryPreferencesStateNext) {
           context.go(state.path);
         } else if (state is DietaryPreferencesStateComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         }
       },
       buildWhen: (previous, current) {
@@ -159,7 +159,7 @@ class DietaryPreferencesPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () => context.go(RouteConstants.chat),
+                      onPressed: () => context.go(RouteConstants.training),
                       child: Text(AppLocalizations.of(context)!.labelSkip),
                     ),
                   ),

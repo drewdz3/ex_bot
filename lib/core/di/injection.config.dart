@@ -128,6 +128,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i856.SendMessageToCoach>(
       () => _i856.SendMessageToCoach(gh<_i926.CoachRepository>()),
     );
+    gh.factory<_i214.AuthenticateSignoutUseCase>(
+      () => _i214.AuthenticateSignoutUseCaseImpl(),
+    );
     gh.factory<_i736.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(
       () => const _i62.AppUserMapper(),
     );
@@ -156,9 +159,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i226.GetWorkoutTypesUsecase>(
       () => _i226.GetWorkoutTypesUsecaseImpl(gh<_i383.LookupRepository>()),
-    );
-    gh.factory<_i214.AuthenticateSignoutUseCase>(
-      () => _i214.AuthenticateSignoutUseCaseImpl(gh<_i1073.AuthRepository>()),
     );
     gh.singleton<_i271.UserRepository>(
       () => _i790.UserRepositoryImpl(

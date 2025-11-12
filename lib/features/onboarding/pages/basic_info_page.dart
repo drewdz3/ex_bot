@@ -17,7 +17,7 @@ class BasicInfoPage extends StatelessWidget {
     return BlocConsumer<BasicInfoCubit, BasicInfoState>(
       listener: (context, state) {
         if (state is BasicInfoComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         } else if (state is BasicInfoNext) {
           context.go(RouteConstants.onboardingGoals);
         } else if (state is BasicInfoError) {
@@ -263,7 +263,7 @@ class BasicInfoPage extends StatelessWidget {
                 SizedBox(
                   width: double.infinity,
                   child: TextButton(
-                    onPressed: () => context.go(RouteConstants.chat),
+                    onPressed: () => context.go(RouteConstants.training),
                     child: Text(AppLocalizations.of(context)!.labelSkip),
                   ),
                 ),

@@ -1,18 +1,23 @@
-import 'package:ex_bot/features/onboarding/cubits/basic_info_cubit.dart';
-import 'package:ex_bot/features/onboarding/cubits/fitness_goals_cubit.dart';
-import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_cubit.dart';
-import 'package:ex_bot/features/onboarding/cubits/welcome_cubit.dart';
+import 'package:ex_bot/core/constants/app_constants.dart';
+import 'package:ex_bot/features/diet/diet.dart';
+import 'package:ex_bot/features/profile/profile.dart';
+import 'package:ex_bot/features/training/training.dart';
+import 'package:ex_bot/features/widgets/navigation_container.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 
-import 'package:ex_bot/app/pages/ai_chat_test_page.dart';
 import 'package:ex_bot/core/di/injection.dart';
 import 'package:ex_bot/features/landing/cubits/landing_cubit.dart';
+import 'package:ex_bot/features/landing/pages/landing_page.dart';
+import 'package:ex_bot/features/onboarding/cubits/basic_info_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/dietary_preferences_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/fitness_goals_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/health_limitations_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/onboarding_complete_cubit.dart';
+import 'package:ex_bot/features/onboarding/cubits/welcome_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_preferences_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_schedule_cubit.dart';
-import 'package:ex_bot/features/landing/pages/landing_page.dart';
 import 'package:ex_bot/features/onboarding/pages/basic_info_page.dart';
 import 'package:ex_bot/features/onboarding/pages/dietary_preferences_page.dart';
 import 'package:ex_bot/features/onboarding/pages/fitness_goals_page.dart';
@@ -33,7 +38,11 @@ class RouteConstants {
   static const String onboardingLimitations = '/onboarding/limitations';
   static const String onboardingDietary = '/onboarding/dietary';
   static const String onboardingComplete = '/onboarding/complete';
-  static const String chat = '/chat';
+  static const String training = '/training';
+  static const String meals = '/meals';
+  static const String profile = '/profile';
+
+  static const String _userId = 'userId';
 }
 
 /// App router configuration
@@ -46,29 +55,25 @@ final GoRouter appRouter = GoRouter(
         return BlocProvider(create: (_) => getIt<LandingCubit>()..initializeAuth(), child: const LandingPage());
       },
     ),
-
     GoRoute(
       path: RouteConstants.welcome,
       builder: (context, state) {
-        final userId = state.pathParameters['userId'] ?? '0';
+        final userId = state.pathParameters[RouteConstants._userId] ?? AppConstants.emptyString;
         return BlocProvider(create: (_) => getIt<WelcomeCubit>()..initialize(userId), child: WelcomePage());
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingBasicInfo,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<BasicInfoCubit>()..initialize(), child: const BasicInfoPage());
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingGoals,
       builder: (context, state) {
         return BlocProvider(create: (_) => getIt<FitnessGoalsCubit>()..initialize(), child: FitnessGoalsPage());
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingPreferences,
       builder: (context, state) {
@@ -78,7 +83,6 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingSchedule,
       builder: (context, state) {
@@ -88,7 +92,6 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingLimitations,
       builder: (context, state) {
@@ -98,7 +101,6 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingDietary,
       builder: (context, state) {
@@ -108,7 +110,6 @@ final GoRouter appRouter = GoRouter(
         );
       },
     ),
-
     GoRoute(
       path: RouteConstants.onboardingComplete,
       builder: (context, state) => BlocProvider(
@@ -116,7 +117,21 @@ final GoRouter appRouter = GoRouter(
         child: const OnboardingCompletePage(),
       ),
     ),
-
-    GoRoute(path: RouteConstants.chat, builder: (context, state) => const AIChatTestPage()),
+    StatefulShellRoute.indexedStack(
+      builder: (BuildContext context, GoRouterState state, StatefulNavigationShell navigationShell) {
+        return NavigationContainer(navigationShell: navigationShell);
+      },
+      branches: [
+        StatefulShellBranch(
+          routes: [GoRoute(path: RouteConstants.training, builder: (context, state) => const TrainingPage())],
+        ),
+        StatefulShellBranch(
+          routes: [GoRoute(path: RouteConstants.meals, builder: (context, state) => const DietPage())],
+        ),
+        StatefulShellBranch(
+          routes: [GoRoute(path: RouteConstants.profile, builder: (context, state) => const ProfilePage())],
+        ),
+      ],
+    ),
   ],
 );

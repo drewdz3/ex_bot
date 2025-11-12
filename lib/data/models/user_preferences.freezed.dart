@@ -12,16 +12,19 @@ part of 'user_preferences.dart';
 
 // dart format off
 T _$identity<T>(T value) => value;
+
 /// @nodoc
 mixin _$UserPreferences {
 
- String get id; String? get fitnessLevel; int? get age; int? get height; double? get weight; String? get gender; int? get workoutsPerWeek; int? get workoutDurationMinutes; String? get onboardingPath; bool get onboardingCompleted; List<String> get fitnessGoals; List<String> get availableEquipment; List<String> get preferredWorkoutTypes; List<String> get dietaryRestrictions; List<String> get medicalConditions; List<String> get injuries; List<String> get allergies; DateTime? get lastUpdated;
+@JsonKey(name: 'id') String get id; String? get fitnessLevel; int? get age; int? get height; double? get weight; String? get gender; int? get workoutsPerWeek; int? get workoutDurationMinutes; String? get onboardingPath; bool get onboardingCompleted; List<String> get fitnessGoals; List<String> get availableEquipment; List<String> get preferredWorkoutTypes; List<String> get dietaryRestrictions; List<String> get medicalConditions; List<String> get injuries; List<String> get allergies; DateTime? get lastUpdated;
 /// Create a copy of UserPreferences
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
 @pragma('vm:prefer-inline')
 $UserPreferencesCopyWith<UserPreferences> get copyWith => _$UserPreferencesCopyWithImpl<UserPreferences>(this as UserPreferences, _$identity);
 
+  /// Serializes this UserPreferences to a JSON map.
+  Map<String, dynamic> toJson();
 
 
 @override
@@ -29,7 +32,7 @@ bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is UserPreferences&&(identical(other.id, id) || other.id == id)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.age, age) || other.age == age)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.workoutsPerWeek, workoutsPerWeek) || other.workoutsPerWeek == workoutsPerWeek)&&(identical(other.workoutDurationMinutes, workoutDurationMinutes) || other.workoutDurationMinutes == workoutDurationMinutes)&&(identical(other.onboardingPath, onboardingPath) || other.onboardingPath == onboardingPath)&&(identical(other.onboardingCompleted, onboardingCompleted) || other.onboardingCompleted == onboardingCompleted)&&const DeepCollectionEquality().equals(other.fitnessGoals, fitnessGoals)&&const DeepCollectionEquality().equals(other.availableEquipment, availableEquipment)&&const DeepCollectionEquality().equals(other.preferredWorkoutTypes, preferredWorkoutTypes)&&const DeepCollectionEquality().equals(other.dietaryRestrictions, dietaryRestrictions)&&const DeepCollectionEquality().equals(other.medicalConditions, medicalConditions)&&const DeepCollectionEquality().equals(other.injuries, injuries)&&const DeepCollectionEquality().equals(other.allergies, allergies)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,id,fitnessLevel,age,height,weight,gender,workoutsPerWeek,workoutDurationMinutes,onboardingPath,onboardingCompleted,const DeepCollectionEquality().hash(fitnessGoals),const DeepCollectionEquality().hash(availableEquipment),const DeepCollectionEquality().hash(preferredWorkoutTypes),const DeepCollectionEquality().hash(dietaryRestrictions),const DeepCollectionEquality().hash(medicalConditions),const DeepCollectionEquality().hash(injuries),const DeepCollectionEquality().hash(allergies),lastUpdated);
 
@@ -46,7 +49,7 @@ abstract mixin class $UserPreferencesCopyWith<$Res>  {
   factory $UserPreferencesCopyWith(UserPreferences value, $Res Function(UserPreferences) _then) = _$UserPreferencesCopyWithImpl;
 @useResult
 $Res call({
- String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, List<String> injuries, List<String> allergies, DateTime? lastUpdated
+@JsonKey(name: 'id') String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, List<String> injuries, List<String> allergies, DateTime? lastUpdated
 });
 
 
@@ -91,13 +94,13 @@ as DateTime?,
 
 
 /// @nodoc
-
+@JsonSerializable()
 
 class _UserPreferences implements UserPreferences {
-  const _UserPreferences({required this.id, this.fitnessLevel, this.age, this.height, this.weight, this.gender, this.workoutsPerWeek, this.workoutDurationMinutes, this.onboardingPath, this.onboardingCompleted = false, final  List<String> fitnessGoals = const [], final  List<String> availableEquipment = const [], final  List<String> preferredWorkoutTypes = const [], final  List<String> dietaryRestrictions = const [], final  List<String> medicalConditions = const [], final  List<String> injuries = const [], final  List<String> allergies = const [], this.lastUpdated}): _fitnessGoals = fitnessGoals,_availableEquipment = availableEquipment,_preferredWorkoutTypes = preferredWorkoutTypes,_dietaryRestrictions = dietaryRestrictions,_medicalConditions = medicalConditions,_injuries = injuries,_allergies = allergies;
-  
+  const _UserPreferences({@JsonKey(name: 'id') required this.id, this.fitnessLevel, this.age, this.height, this.weight, this.gender, this.workoutsPerWeek, this.workoutDurationMinutes, this.onboardingPath, this.onboardingCompleted = false, final  List<String> fitnessGoals = const [], final  List<String> availableEquipment = const [], final  List<String> preferredWorkoutTypes = const [], final  List<String> dietaryRestrictions = const [], final  List<String> medicalConditions = const [], final  List<String> injuries = const [], final  List<String> allergies = const [], this.lastUpdated}): _fitnessGoals = fitnessGoals,_availableEquipment = availableEquipment,_preferredWorkoutTypes = preferredWorkoutTypes,_dietaryRestrictions = dietaryRestrictions,_medicalConditions = medicalConditions,_injuries = injuries,_allergies = allergies;
+  factory _UserPreferences.fromJson(Map<String, dynamic> json) => _$UserPreferencesFromJson(json);
 
-@override final  String id;
+@override@JsonKey(name: 'id') final  String id;
 @override final  String? fitnessLevel;
 @override final  int? age;
 @override final  int? height;
@@ -164,14 +167,17 @@ class _UserPreferences implements UserPreferences {
 @pragma('vm:prefer-inline')
 _$UserPreferencesCopyWith<_UserPreferences> get copyWith => __$UserPreferencesCopyWithImpl<_UserPreferences>(this, _$identity);
 
-
+@override
+Map<String, dynamic> toJson() {
+  return _$UserPreferencesToJson(this, );
+}
 
 @override
 bool operator ==(Object other) {
   return identical(this, other) || (other.runtimeType == runtimeType&&other is _UserPreferences&&(identical(other.id, id) || other.id == id)&&(identical(other.fitnessLevel, fitnessLevel) || other.fitnessLevel == fitnessLevel)&&(identical(other.age, age) || other.age == age)&&(identical(other.height, height) || other.height == height)&&(identical(other.weight, weight) || other.weight == weight)&&(identical(other.gender, gender) || other.gender == gender)&&(identical(other.workoutsPerWeek, workoutsPerWeek) || other.workoutsPerWeek == workoutsPerWeek)&&(identical(other.workoutDurationMinutes, workoutDurationMinutes) || other.workoutDurationMinutes == workoutDurationMinutes)&&(identical(other.onboardingPath, onboardingPath) || other.onboardingPath == onboardingPath)&&(identical(other.onboardingCompleted, onboardingCompleted) || other.onboardingCompleted == onboardingCompleted)&&const DeepCollectionEquality().equals(other._fitnessGoals, _fitnessGoals)&&const DeepCollectionEquality().equals(other._availableEquipment, _availableEquipment)&&const DeepCollectionEquality().equals(other._preferredWorkoutTypes, _preferredWorkoutTypes)&&const DeepCollectionEquality().equals(other._dietaryRestrictions, _dietaryRestrictions)&&const DeepCollectionEquality().equals(other._medicalConditions, _medicalConditions)&&const DeepCollectionEquality().equals(other._injuries, _injuries)&&const DeepCollectionEquality().equals(other._allergies, _allergies)&&(identical(other.lastUpdated, lastUpdated) || other.lastUpdated == lastUpdated));
 }
 
-
+@JsonKey(includeFromJson: false, includeToJson: false)
 @override
 int get hashCode => Object.hash(runtimeType,id,fitnessLevel,age,height,weight,gender,workoutsPerWeek,workoutDurationMinutes,onboardingPath,onboardingCompleted,const DeepCollectionEquality().hash(_fitnessGoals),const DeepCollectionEquality().hash(_availableEquipment),const DeepCollectionEquality().hash(_preferredWorkoutTypes),const DeepCollectionEquality().hash(_dietaryRestrictions),const DeepCollectionEquality().hash(_medicalConditions),const DeepCollectionEquality().hash(_injuries),const DeepCollectionEquality().hash(_allergies),lastUpdated);
 
@@ -188,7 +194,7 @@ abstract mixin class _$UserPreferencesCopyWith<$Res> implements $UserPreferences
   factory _$UserPreferencesCopyWith(_UserPreferences value, $Res Function(_UserPreferences) _then) = __$UserPreferencesCopyWithImpl;
 @override @useResult
 $Res call({
- String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, List<String> injuries, List<String> allergies, DateTime? lastUpdated
+@JsonKey(name: 'id') String id, String? fitnessLevel, int? age, int? height, double? weight, String? gender, int? workoutsPerWeek, int? workoutDurationMinutes, String? onboardingPath, bool onboardingCompleted, List<String> fitnessGoals, List<String> availableEquipment, List<String> preferredWorkoutTypes, List<String> dietaryRestrictions, List<String> medicalConditions, List<String> injuries, List<String> allergies, DateTime? lastUpdated
 });
 
 

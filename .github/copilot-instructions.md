@@ -5,6 +5,11 @@ During copilot interactions, please adhere to the following guidelines:
 - when multiple steps are available, summarize them concisely, but do not provide execution details for them. Allow the user to select the first step. Keep track of the current step and work through them one at a time with the user.
 - keep responses concise and focused on the specific task at hand.
 - When executing changes, complete one step at a time, and wait for user confirmation before proceeding to the next step.
+- Ensure to follow established patterns found in the project structure and coding conventions.
+- When unable to find a way to complete a task using existing code patterns, ask the user for guidance on how to proceed.
+- There should be no string literals in code. All strings for code execution purposes should be stored as constants in files like AppConstants.dart or RouteConstants.dart. Strings that are presented to the user must be localized using the localization framework in use.
+- Always follow Flutter best practices per effective Dart guidelines.
+- Separate classes into their own code file. In rare cases an implementation class may be in the same file as its interface if the interface class simply overrides a base class for injectable purposes.
 
 ## Project Overview
 This is a Flutter project named `ex_bot` targeting **Android and iOS. The project uses Material Design with a modern Flutter architecture stack including Cubit, Freezed, and other production-ready packages.

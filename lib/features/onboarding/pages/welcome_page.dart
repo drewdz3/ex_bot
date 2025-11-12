@@ -16,7 +16,7 @@ class WelcomePage extends StatelessWidget {
     return BlocConsumer<WelcomeCubit, WelcomeState>(
       listener: (context, state) {
         if (state is WelcomeStateComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         } else if (state is WelcomeStateNext) {
           context.go(state.path);
         }
@@ -120,7 +120,7 @@ class WelcomePage extends StatelessWidget {
                   TextButton(
                     onPressed: () {
                       cubit.skipOnboarding();
-                      context.go(RouteConstants.chat);
+                      context.go(RouteConstants.training);
                     },
                     child: Text(AppLocalizations.of(context)!.labelSkip),
                   ),

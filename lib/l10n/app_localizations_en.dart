@@ -326,4 +326,22 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get saveError => 'Failed to save changes. Please try again.';
+
+  @override
+  String get bottom_tab1 => 'Training';
+
+  @override
+  String get bottom_tab2 => 'Diet';
+
+  @override
+  String get bottom_tab3 => 'Profile';
+
+  @override
+  String get pageTitleDiet => 'Meal/Diet Planning';
+
+  @override
+  String get pageTitleProfile => 'Profile';
+
+  @override
+  String get pageTitleTraining => 'Training';
 }

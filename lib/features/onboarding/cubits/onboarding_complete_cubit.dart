@@ -29,7 +29,7 @@ class OnboardingCompleteCubit extends Cubit<OnboardingCompleteState> {
     try {
       _preferences = _preferences.copyWith(onboardingCompleted: true, onboardingPath: null);
       await _userRepository.updatePreferences(_preferences);
-      emit(OnboardingCompleteState.completed(path: RouteConstants.chat));
+      emit(OnboardingCompleteState.completed(path: RouteConstants.training));
     } catch (e) {
       DebugLogger.error('(OnboardingCompleteCubit.completeOnboarding) Failed to complete onboarding: $e');
       emit(OnboardingCompleteState.error(AppConstants.unknownError));
