@@ -78,21 +78,21 @@ String toString() {
 
 
 class HealthLimitationsStateLoaded implements HealthLimitationsState {
-  const HealthLimitationsStateLoaded({required final  List<String> healthConditions, required final  List<String> injuriesOrLimitations}): _healthConditions = healthConditions,_injuriesOrLimitations = injuriesOrLimitations;
+  const HealthLimitationsStateLoaded({required final  Set<String> selectedConditions, required final  Set<String> selectedInjuries}): _selectedConditions = selectedConditions,_selectedInjuries = selectedInjuries;
   
 
- final  List<String> _healthConditions;
- List<String> get healthConditions {
-  if (_healthConditions is EqualUnmodifiableListView) return _healthConditions;
+ final  Set<String> _selectedConditions;
+ Set<String> get selectedConditions {
+  if (_selectedConditions is EqualUnmodifiableSetView) return _selectedConditions;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_healthConditions);
+  return EqualUnmodifiableSetView(_selectedConditions);
 }
 
- final  List<String> _injuriesOrLimitations;
- List<String> get injuriesOrLimitations {
-  if (_injuriesOrLimitations is EqualUnmodifiableListView) return _injuriesOrLimitations;
+ final  Set<String> _selectedInjuries;
+ Set<String> get selectedInjuries {
+  if (_selectedInjuries is EqualUnmodifiableSetView) return _selectedInjuries;
   // ignore: implicit_dynamic_type
-  return EqualUnmodifiableListView(_injuriesOrLimitations);
+  return EqualUnmodifiableSetView(_selectedInjuries);
 }
 
 
@@ -106,16 +106,16 @@ $HealthLimitationsStateLoadedCopyWith<HealthLimitationsStateLoaded> get copyWith
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateLoaded&&const DeepCollectionEquality().equals(other._healthConditions, _healthConditions)&&const DeepCollectionEquality().equals(other._injuriesOrLimitations, _injuriesOrLimitations));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is HealthLimitationsStateLoaded&&const DeepCollectionEquality().equals(other._selectedConditions, _selectedConditions)&&const DeepCollectionEquality().equals(other._selectedInjuries, _selectedInjuries));
 }
 
 
 @override
-int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_healthConditions),const DeepCollectionEquality().hash(_injuriesOrLimitations));
+int get hashCode => Object.hash(runtimeType,const DeepCollectionEquality().hash(_selectedConditions),const DeepCollectionEquality().hash(_selectedInjuries));
 
 @override
 String toString() {
-  return 'HealthLimitationsState.loaded(healthConditions: $healthConditions, injuriesOrLimitations: $injuriesOrLimitations)';
+  return 'HealthLimitationsState.loaded(selectedConditions: $selectedConditions, selectedInjuries: $selectedInjuries)';
 }
 
 
@@ -126,7 +126,7 @@ abstract mixin class $HealthLimitationsStateLoadedCopyWith<$Res> implements $Hea
   factory $HealthLimitationsStateLoadedCopyWith(HealthLimitationsStateLoaded value, $Res Function(HealthLimitationsStateLoaded) _then) = _$HealthLimitationsStateLoadedCopyWithImpl;
 @useResult
 $Res call({
- List<String> healthConditions, List<String> injuriesOrLimitations
+ Set<String> selectedConditions, Set<String> selectedInjuries
 });
 
 
@@ -143,11 +143,11 @@ class _$HealthLimitationsStateLoadedCopyWithImpl<$Res>
 
 /// Create a copy of HealthLimitationsState
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') $Res call({Object? healthConditions = null,Object? injuriesOrLimitations = null,}) {
+@pragma('vm:prefer-inline') $Res call({Object? selectedConditions = null,Object? selectedInjuries = null,}) {
   return _then(HealthLimitationsStateLoaded(
-healthConditions: null == healthConditions ? _self._healthConditions : healthConditions // ignore: cast_nullable_to_non_nullable
-as List<String>,injuriesOrLimitations: null == injuriesOrLimitations ? _self._injuriesOrLimitations : injuriesOrLimitations // ignore: cast_nullable_to_non_nullable
-as List<String>,
+selectedConditions: null == selectedConditions ? _self._selectedConditions : selectedConditions // ignore: cast_nullable_to_non_nullable
+as Set<String>,selectedInjuries: null == selectedInjuries ? _self._selectedInjuries : selectedInjuries // ignore: cast_nullable_to_non_nullable
+as Set<String>,
   ));
 }
 

@@ -7,8 +7,8 @@ abstract class DietaryPreferencesState with _$DietaryPreferencesState {
   const factory DietaryPreferencesState.initial() = DietaryPreferencesStateInitial;
 
   const factory DietaryPreferencesState.loaded({
-    required List<String> dietaryRestrictions,
-    required List<String> allergies,
+    required Set<String> selectedDietTypes,
+    required Set<String> selectedAllergies,
   }) = DietaryPreferencesStateLoaded;
 
   const factory DietaryPreferencesState.error({required String message}) = DietaryPreferencesStateError;

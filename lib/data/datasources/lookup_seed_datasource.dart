@@ -1,6 +1,10 @@
+import 'package:ex_bot/data/models/common_injury.dart';
+import 'package:ex_bot/data/models/diet_type.dart';
 import 'package:ex_bot/data/models/equipment.dart';
 import 'package:ex_bot/data/models/fitness_goal.dart';
 import 'package:ex_bot/data/models/fitness_level.dart';
+import 'package:ex_bot/data/models/food_allergy.dart';
+import 'package:ex_bot/data/models/health_condition.dart';
 import 'package:ex_bot/data/models/workout_type.dart';
 import 'package:ex_bot/domain/datasources/lookup_datasource.dart';
 import 'package:injectable/injectable.dart';
@@ -155,6 +159,65 @@ class LookupSeedDatasourceImpl implements LookupSeedDatasource {
         description: 'Indoor and outdoor climbing',
       ),
       WorkoutType(id: 'walking', name: 'Walking', icon: 'directions_walk', description: 'Casual and power walking'),
+    ];
+  }
+
+  @override
+  Future<List<CommonInjury>> getCommonInjuries() async {
+    return <CommonInjury>[
+      CommonInjury(id: 'back', name: 'Back Pain'),
+      CommonInjury(id: 'knee', name: 'Knee Issues'),
+      CommonInjury(id: 'shoulder', name: 'Shoulder Injury'),
+      CommonInjury(id: 'foot', name: 'Ankle/Foot Problems'),
+      CommonInjury(id: 'neck', name: 'Neck Problems'),
+      CommonInjury(id: 'hip', name: 'Hip Issues'),
+      CommonInjury(id: 'wrist', name: 'Wrist/Hand Pain'),
+      CommonInjury(id: 'surgery', name: 'Previous Surgery'),
+    ];
+  }
+
+  @override
+  Future<List<HealthCondition>> getHealthConditions() async {
+    return <HealthCondition>[
+      HealthCondition(id: 'diabetes', name: 'Diabetes'),
+      HealthCondition(id: 'blood_pressure', name: 'High Blood Pressure'),
+      HealthCondition(id: 'heart_disease', name: 'Heart Disease'),
+      HealthCondition(id: 'asthma', name: 'Asthma'),
+      HealthCondition(id: 'arthritis', name: 'Arthritis'),
+      HealthCondition(id: 'osteoporosis', name: 'Osteoporosis'),
+      HealthCondition(id: 'chronic_pain', name: 'Chronic Pain'),
+      HealthCondition(id: 'anxiety', name: 'Anxiety/Depression'),
+    ];
+  }
+
+  @override
+  Future<List<DietType>> getDietTypes() async {
+    return <DietType>[
+      DietType(id: 'vegetarian', name: 'Vegetarian'),
+      DietType(id: 'vegan', name: 'Vegan'),
+      DietType(id: 'gluten_free', name: 'Gluten Free'),
+      DietType(id: 'dairy_free', name: 'Dairy Free'),
+      DietType(id: 'keto', name: 'Keto'),
+      DietType(id: 'paleo', name: 'Paleo'),
+      DietType(id: 'low_carb', name: 'Low Carb'),
+      DietType(id: 'low_sodium', name: 'Low-Sodium'),
+      DietType(id: 'diabetic', name: 'Diabetic Diet'),
+      DietType(id: 'carnivore', name: 'Carnivore'),
+    ];
+  }
+
+  @override
+  Future<List<FoodAllergy>> getFoodAllergies() async {
+    return <FoodAllergy>[
+      FoodAllergy(id: 'nuts', name: 'Nuts'),
+      FoodAllergy(id: 'peanuts', name: 'Peanuts'),
+      FoodAllergy(id: 'dairy', name: 'Dairy'),
+      FoodAllergy(id: 'eggs', name: 'Eggs'),
+      FoodAllergy(id: 'shellfish', name: 'Shellfish'),
+      FoodAllergy(id: 'fish', name: 'Fish'),
+      FoodAllergy(id: 'soy', name: 'Soy'),
+      FoodAllergy(id: 'wheat', name: 'Wheat'),
+      FoodAllergy(id: 'sesame', name: 'Sesame'),
     ];
   }
 }

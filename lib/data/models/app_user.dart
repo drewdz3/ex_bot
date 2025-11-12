@@ -5,7 +5,7 @@ part 'app_user.freezed.dart';
 part 'app_user.g.dart';
 
 @freezed
-abstract class AppUser with _$AppUser {
+sealed class AppUser with _$AppUser {
   const factory AppUser({
     required String id,
     required String email,

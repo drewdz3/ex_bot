@@ -13,10 +13,14 @@ import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
 import '../../data/data_mappers/app_user_mapper.dart' as _i62;
-import '../../data/data_mappers/entity_mapper.dart' as _i69;
+import '../../data/data_mappers/common_injury_mapper.dart' as _i892;
+import '../../data/data_mappers/data_mapper.dart' as _i736;
+import '../../data/data_mappers/diet_type_mapper.dart' as _i890;
 import '../../data/data_mappers/equipment_mapper.dart' as _i724;
 import '../../data/data_mappers/fitness_goal_mapper.dart' as _i446;
 import '../../data/data_mappers/fitness_level_mapper.dart' as _i872;
+import '../../data/data_mappers/food_allergy_mapper.dart' as _i848;
+import '../../data/data_mappers/health_condition_mapper.dart' as _i471;
 import '../../data/data_mappers/user_preferences_mapper.dart' as _i559;
 import '../../data/data_mappers/workout_type_mapper.dart' as _i911;
 import '../../data/datasources/appauth_datasource.dart' as _i190;
@@ -25,15 +29,23 @@ import '../../data/datasources/database_datasource.dart' as _i1000;
 import '../../data/datasources/lookup_seed_datasource.dart' as _i50;
 import '../../data/datasources/realm_datasource.dart' as _i334;
 import '../../data/models/app_user.dart' as _i103;
+import '../../data/models/common_injury.dart' as _i680;
+import '../../data/models/diet_type.dart' as _i777;
 import '../../data/models/equipment.dart' as _i596;
 import '../../data/models/fitness_goal.dart' as _i317;
 import '../../data/models/fitness_level.dart' as _i805;
+import '../../data/models/food_allergy.dart' as _i526;
+import '../../data/models/health_condition.dart' as _i354;
 import '../../data/models/user_preferences.dart' as _i779;
 import '../../data/models/workout_type.dart' as _i696;
 import '../../data/realm_models/app_user_realm.dart' as _i991;
+import '../../data/realm_models/common_injury_realm.dart' as _i317;
+import '../../data/realm_models/diet_type_realm.dart' as _i614;
 import '../../data/realm_models/equipment_realm.dart' as _i510;
 import '../../data/realm_models/fitness_goal_realm.dart' as _i0;
 import '../../data/realm_models/fitness_level_realm.dart' as _i878;
+import '../../data/realm_models/food_allergy_realm.dart' as _i125;
+import '../../data/realm_models/health_condition_realm.dart' as _i737;
 import '../../data/realm_models/user_preferences_realm.dart' as _i1049;
 import '../../data/realm_models/workout_type_realm.dart' as _i554;
 import '../../data/repositories/auth_repository_impl.dart' as _i895;
@@ -78,16 +90,19 @@ extension GetItInjectableX on _i174.GetIt {
       () => _i477.AuthStorageDatasource(),
     );
     gh.factory<_i258.LandingPage>(() => const _i258.LandingPage());
-    gh.factory<_i147.OnboardingCompleteCubit>(
-      () => _i147.OnboardingCompleteCubit(),
-    );
     gh.factory<_i822.MainApp>(() => const _i822.MainApp());
     gh.singleton<_i9.AzureOpenAiClient>(() => _i9.AzureOpenAiClient());
-    gh.factory<_i69.DataMapper<_i696.WorkoutType, _i554.WorkoutTypeRealm>>(
-      () => const _i911.WorkoutTypeMapper(),
+    gh.factory<_i736.DataMapper<_i680.CommonInjury, _i317.CommonInjuryRealm>>(
+      () => _i892.CommonInjuryMapper(),
     );
-    gh.factory<_i69.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(
-      () => const _i872.FitnessLevelMapper(),
+    gh.factory<_i736.DataMapper<_i596.Equipment, _i510.EquipmentRealm>>(
+      () => const _i724.EquipmentMapper(),
+    );
+    gh.factory<_i736.DataMapper<_i317.FitnessGoal, _i0.FitnessGoalRealm>>(
+      () => const _i446.FitnessGoalMapper(),
+    );
+    gh.factory<_i736.DataMapper<_i777.DietType, _i614.DietTypeRealm>>(
+      () => _i890.DietTypeMapper(),
     );
     gh.factory<_i926.CoachRepository>(
       () => _i1000.AzureCoachRepository(gh<_i9.AzureOpenAiClient>()),
@@ -98,24 +113,49 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i477.AuthStorageDatasource>(),
       ),
     );
-    gh.factory<_i69.DataMapper<_i596.Equipment, _i510.EquipmentRealm>>(
-      () => const _i724.EquipmentMapper(),
+    gh.factory<_i736.DataMapper<_i526.FoodAllergy, _i125.FoodAllergyRealm>>(
+      () => _i848.FoodAllergyMapper(),
     );
-    gh.factory<_i69.DataMapper<_i317.FitnessGoal, _i0.FitnessGoalRealm>>(
-      () => const _i446.FitnessGoalMapper(),
+    gh.factory<_i736.DataMapper<_i696.WorkoutType, _i554.WorkoutTypeRealm>>(
+      () => const _i911.WorkoutTypeMapper(),
+    );
+    gh.factory<
+      _i736.DataMapper<_i354.HealthCondition, _i737.HealthConditionRealm>
+    >(() => _i471.HealthConditionMapper());
+    gh.factory<_i736.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(
+      () => const _i872.FitnessLevelMapper(),
     );
     gh.factory<_i856.SendMessageToCoach>(
       () => _i856.SendMessageToCoach(gh<_i926.CoachRepository>()),
     );
-    gh.factory<_i69.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(
+    gh.factory<_i736.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(
       () => const _i62.AppUserMapper(),
     );
-    gh.factory<
-      _i69.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
-    >(() => const _i559.UserPreferencesMapper());
     gh.singleton<_i1000.DatabaseDatasource>(() => _i334.RealmDatasource());
+    gh.factory<
+      _i736.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
+    >(() => const _i559.UserPreferencesMapper());
     gh.factory<_i50.LookupSeedDatasource>(
       () => _i50.LookupSeedDatasourceImpl(),
+    );
+    gh.lazySingleton<_i383.LookupRepository>(
+      () => _i710.LookupDataRepository(
+        gh<_i1000.DatabaseDatasource>(),
+        gh<_i50.LookupSeedDatasource>(),
+        gh<_i736.DataMapper<_i317.FitnessGoal, _i0.FitnessGoalRealm>>(),
+        gh<_i736.DataMapper<_i596.Equipment, _i510.EquipmentRealm>>(),
+        gh<_i736.DataMapper<_i696.WorkoutType, _i554.WorkoutTypeRealm>>(),
+        gh<_i736.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(),
+        gh<
+          _i736.DataMapper<_i354.HealthCondition, _i737.HealthConditionRealm>
+        >(),
+        gh<_i736.DataMapper<_i680.CommonInjury, _i317.CommonInjuryRealm>>(),
+        gh<_i736.DataMapper<_i777.DietType, _i614.DietTypeRealm>>(),
+        gh<_i736.DataMapper<_i526.FoodAllergy, _i125.FoodAllergyRealm>>(),
+      ),
+    );
+    gh.factory<_i226.GetWorkoutTypesUsecase>(
+      () => _i226.GetWorkoutTypesUsecaseImpl(gh<_i383.LookupRepository>()),
     );
     gh.factory<_i214.AuthenticateSignoutUseCase>(
       () => _i214.AuthenticateSignoutUseCaseImpl(gh<_i1073.AuthRepository>()),
@@ -123,20 +163,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.singleton<_i271.UserRepository>(
       () => _i790.UserRepositoryImpl(
         gh<_i1000.DatabaseDatasource>(),
-        gh<_i69.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(),
+        gh<_i736.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(),
         gh<
-          _i69.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
+          _i736.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
         >(),
-      ),
-    );
-    gh.lazySingleton<_i383.LookupRepository>(
-      () => _i710.LookupDataRepository(
-        gh<_i1000.DatabaseDatasource>(),
-        gh<_i50.LookupSeedDatasource>(),
-        gh<_i69.DataMapper<_i317.FitnessGoal, _i0.FitnessGoalRealm>>(),
-        gh<_i69.DataMapper<_i596.Equipment, _i510.EquipmentRealm>>(),
-        gh<_i69.DataMapper<_i696.WorkoutType, _i554.WorkoutTypeRealm>>(),
-        gh<_i69.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(),
       ),
     );
     gh.factory<_i1027.AuthenticateUseCase>(
@@ -155,14 +185,20 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i271.UserRepository>(),
       ),
     );
-    gh.factory<_i226.GetWorkoutTypesUsecase>(
-      () => _i226.GetWorkoutTypesUsecaseImpl(gh<_i383.LookupRepository>()),
-    );
     gh.factory<_i1018.DietaryPreferencesCubit>(
-      () => _i1018.DietaryPreferencesCubit(gh<_i271.UserRepository>()),
+      () => _i1018.DietaryPreferencesCubit(
+        gh<_i383.LookupRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
     );
     gh.factory<_i68.HealthLimitationsCubit>(
-      () => _i68.HealthLimitationsCubit(gh<_i271.UserRepository>()),
+      () => _i68.HealthLimitationsCubit(
+        gh<_i383.LookupRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
+    );
+    gh.factory<_i147.OnboardingCompleteCubit>(
+      () => _i147.OnboardingCompleteCubit(gh<_i271.UserRepository>()),
     );
     gh.factory<_i722.WorkoutScheduleCubit>(
       () => _i722.WorkoutScheduleCubit(gh<_i271.UserRepository>()),

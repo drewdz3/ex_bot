@@ -111,8 +111,10 @@ final GoRouter appRouter = GoRouter(
 
     GoRoute(
       path: RouteConstants.onboardingComplete,
-      builder: (context, state) =>
-          BlocProvider(create: (_) => getIt<OnboardingCompleteCubit>(), child: const OnboardingCompletePage()),
+      builder: (context, state) => BlocProvider(
+        create: (_) => getIt<OnboardingCompleteCubit>()..initialize(),
+        child: const OnboardingCompletePage(),
+      ),
     ),
 
     GoRoute(path: RouteConstants.chat, builder: (context, state) => const AIChatTestPage()),

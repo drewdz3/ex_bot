@@ -1,8 +1,9 @@
-import 'package:ex_bot/data/realm_models/equipment_realm.dart';
-import 'package:ex_bot/data/models/equipment.dart';
-import 'package:ex_bot/data/data_mappers/entity_mapper.dart';
 import 'package:injectable/injectable.dart';
 import 'package:realm/realm.dart';
+
+import 'package:ex_bot/data/data_mappers/data_mapper.dart';
+import 'package:ex_bot/data/models/equipment.dart';
+import 'package:ex_bot/data/realm_models/equipment_realm.dart';
 
 @Injectable(as: DataMapper<Equipment, EquipmentRealm>)
 class EquipmentMapper implements DataMapper<Equipment, EquipmentRealm> {

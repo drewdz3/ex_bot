@@ -1,29 +1,39 @@
+import 'package:ex_bot/data/models/common_injury.dart';
+import 'package:ex_bot/data/models/health_condition.dart';
+import 'package:ex_bot/domain/repositories/lookup_repository.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+
 import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
 import 'package:ex_bot/data/models/user_preferences.dart';
 import 'package:ex_bot/domain/repositories/user_repository.dart';
 import 'package:ex_bot/features/onboarding/cubits/health_limitations_state.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
 
 @injectable
 class HealthLimitationsCubit extends Cubit<HealthLimitationsState> {
+  final LookupRepository _lookups;
   final UserRepository _userRepository;
 
   late UserPreferences _preferences;
+  Set<HealthCondition> healthConditions = {};
+  Set<CommonInjury> commonInjuries = {};
 
-  HealthLimitationsCubit(this._userRepository) : super(const HealthLimitationsState.initial());
+  HealthLimitationsCubit(this._lookups, this._userRepository) : super(const HealthLimitationsState.initial());
 
   Future<void> initialize() async {
     try {
+      //  get lookups
+      healthConditions = (await _lookups.getHealthConditions()).toSet();
+      commonInjuries = (await _lookups.getCommonInjuries()).toSet();
+
       _preferences = await _userRepository.getPreferences(null);
 
       emit(
         HealthLimitationsState.loaded(
-          healthConditions: _preferences.medicalConditions,
-          injuriesOrLimitations: _preferences.injuries,
+          selectedConditions: _preferences.medicalConditions.toSet(),
+          selectedInjuries: _preferences.injuries.toSet(),
         ),
       );
     } catch (e) {
@@ -32,73 +42,22 @@ class HealthLimitationsCubit extends Cubit<HealthLimitationsState> {
     }
   }
 
-  void updateHealthConditions(List<String> conditions) {
+  void updateConditions(Set<String> conditions) {
     if (state is HealthLimitationsStateLoaded) {
       var loaded = (state as HealthLimitationsStateLoaded);
-      emit(
-        HealthLimitationsState.loaded(
-          healthConditions: conditions,
-          injuriesOrLimitations: loaded.injuriesOrLimitations,
-        ),
-      );
+      emit(HealthLimitationsState.loaded(selectedConditions: conditions, selectedInjuries: loaded.selectedInjuries));
     } else {
-      emit(HealthLimitationsState.loaded(healthConditions: conditions, injuriesOrLimitations: const []));
+      emit(HealthLimitationsState.loaded(selectedConditions: conditions, selectedInjuries: const {}));
     }
   }
 
-  void updateInjuriesOrLimitations(List<String> injuries) {
+  void updateInjuries(Set<String> injuries) {
     if (state is HealthLimitationsStateLoaded) {
       var loaded = (state as HealthLimitationsStateLoaded);
-      emit(HealthLimitationsState.loaded(healthConditions: loaded.healthConditions, injuriesOrLimitations: injuries));
+      emit(HealthLimitationsState.loaded(selectedConditions: loaded.selectedConditions, selectedInjuries: injuries));
     } else {
-      emit(HealthLimitationsState.loaded(healthConditions: const [], injuriesOrLimitations: injuries));
+      emit(HealthLimitationsState.loaded(selectedConditions: const {}, selectedInjuries: injuries));
     }
-  }
-
-  void addCustomHealthCondition(String condition) {
-    if (condition.trim().isEmpty) return;
-
-    if (state is HealthLimitationsStateLoaded) {
-      var loaded = (state as HealthLimitationsStateLoaded);
-      final newConditions = List<String>.from(loaded.healthConditions)..add(condition.trim());
-      emit(
-        HealthLimitationsState.loaded(
-          healthConditions: newConditions,
-          injuriesOrLimitations: loaded.injuriesOrLimitations,
-        ),
-      );
-    } else {
-      emit(HealthLimitationsState.loaded(healthConditions: [condition.trim()], injuriesOrLimitations: const []));
-    }
-  }
-
-  void addCustomInjury(String injury) {
-    if (injury.trim().isEmpty) return;
-
-    if (state is HealthLimitationsStateLoaded) {
-      var loaded = (state as HealthLimitationsStateLoaded);
-      final newInjuries = List<String>.from(loaded.injuriesOrLimitations)..add(injury.trim());
-      emit(
-        HealthLimitationsState.loaded(healthConditions: loaded.healthConditions, injuriesOrLimitations: newInjuries),
-      );
-    } else {
-      emit(HealthLimitationsState.loaded(healthConditions: const [], injuriesOrLimitations: [injury.trim()]));
-    }
-  }
-
-  Map<String, dynamic> get limitationsData {
-    if (state is HealthLimitationsStateLoaded) {
-      var loaded = (state as HealthLimitationsStateLoaded);
-      return {
-        'medicalConditions': [...loaded.healthConditions, ...loaded.injuriesOrLimitations],
-      };
-    } else {
-      return {'medicalConditions': <String>[]};
-    }
-  }
-
-  void clearAll() {
-    emit(const HealthLimitationsState.initial());
   }
 
   Future<void> save() async {
@@ -106,8 +65,8 @@ class HealthLimitationsCubit extends Cubit<HealthLimitationsState> {
     try {
       var loaded = (state as HealthLimitationsStateLoaded);
       _preferences = _preferences.copyWith(
-        medicalConditions: loaded.healthConditions,
-        injuries: loaded.injuriesOrLimitations,
+        medicalConditions: loaded.selectedConditions.toList(),
+        injuries: loaded.selectedInjuries.toList(),
         onboardingPath: RouteConstants.onboardingDietary,
       );
       await _userRepository.updatePreferences(_preferences);
