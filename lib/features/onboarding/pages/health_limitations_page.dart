@@ -2,8 +2,8 @@ import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/core/constants/app_constants.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/cubits/health_limitations_state.dart';
-import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
-import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
+import 'package:ex_bot/features/widgets/multiselect_grid.dart';
+import 'package:ex_bot/features/widgets/section_header.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -31,7 +31,7 @@ class HealthLimitationsPage extends StatelessWidget {
         } else if (state is HealthLimitationsStateNext) {
           context.go(state.path);
         } else if (state is HealthLimitationsStateComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         }
       },
       buildWhen: (previous, current) {
@@ -160,7 +160,7 @@ class HealthLimitationsPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () => context.go(RouteConstants.chat),
+                      onPressed: () => context.go(RouteConstants.training),
                       child: Text(AppLocalizations.of(context)!.labelSkip),
                     ),
                   ),

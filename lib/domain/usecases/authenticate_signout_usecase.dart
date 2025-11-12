@@ -1,16 +1,15 @@
 import 'package:either_dart/either.dart';
 import 'package:ex_bot/core/errors/failures.dart';
 import 'package:ex_bot/core/use_case.dart';
-import 'package:ex_bot/domain/repositories/auth_repository.dart';
 import 'package:injectable/injectable.dart';
 
 abstract class AuthenticateSignoutUseCase extends UseCase<bool, NoParams> {}
 
 @Injectable(as: AuthenticateSignoutUseCase)
 class AuthenticateSignoutUseCaseImpl implements AuthenticateSignoutUseCase {
-  final AuthRepository _authRepository;
+  //   final AuthRepository _authRepository;
 
-  AuthenticateSignoutUseCaseImpl(this._authRepository);
+  AuthenticateSignoutUseCaseImpl();
 
   @override
   Future<Either<Failure, bool>> executeAsync({required NoParams params}) async {

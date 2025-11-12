@@ -27,7 +27,7 @@ class WorkoutSchedulePage extends StatelessWidget {
         } else if (state is WorkoutScheduleStateNext) {
           context.go(state.path);
         } else if (state is WorkoutScheduleStateComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         }
       },
       buildWhen: (previous, current) {
@@ -120,7 +120,7 @@ class WorkoutSchedulePage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () => context.go(RouteConstants.chat),
+                      onPressed: () => context.go(RouteConstants.training),
                       child: Text(AppLocalizations.of(context)!.labelSkip),
                     ),
                   ),

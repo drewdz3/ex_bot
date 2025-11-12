@@ -1,11 +1,12 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'user_preferences.freezed.dart';
+part 'user_preferences.g.dart';
 
 @freezed
 sealed class UserPreferences with _$UserPreferences {
   const factory UserPreferences({
-    required String id,
+    @JsonKey(name: 'id') required String id,
     String? fitnessLevel,
     int? age,
     int? height,
@@ -24,4 +25,6 @@ sealed class UserPreferences with _$UserPreferences {
     @Default([]) List<String> allergies,
     DateTime? lastUpdated,
   }) = _UserPreferences;
+
+  factory UserPreferences.fromJson(Map<String, dynamic> json) => _$UserPreferencesFromJson(json);
 }

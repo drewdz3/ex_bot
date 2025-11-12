@@ -2,7 +2,7 @@ import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/cubits/fitness_goals_cubit.dart';
 import 'package:ex_bot/features/onboarding/cubits/fitness_goals_state.dart';
-import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
+import 'package:ex_bot/features/widgets/multiselect_grid.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +19,7 @@ class FitnessGoalsPage extends StatelessWidget {
         if (state is FitnessGoalsStateNext) {
           context.go(state.path);
         } else if (state is FitnessGoalsStateComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         } else if (state is FitnessGoalsStateError) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(content: Text(AppLocalizations.of(context)!.unknownError), backgroundColor: Colors.red),
@@ -116,7 +116,7 @@ class FitnessGoalsPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () => context.go(RouteConstants.chat),
+                      onPressed: () => context.go(RouteConstants.training),
                       child: Text(AppLocalizations.of(context)!.labelSkip),
                     ),
                   ),

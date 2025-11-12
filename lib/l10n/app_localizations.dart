@@ -681,6 +681,42 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Failed to save changes. Please try again.'**
   String get saveError;
+
+  /// Label for the Training tab in the bottom navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get bottom_tab1;
+
+  /// Label for the Diet tab in the bottom navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Diet'**
+  String get bottom_tab2;
+
+  /// Label for the Profile tab in the bottom navigation bar
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get bottom_tab3;
+
+  /// Title for the meal/diet planning page
+  ///
+  /// In en, this message translates to:
+  /// **'Meal/Diet Planning'**
+  String get pageTitleDiet;
+
+  /// Title for the profile page
+  ///
+  /// In en, this message translates to:
+  /// **'Profile'**
+  String get pageTitleProfile;
+
+  /// Title for the training page
+  ///
+  /// In en, this message translates to:
+  /// **'Training'**
+  String get pageTitleTraining;
 }
 
 class _AppLocalizationsDelegate

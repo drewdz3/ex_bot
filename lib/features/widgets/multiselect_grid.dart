@@ -1,6 +1,6 @@
 import 'package:ex_bot/core/utils/icon_lookup.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
-import 'package:ex_bot/features/onboarding/widgets/selectable_card.dart';
+import 'package:ex_bot/features/widgets/selectable_card.dart';
 import 'package:flutter/material.dart';
 
 class MultiselectGrid extends StatelessWidget {

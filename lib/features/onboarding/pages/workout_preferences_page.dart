@@ -6,8 +6,8 @@ import 'package:ex_bot/app/routing/app_router.dart';
 import 'package:ex_bot/domain/entities/lookup_item.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_preference_state.dart';
 import 'package:ex_bot/features/onboarding/cubits/workout_preferences_cubit.dart';
-import 'package:ex_bot/features/onboarding/widgets/multiselect_grid.dart';
-import 'package:ex_bot/features/onboarding/widgets/section_header.dart';
+import 'package:ex_bot/features/widgets/multiselect_grid.dart';
+import 'package:ex_bot/features/widgets/section_header.dart';
 import 'package:ex_bot/l10n/app_localizations.dart';
 
 /// Workout preferences selection page
@@ -21,7 +21,7 @@ class WorkoutPreferencesPage extends StatelessWidget {
         if (state is WorkoutPreferencesStateNext) {
           context.go(state.path);
         } else if (state is WorkoutPreferencesStateComplete) {
-          context.go(RouteConstants.chat);
+          context.go(RouteConstants.training);
         } else if (state is WorkoutPreferencesStateError) {
           final snackBar = SnackBar(
             content: Text(AppLocalizations.of(context)!.saveError),
@@ -151,7 +151,7 @@ class WorkoutPreferencesPage extends StatelessWidget {
                   SizedBox(
                     width: double.infinity,
                     child: TextButton(
-                      onPressed: () => context.go(RouteConstants.chat),
+                      onPressed: () => context.go(RouteConstants.training),
                       child: Text(AppLocalizations.of(context)!.labelSkip),
                     ),
                   ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 final Map<String, IconData> iconMap = {
   'fitness_center': Icons.fitness_center,
