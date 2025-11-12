@@ -682,6 +682,12 @@ abstract class AppLocalizations {
   /// **'Failed to save changes. Please try again.'**
   String get saveError;
 
+  /// Error message when a network error occurs
+  ///
+  /// In en, this message translates to:
+  /// **'Network error. Please check your internet connection and try again.'**
+  String get networkError;
+
   /// Label for the Training tab in the bottom navigation bar
   ///
   /// In en, this message translates to:
@@ -717,6 +723,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Training'**
   String get pageTitleTraining;
+
+  /// Error message when Azure OpenAI client is not configured
+  ///
+  /// In en, this message translates to:
+  /// **'Azure OpenAI client is not properly configured'**
+  String get agentNotInitializedError;
+
+  /// The prompt used to initialize the AI fitness coach agent
+  ///
+  /// In en, this message translates to:
+  /// **'You are ExBot, an expert AI fitness coach with deep knowledge in exercise science, nutrition, and behavioral psychology. Your role is to provide personalized, evidence-based guidance to help users achieve their health and fitness goals. Key coaching principles: - Always prioritize user safety and well-being - Provide personalized advice based on user\'s goals, limitations, and preferences - Use motivational and encouraging language - Ask clarifying questions when needed - Suggest progressive, sustainable changes - Consider both physical and mental aspects of fitness - If you are unable to answer, admit it honestly instead of guessing. General information about the user: name: [[displayName]], age: [[age]], fitness level: [[fitnessLevel]], height: [[height]] cm, weight: [[weight]] kg, sex: [[gender]], Fitness Goals: [[goals]], Preferred Workout Types: [[workoutTypes]], Available Equipment: [[equipment]], Workout Frequency: [[workoutFrequency]], times per week, Workout Duration: [[workoutDuration]] minutes per session, Known Injuries: [[knownInjuries]], Medical Conditions: [[conditions]], Allergies: [[allergies]], Dietary Preferences/Restrictions: [[preferredDiet]]. If information is missing, mention to the user how providing that info can help you give better advice and assist them in avoiding injuries. Do not suggest dietary options that conflict with the user\'s dietary preferences and restrictions. Do not suggest exercises that could aggravate the user\'s known injuries or medical conditions. Do not suggest more workouts than the user\'s stated workout frequency. Do not suggest workout durations longer than the user\'s stated workout duration. Do not suggest workout types that are not in the user\'s preferred workout types unless the user has not provided any preferences. Where possible, when making suggestions, include inform the user how these may aid in achieving their stated fitness goals. Remember to be conversational, supportive, and adaptive to the user\'s needs and responses. Conversation context: [[history]]'**
+  String get agentPrompt;
+
+  /// The text used to represent unspecified information about the user
+  ///
+  /// In en, this message translates to:
+  /// **'unspecified'**
+  String get unspecifiedText;
+
+  /// The text used to represent none or no information about the user
+  ///
+  /// In en, this message translates to:
+  /// **'none'**
+  String get noneText;
 }
 
 class _AppLocalizationsDelegate

@@ -56,7 +56,6 @@ import '../../domain/repositories/auth_repository.dart' as _i1073;
 import '../../domain/repositories/coach_repository.dart' as _i926;
 import '../../domain/repositories/lookup_repository.dart' as _i383;
 import '../../domain/repositories/user_repository.dart' as _i271;
-import '../../domain/usecases/authenticate_signout_usecase.dart' as _i214;
 import '../../domain/usecases/authenticate_silent_usecase.dart' as _i250;
 import '../../domain/usecases/authenticate_usecase.dart' as _i1027;
 import '../../domain/usecases/get_workout_types_usecase.dart' as _i226;
@@ -104,9 +103,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i736.DataMapper<_i777.DietType, _i614.DietTypeRealm>>(
       () => _i890.DietTypeMapper(),
     );
-    gh.factory<_i926.CoachRepository>(
-      () => _i1000.AzureCoachRepository(gh<_i9.AzureOpenAiClient>()),
-    );
     gh.singleton<_i1073.AuthRepository>(
       () => _i895.AuthRepositoryImpl(
         gh<_i190.AppAuthDataSource>(),
@@ -124,12 +120,6 @@ extension GetItInjectableX on _i174.GetIt {
     >(() => _i471.HealthConditionMapper());
     gh.factory<_i736.DataMapper<_i805.FitnessLevel, _i878.FitnessLevelRealm>>(
       () => const _i872.FitnessLevelMapper(),
-    );
-    gh.factory<_i856.SendMessageToCoach>(
-      () => _i856.SendMessageToCoach(gh<_i926.CoachRepository>()),
-    );
-    gh.factory<_i214.AuthenticateSignoutUseCase>(
-      () => _i214.AuthenticateSignoutUseCaseImpl(),
     );
     gh.factory<_i736.DataMapper<_i103.AppUser, _i991.AppUserRealm>>(
       () => const _i62.AppUserMapper(),
@@ -167,6 +157,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<
           _i736.DataMapper<_i779.UserPreferences, _i1049.UserPreferencesRealm>
         >(),
+      ),
+    );
+    gh.singleton<_i926.CoachRepository>(
+      () => _i1000.AzureCoachRepository(
+        gh<_i9.AzureOpenAiClient>(),
+        gh<_i271.UserRepository>(),
       ),
     );
     gh.factory<_i1027.AuthenticateUseCase>(
@@ -221,18 +217,24 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i271.UserRepository>(),
       ),
     );
+    gh.factory<_i1066.LandingCubit>(
+      () => _i1066.LandingCubit(
+        gh<_i250.AuthenticateSilentUseCase>(),
+        gh<_i1027.AuthenticateUseCase>(),
+        gh<_i926.CoachRepository>(),
+      ),
+    );
+    gh.factory<_i856.SendMessageToCoach>(
+      () => _i856.SendMessageToCoach(
+        gh<_i926.CoachRepository>(),
+        gh<_i271.UserRepository>(),
+      ),
+    );
     gh.factory<_i666.BasicInfoCubit>(
       () => _i666.BasicInfoCubit(
         gh<_i383.LookupRepository>(),
         gh<_i509.UpdatePreferencesUseCase>(),
         gh<_i271.UserRepository>(),
-      ),
-    );
-    gh.factory<_i1066.LandingCubit>(
-      () => _i1066.LandingCubit(
-        gh<_i250.AuthenticateSilentUseCase>(),
-        gh<_i1027.AuthenticateUseCase>(),
-        gh<_i214.AuthenticateSignoutUseCase>(),
       ),
     );
     return this;

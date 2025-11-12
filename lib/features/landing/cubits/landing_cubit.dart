@@ -1,25 +1,27 @@
-import 'package:ex_bot/core/use_case.dart';
-import 'package:ex_bot/data/models/app_user.dart';
-import 'package:ex_bot/domain/usecases/authenticate_signout_usecase.dart';
-import 'package:ex_bot/domain/usecases/authenticate_silent_usecase.dart';
-import 'package:ex_bot/domain/usecases/authenticate_usecase.dart';
+import 'package:ex_bot/domain/repositories/coach_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
+import 'package:ex_bot/core/use_case.dart';
 import 'package:ex_bot/core/utils/debug_logger.dart';
+import 'package:ex_bot/data/models/app_user.dart';
 import 'package:ex_bot/data/models/auth_status.dart';
+import 'package:ex_bot/domain/usecases/authenticate_silent_usecase.dart';
+import 'package:ex_bot/domain/usecases/authenticate_usecase.dart';
 
 /// Cubit for managing authentication state
 @injectable
 class LandingCubit extends Cubit<AuthStatus> {
   final AuthenticateSilentUseCase _authSilentUsecase;
   final AuthenticateUseCase _authUsecase;
-  final AuthenticateSignoutUseCase _authSignout;
+  final CoachRepository _coachRepository;
 
-  LandingCubit(this._authSilentUsecase, this._authUsecase, this._authSignout) : super(const AuthStatus.loading());
+  LandingCubit(this._authSilentUsecase, this._authUsecase, this._coachRepository) : super(const AuthStatus.loading());
 
-  Future<void> initializeAuth() async {
+  Future<void> initialize(String promptText, String unspecifiedText, String noneText) async {
     try {
+      await _coachRepository.initialize(promptText, unspecifiedText, noneText);
+
       DebugLogger.info('(LandingCubit.initializeAuth) Initializing...');
       emit(const AuthStatus.loading());
 
@@ -64,25 +66,25 @@ class LandingCubit extends Cubit<AuthStatus> {
 
   /// Sign out current user
   Future<void> signOut() async {
-    try {
-      DebugLogger.info('(LandingCubit.signOut) Starting sign-out...');
-      emit(const AuthStatus.loading());
+    // try {
+    //   DebugLogger.info('(LandingCubit.signOut) Starting sign-out...');
+    //   emit(const AuthStatus.loading());
 
-      final result = await _authSignout.executeAsync(params: NoParams());
-      result.fold(
-        (failure) {
-          DebugLogger.error('(LandingCubit.signOut) Sign-out failed: ${failure.message}');
-          emit(AuthStatus.error(failure.message));
-        },
-        (_) {
-          DebugLogger.success('(LandingCubit.signOut) Sign-out successful');
-          emit(const AuthStatus.unauthenticated());
-        },
-      );
-    } catch (e) {
-      DebugLogger.error('(LandingCubit.signOut) Sign-out error: $e');
-      emit(AuthStatus.error('Sign-out failed: ${e.toString()}'));
-    }
+    //   final result = await _authSignout.executeAsync(params: NoParams());
+    //   result.fold(
+    //     (failure) {
+    //       DebugLogger.error('(LandingCubit.signOut) Sign-out failed: ${failure.message}');
+    //       emit(AuthStatus.error(failure.message));
+    //     },
+    //     (_) {
+    //       DebugLogger.success('(LandingCubit.signOut) Sign-out successful');
+    //       emit(const AuthStatus.unauthenticated());
+    //     },
+    //   );
+    // } catch (e) {
+    //   DebugLogger.error('(LandingCubit.signOut) Sign-out error: $e');
+    //   emit(AuthStatus.error('Sign-out failed: ${e.toString()}'));
+    // }
   }
 
   /// Check if user is currently authenticated

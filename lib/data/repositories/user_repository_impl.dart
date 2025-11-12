@@ -1,4 +1,5 @@
-import 'package:ex_bot/core/constants/app_constants.dart';
+import 'package:injectable/injectable.dart';
+
 import 'package:ex_bot/data/data_mappers/data_mapper.dart';
 import 'package:ex_bot/data/datasources/database_datasource.dart';
 import 'package:ex_bot/data/models/app_user.dart';
@@ -6,7 +7,6 @@ import 'package:ex_bot/data/models/user_preferences.dart';
 import 'package:ex_bot/data/realm_models/app_user_realm.dart';
 import 'package:ex_bot/data/realm_models/user_preferences_realm.dart';
 import 'package:ex_bot/domain/repositories/user_repository.dart';
-import 'package:injectable/injectable.dart';
 
 @Singleton(as: UserRepository)
 class UserRepositoryImpl implements UserRepository {
