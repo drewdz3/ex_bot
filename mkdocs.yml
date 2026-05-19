@@ -8,3 +8,4 @@ extra_css:
 
 nav:
   - Home: index.md
+  - Architecture Overview: architecture-overview.md
