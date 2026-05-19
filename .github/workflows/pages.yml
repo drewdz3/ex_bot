@@ -32,7 +32,14 @@ jobs:
 
       - name: Copy root README into docs
         run: cp README.md docs/index.md  
-
+        
+      - name: Set site name from repository name
+        run: |
+          REPO_NAME="${GITHUB_REPOSITORY#*/}"
+          SITE_NAME=$(echo "$REPO_NAME" | sed 's/[-_]/ /g' | sed 's/\b\(.\)/\u\1/g')
+          echo "Using site name: $SITE_NAME"
+          sed -i "s/^site_name:.*/site_name: $SITE_NAME/" mkdocs.yml
+    
       - name: Build HTML site
         run: mkdocs build
 
