@@ -1,0 +1,35 @@
+:root {
+  --corporate-primary: #1f4e79;
+  --corporate-accent: #0078d4;
+  --corporate-border: #d7dde5;
+  --corporate-bg-soft: #f6f8fb;
+}
+
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+h1 {
+  color: var(--corporate-primary);
+  border-bottom: 2px solid var(--corporate-border);
+  padding-bottom: 0.25rem;
+}
+
+h2,
+h3 {
+  color: var(--corporate-primary);
+}
+
+a {
+  color: var(--corporate-accent);
+}
+
+blockquote {
+  border-left: 4px solid var(--corporate-accent);
+  background: var(--corporate-bg-soft);
+  padding: 0.75rem 1rem;
+}
+
+code {
+  border-radius: 4px;
+}

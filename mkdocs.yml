@@ -3,5 +3,8 @@ site_name: Repo Documentation
 theme:
   name: mkdocs
 
+extra_css:
+  - stylesheets/corporate.css
+
 nav:
   - Home: index.md
