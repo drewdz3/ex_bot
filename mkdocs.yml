@@ -1,0 +1,7 @@
+site_name: Repo Documentation
+
+theme:
+  name: mkdocs
+
+nav:
+  - Home: index.md
