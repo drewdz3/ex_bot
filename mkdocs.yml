@@ -4,7 +4,7 @@ theme:
   name: mkdocs
 
 extra_css:
-  - stylesheets/corporate.css
+  - styles.css
 
 nav:
   - Home: index.md
