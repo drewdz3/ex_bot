@@ -1,4 +1,6 @@
-site_name: ExBot Documentation
+site_name: Documentation
+repo_url: https://github.com/placeholder/placeholder
+repo_name: placeholder/placeholder
 
 theme:
   name: material
