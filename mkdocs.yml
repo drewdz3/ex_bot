@@ -4,6 +4,7 @@ theme:
   name: material
   logo: logo.png
   favicon: logo.png
+  custom_dir: overrides
   features:
     - navigation.sections
     - navigation.expand
