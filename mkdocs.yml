@@ -29,5 +29,10 @@ plugins:
   - search
   - awesome-pages
 
+extra:
+  portal:
+    name: Documentation Portal
+    url: https://drewdz3.github.io/
+
 extra_css:
   - styles.css
